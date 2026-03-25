@@ -9,201 +9,106 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --ink:#0c0b09;--paper:#faf7f2;--cream:#f2ead8;
-  --gold:#c49a2a;--gold2:#e8b84b;--gold-light:#d4b356;
-  --sage:#3a6650;--rust:#a83d20;--muted:#7a6e58;
-  --sky:#1a4068;--miami:#ff6b35;--nyc:#4a90d9;
-  --bg:#0e0d0b;--card-bg:rgba(255,255,255,0.03);
-  --border:rgba(255,255,255,0.08);
+  --ink:#0c0b09;--paper:#faf7f2;--gold:#c49a2a;--gold2:#e8b84b;--gold-light:#d4b356;
+  --sage:#3a6650;--rust:#a83d20;--muted:#7a6e58;--sky:#1a4068;--miami:#ff6b35;
+  --bg:#0e0d0b;--border:rgba(255,255,255,0.08);
 }
 html,body{height:100%;overflow:hidden}
 body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--paper);display:flex;flex-direction:column}
 
-/* ── TOPBAR ── */
+/* TOPBAR */
 .topbar{flex-shrink:0;background:#0a0908;border-bottom:1px solid rgba(196,154,42,0.18);display:flex;align-items:stretch;height:48px;z-index:100}
 .tb-logo{display:flex;align-items:center;gap:0.5rem;padding:0 1.2rem;border-right:1px solid var(--border);flex-shrink:0}
 .tb-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;color:var(--gold);letter-spacing:0.04em}
 .tb-tag{font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-left:0.5rem}
 .tb-tabs{display:flex;align-items:stretch;overflow-x:auto;flex:1;scrollbar-width:none}
 .tb-tabs::-webkit-scrollbar{display:none}
-.tab-btn{background:none;border:none;border-right:1px solid var(--border);padding:0 0.9rem;cursor:pointer;font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.35);display:flex;align-items:center;gap:0.45rem;white-space:nowrap;transition:all 0.2s}
+.tab-btn{background:none;border:none;border-right:1px solid var(--border);padding:0 0.85rem;cursor:pointer;font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.35);display:flex;align-items:center;gap:0.4rem;white-space:nowrap;transition:all 0.2s}
 .tab-btn:hover{background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.6)}
 .tab-btn.active{background:rgba(196,154,42,0.1);color:var(--gold);box-shadow:inset 0 -2px 0 var(--gold)}
 .tab-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
-.cat-platform{background:#3a6650}.cat-investor{background:#c49a2a}.cat-curator{background:#a83d20}
-.cat-strategy{background:#4a90d9}.cat-ops{background:#7a6e58}.cat-wc{background:#ff6b35}
-
+.cat-p{background:#3a6650}.cat-i{background:#c49a2a}.cat-c{background:#a83d20}.cat-s{background:#4a90d9}.cat-o{background:#7a6e58}.cat-w{background:#ff6b35}
 .tb-right{display:flex;align-items:stretch;flex-shrink:0;margin-left:auto}
-.tb-action{font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.3);padding:0 0.7rem;display:flex;align-items:center;gap:0.3rem;text-decoration:none;border-left:1px solid var(--border);transition:color 0.2s}
+.tb-action{font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.3);padding:0 0.7rem;display:flex;align-items:center;gap:0.3rem;text-decoration:none;border-left:1px solid var(--border);transition:color 0.2s}
 .tb-action:hover{color:rgba(255,255,255,0.7)}
 .tb-action.live{color:var(--sage)}
 .sb-dot-green{width:6px;height:6px;border-radius:50%;background:#2ecc71;animation:pulse 2s ease infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
 
-/* ── CONTENT AREA ── */
-.content{flex:1;overflow-y:auto;overflow-x:hidden}
-.panel{display:none}
+/* CONTENT */
+.content{flex:1;overflow:hidden;position:relative}
+.panel{display:none;position:absolute;inset:0}
 .panel.active{display:block}
+.panel-iframe{width:100%;height:100%;border:none;background:var(--bg)}
+.iframe-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:0.7rem;color:rgba(255,255,255,0.3);letter-spacing:0.1em;z-index:1;background:var(--bg)}
 
-/* ── DASHBOARD PANEL ── */
-.dashboard{padding:2.5rem;max-width:1100px;margin:0 auto}
-.dash-header{margin-bottom:2rem}
+/* DASHBOARD */
+.dashboard{height:100%;overflow-y:auto;padding:2.5rem}
+.dash-inner{max-width:1100px;margin:0 auto}
 .dash-title{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:var(--gold-light)}
 .dash-title em{font-style:italic;color:var(--paper);font-weight:300}
 .dash-sub{font-size:0.7rem;color:rgba(255,255,255,0.3);margin-top:0.4rem;letter-spacing:0.05em}
-.dash-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2.5rem}
-.ds-stat{background:var(--card-bg);border:1px solid var(--border);padding:1.2rem;text-align:center}
+.dash-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin:2rem 0 2.5rem}
+.ds-stat{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;text-align:center}
 .ds-val{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--gold);display:block}
 .ds-lbl{font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:0.3rem;display:block}
-.dash-section-label{font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem;margin-top:1.5rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(196,154,42,0.15)}
+.dash-section-label{font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem;margin-top:1.8rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(196,154,42,0.15)}
 .dash-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:0.8rem;margin-bottom:0.5rem}
-.dash-card{background:var(--card-bg);border:1px solid var(--border);padding:1.2rem;cursor:pointer;transition:all 0.25s}
+.dash-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;cursor:pointer;transition:all 0.25s}
 .dash-card:hover{border-color:rgba(196,154,42,0.35);background:rgba(196,154,42,0.04);transform:translateY(-1px)}
 .dc-cat{display:flex;align-items:center;gap:0.4rem;margin-bottom:0.5rem}
-.dc-cat span.tab-dot{width:6px;height:6px;border-radius:50%;display:inline-block}
-.dc-cat-label{font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.1em;text-transform:uppercase}
-.cat-lbl-platform{color:#3a6650}.cat-lbl-investor{color:#c49a2a}.cat-lbl-curator{color:#a83d20}
-.cat-lbl-strategy{color:#4a90d9}.cat-lbl-ops{color:#7a6e58}.cat-lbl-wc{color:#ff6b35}
+.dc-cat .tab-dot{width:6px;height:6px;border-radius:50%;display:inline-block}
+.dc-cat-lbl{font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.1em;text-transform:uppercase}
+.lbl-p{color:#3a6650}.lbl-i{color:#c49a2a}.lbl-c{color:#a83d20}.lbl-s{color:#4a90d9}.lbl-o{color:#7a6e58}.lbl-w{color:#ff6b35}
 .dc-title{font-size:0.85rem;font-weight:500;color:var(--paper);margin-bottom:0.3rem}
 .dc-desc{font-size:0.68rem;color:rgba(255,255,255,0.4);line-height:1.6}
 .dc-open{font-family:'DM Mono',monospace;font-size:0.55rem;color:var(--gold);margin-top:0.6rem;letter-spacing:0.1em;text-transform:uppercase}
 
-/* ── ARTIFACT PANELS ── */
-.artifact-panel{padding:2.5rem;max-width:1000px;margin:0 auto}
-.ap-header{margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border)}
-.ap-cat{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.5rem;display:flex;align-items:center;gap:0.4rem}
-.ap-title{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--gold-light);line-height:1.2}
-.ap-title em{font-style:italic;color:var(--paper)}
-.ap-desc{font-size:0.75rem;color:rgba(255,255,255,0.45);margin-top:0.5rem;line-height:1.7}
-
-.ap-section{margin-bottom:2rem}
-.ap-section-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:400;color:var(--gold-light);margin-bottom:1rem}
-.ap-section-sub{font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem}
-.ap-text{font-size:0.78rem;color:rgba(255,255,255,0.65);line-height:1.85;margin-bottom:1rem}
-.ap-text strong{color:var(--paper);font-weight:500}
-.ap-text em{color:var(--gold);font-style:italic}
-
-.ap-card{background:var(--card-bg);border:1px solid var(--border);padding:1.5rem;margin-bottom:0.8rem}
-.ap-card-title{font-size:0.85rem;font-weight:600;color:var(--paper);margin-bottom:0.4rem}
-.ap-card-body{font-size:0.72rem;color:rgba(255,255,255,0.55);line-height:1.8}
-.ap-card-body strong{color:var(--paper)}
-
-.ap-list{list-style:none;margin-bottom:1rem}
-.ap-list li{font-size:0.75rem;color:rgba(255,255,255,0.6);line-height:1.8;padding:0.4rem 0;padding-left:1.2rem;position:relative;border-bottom:1px solid rgba(255,255,255,0.04)}
-.ap-list li::before{content:'→';position:absolute;left:0;color:var(--gold)}
-.ap-list li strong{color:var(--paper);font-weight:500}
-
-.ap-table{width:100%;border-collapse:collapse;margin-bottom:1.5rem;font-size:0.72rem}
-.ap-table th{text-align:left;font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);padding:0.6rem 0.8rem;border-bottom:1px solid rgba(196,154,42,0.2);font-weight:500}
-.ap-table td{padding:0.6rem 0.8rem;color:rgba(255,255,255,0.6);border-bottom:1px solid var(--border)}
-.ap-table tr:hover td{background:rgba(255,255,255,0.02)}
-
-.ap-highlight{background:rgba(196,154,42,0.08);border:1px solid rgba(196,154,42,0.2);padding:1.2rem 1.5rem;margin-bottom:1.5rem}
-.ap-highlight-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem}
-.ap-highlight p{font-size:0.78rem;color:rgba(255,255,255,0.7);line-height:1.8}
-.ap-highlight p strong{color:var(--paper)}
-
-.tag-row{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.6rem}
-.tag{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.25rem 0.6rem;border:1px solid rgba(196,154,42,0.3);color:var(--gold)}
-
-/* Pricing cards */
-.pricing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin-bottom:1.5rem}
-.pricing-card-mini{background:var(--card-bg);border:1px solid var(--border);padding:1.2rem;text-align:center}
-.pricing-card-mini.featured{border-color:var(--gold);background:rgba(196,154,42,0.06)}
-.pcm-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--paper)}
-.pcm-price{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--gold);margin:0.3rem 0}
-.pcm-price span{font-size:0.7rem;color:rgba(255,255,255,0.35)}
-.pcm-desc{font-size:0.65rem;color:rgba(255,255,255,0.4);line-height:1.6}
-
-/* Match schedule */
-.match-row{display:grid;grid-template-columns:100px 1fr 80px;gap:1rem;padding:0.7rem 0;border-bottom:1px solid var(--border);align-items:center;font-size:0.72rem}
-.match-date{font-family:'DM Mono',monospace;color:var(--gold);font-size:0.65rem}
-.match-teams{color:var(--paper)}
-.match-venue{color:rgba(255,255,255,0.35);font-size:0.6rem;text-align:right}
-
-/* Template block */
-.tpl-block{background:rgba(255,255,255,0.03);border:1px solid var(--border);margin-bottom:1rem}
-.tpl-header{display:flex;justify-content:space-between;align-items:center;padding:0.7rem 1rem;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.02)}
-.tpl-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold)}
-.tpl-body{padding:1rem;font-size:0.72rem;color:rgba(255,255,255,0.6);line-height:1.9;white-space:pre-line}
-.tpl-body strong{color:var(--paper)}
-.copy-btn{background:rgba(196,154,42,0.15);border:1px solid rgba(196,154,42,0.3);color:var(--gold);font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;padding:0.3rem 0.7rem;cursor:pointer;text-transform:uppercase;transition:all 0.2s}
-.copy-btn:hover{background:rgba(196,154,42,0.3)}
-
-/* Checklist */
-.check-item{display:flex;align-items:flex-start;gap:0.6rem;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;font-size:0.72rem;color:rgba(255,255,255,0.6);transition:all 0.2s}
-.check-item:hover{color:var(--paper)}
-.check-box{width:16px;height:16px;border:1px solid rgba(196,154,42,0.4);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:2px;font-size:0.6rem;color:var(--gold);transition:all 0.2s}
-.check-item.done{color:rgba(255,255,255,0.25);text-decoration:line-through}
-.check-item.done .check-box{background:rgba(196,154,42,0.2);border-color:var(--gold)}
-
-/* Curator card */
-.curator-card{display:grid;grid-template-columns:60px 1fr;gap:1rem;background:var(--card-bg);border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem}
-.curator-avatar{width:50px;height:50px;border-radius:50%;background:rgba(196,154,42,0.15);display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--gold)}
-.curator-name{font-size:0.85rem;font-weight:500;color:var(--paper)}
-.curator-role{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-top:0.2rem}
-.curator-desc{font-size:0.68rem;color:rgba(255,255,255,0.5);line-height:1.7;margin-top:0.3rem}
-
-/* Revenue flow */
-.rev-flow{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem}
-.rev-item{background:var(--card-bg);border:1px solid var(--border);padding:1rem;text-align:center}
-.rev-val{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--gold)}
-.rev-label{font-size:0.6rem;color:rgba(255,255,255,0.4);margin-top:0.3rem;letter-spacing:0.08em;text-transform:uppercase}
-
-/* ── STATUSBAR ── */
-.statusbar{flex-shrink:0;background:#080706;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;padding:0 1.2rem;height:24px;font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.25)}
+/* STATUSBAR */
+.statusbar{flex-shrink:0;background:#080706;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;padding:0 1.2rem;height:24px;font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.25)}
 .sb-left{display:flex;align-items:center;gap:1.2rem}
 .sb-item{display:flex;align-items:center;gap:0.35rem}
 
-/* ── RESPONSIVE ── */
 @media(max-width:768px){
   .dash-stats{grid-template-columns:repeat(2,1fr)}
   .dash-grid{grid-template-columns:1fr}
-  .pricing-grid{grid-template-columns:1fr}
-  .rev-flow{grid-template-columns:1fr}
   .tb-right{display:none}
-  .tab-btn{padding:0 0.6rem;font-size:0.5rem}
-  .dashboard,.artifact-panel{padding:1.5rem}
+  .tab-btn{padding:0 0.6rem;font-size:0.48rem}
+  .dashboard{padding:1.5rem}
 }
 </style>
 </head>
 <body>
 
-<!-- ═══════════ TOPBAR ═══════════ -->
+<!-- TOPBAR -->
 <div class="topbar">
   <div class="tb-logo">
-    <svg width="22" height="22" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="18" cy="18" r="16" stroke="rgba(196,154,42,0.4)" stroke-width="1.2" fill="none"/>
-      <circle cx="18" cy="13" r="1.8" fill="#c49a2a"/>
-      <ellipse cx="18" cy="13" rx="6" ry="2.5" stroke="rgba(196,154,42,0.35)" stroke-width="0.8" fill="none"/>
-    </svg>
+    <svg width="22" height="22" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="16" stroke="rgba(196,154,42,0.4)" stroke-width="1.2" fill="none"/><circle cx="18" cy="13" r="1.8" fill="#c49a2a"/><ellipse cx="18" cy="13" rx="6" ry="2.5" stroke="rgba(196,154,42,0.35)" stroke-width="0.8" fill="none"/></svg>
     <span class="tb-name">Locavizion</span>
     <span class="tb-tag">Founder Hub</span>
   </div>
-
   <div class="tb-tabs" id="tabBar">
-    <button class="tab-btn active" onclick="showPanel('dash',this)"><span class="tab-dot" style="background:var(--gold)"></span>Dashboard</button>
-    <button class="tab-btn" onclick="showPanel('waitlist',this)"><span class="tab-dot cat-platform"></span>Waitlist</button>
-    <button class="tab-btn" onclick="showPanel('website',this)"><span class="tab-dot cat-platform"></span>Website</button>
-    <button class="tab-btn" onclick="showPanel('investor',this)"><span class="tab-dot cat-investor"></span>Investor Brief</button>
-    <button class="tab-btn" onclick="showPanel('payment',this)"><span class="tab-dot cat-ops"></span>Payments</button>
-    <button class="tab-btn" onclick="showPanel('curator-outreach',this)"><span class="tab-dot cat-curator"></span>Curator Outreach</button>
-    <button class="tab-btn" onclick="showPanel('curator-tampa',this)"><span class="tab-dot cat-curator"></span>Tampa Curators</button>
-    <button class="tab-btn" onclick="showPanel('curator-sales',this)"><span class="tab-dot cat-curator"></span>Sales Guide</button>
-    <button class="tab-btn" onclick="showPanel('instagram',this)"><span class="tab-dot cat-strategy"></span>Instagram</button>
-    <button class="tab-btn" onclick="showPanel('qr',this)"><span class="tab-dot cat-strategy"></span>QR / Stickers</button>
-    <button class="tab-btn" onclick="showPanel('dashboard-tracker',this)"><span class="tab-dot cat-ops"></span>Tracker</button>
-    <button class="tab-btn" onclick="showPanel('worldcup',this)"><span class="tab-dot cat-wc"></span>World Cup</button>
-    <button class="tab-btn" onclick="showPanel('chatbot',this)"><span class="tab-dot cat-platform"></span>Chatbot</button>
-    <button class="tab-btn" onclick="showPanel('pitch',this)"><span class="tab-dot cat-investor"></span>Pitch Deck</button>
-    <button class="tab-btn" onclick="showPanel('action-plan',this)"><span class="tab-dot cat-ops"></span>30-Day Plan</button>
-    <button class="tab-btn" onclick="showPanel('email-setup',this)"><span class="tab-dot cat-ops"></span>Email Setup</button>
-    <button class="tab-btn" onclick="showPanel('monetization',this)"><span class="tab-dot cat-investor"></span>Monetization</button>
-    <button class="tab-btn" onclick="showPanel('miami-blueprint',this)"><span class="tab-dot cat-wc"></span>Miami Blueprint</button>
-    <button class="tab-btn" onclick="showPanel('tampa-blueprint',this)"><span class="tab-dot cat-wc"></span>Tampa Blueprint</button>
-    <button class="tab-btn" onclick="showPanel('nyc-blueprint',this)"><span class="tab-dot cat-wc"></span>NYC Blueprint</button>
+    <button class="tab-btn active" data-panel="dash"><span class="tab-dot" style="background:var(--gold)"></span>Dashboard</button>
+    <button class="tab-btn" data-panel="waitlist" data-src="waitlist.html"><span class="tab-dot cat-p"></span>Waitlist</button>
+    <button class="tab-btn" data-panel="website" data-src="website.html"><span class="tab-dot cat-p"></span>Website</button>
+    <button class="tab-btn" data-panel="investor" data-src="investor.html"><span class="tab-dot cat-i"></span>Investor Brief</button>
+    <button class="tab-btn" data-panel="payment" data-src="payment.html"><span class="tab-dot cat-o"></span>Payments</button>
+    <button class="tab-btn" data-panel="curator-outreach" data-src="curator-outreach.html"><span class="tab-dot cat-c"></span>Curator Outreach</button>
+    <button class="tab-btn" data-panel="curator-tampa" data-src="curator-tampa.html"><span class="tab-dot cat-c"></span>Tampa Curators</button>
+    <button class="tab-btn" data-panel="curator-sales" data-src="curator-sales.html"><span class="tab-dot cat-c"></span>Sales Guide</button>
+    <button class="tab-btn" data-panel="instagram" data-src="instagram.html"><span class="tab-dot cat-s"></span>Instagram</button>
+    <button class="tab-btn" data-panel="qr" data-src="qr.html"><span class="tab-dot cat-s"></span>QR / Stickers</button>
+    <button class="tab-btn" data-panel="tracker" data-src="tracker.html"><span class="tab-dot cat-o"></span>Tracker</button>
+    <button class="tab-btn" data-panel="worldcup" data-src="worldcup.html"><span class="tab-dot cat-w"></span>World Cup</button>
+    <button class="tab-btn" data-panel="chatbot" data-src="chatbot.html"><span class="tab-dot cat-p"></span>Chatbot</button>
+    <button class="tab-btn" data-panel="pitch" data-src="pitch.html"><span class="tab-dot cat-i"></span>Pitch Deck</button>
+    <button class="tab-btn" data-panel="action-plan" data-src="action-plan.html"><span class="tab-dot cat-o"></span>30-Day Plan</button>
+    <button class="tab-btn" data-panel="email-setup" data-src="email-setup.html"><span class="tab-dot cat-o"></span>Email Setup</button>
+    <button class="tab-btn" data-panel="monetization" data-src="monetization.html"><span class="tab-dot cat-i"></span>Monetization</button>
+    <button class="tab-btn" data-panel="miami" data-src="miami.html"><span class="tab-dot cat-w"></span>Miami</button>
+    <button class="tab-btn" data-panel="tampa" data-src="tampa.html"><span class="tab-dot cat-w"></span>Tampa</button>
+    <button class="tab-btn" data-panel="nyc" data-src="nyc.html"><span class="tab-dot cat-w"></span>NYC</button>
   </div>
-
   <div class="tb-right">
     <a href="https://locavizion.com" target="_blank" class="tb-action live"><span class="sb-dot-green"></span>Live</a>
     <a href="https://dash.cloudflare.com" target="_blank" class="tb-action">☁ CF</a>
@@ -213,662 +118,71 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--paper);dis
   </div>
 </div>
 
-<!-- ═══════════ CONTENT ═══════════ -->
-<div class="content">
+<!-- CONTENT -->
+<div class="content" id="contentArea">
 
-<!-- ━━━ 0. DASHBOARD ━━━ -->
-<div class="panel active" id="panel-dash">
-  <div class="dashboard">
-    <div class="dash-header">
-      <div class="dash-title">Locavizion <em>Founder Hub</em></div>
-      <div class="dash-sub">Private · All 20 artifacts and documents · Accessible only to you</div>
-    </div>
-    <div class="dash-stats">
-      <div class="ds-stat"><span class="ds-val" id="hub-days">—</span><span class="ds-lbl">Days to World Cup</span></div>
-      <div class="ds-stat"><span class="ds-val">20</span><span class="ds-lbl">Artifacts Built</span></div>
-      <div class="ds-stat"><span class="ds-val">3</span><span class="ds-lbl">Cities Active</span></div>
-      <div class="ds-stat"><span class="ds-val">5</span><span class="ds-lbl">Curator Slots · Tampa</span></div>
-    </div>
+  <!-- DASHBOARD (inline) -->
+  <div class="panel active" id="panel-dash">
+    <div class="dashboard">
+      <div class="dash-inner">
+        <div class="dash-title">Locavizion <em>Founder Hub</em></div>
+        <div class="dash-sub">Private · All 20 artifacts and documents · Accessible only to you</div>
+        <div class="dash-stats">
+          <div class="ds-stat"><span class="ds-val" id="hub-days">—</span><span class="ds-lbl">Days to World Cup</span></div>
+          <div class="ds-stat"><span class="ds-val">20</span><span class="ds-lbl">Artifacts Built</span></div>
+          <div class="ds-stat"><span class="ds-val">3</span><span class="ds-lbl">Cities Active</span></div>
+          <div class="ds-stat"><span class="ds-val">5</span><span class="ds-lbl">Curator Slots · Tampa</span></div>
+        </div>
 
-    <div class="dash-section-label">Platform & Product</div>
-    <div class="dash-grid">
-      <div class="dash-card" onclick="goTab('waitlist')"><div class="dc-cat"><span class="tab-dot cat-platform"></span><span class="dc-cat-label cat-lbl-platform">Platform</span></div><div class="dc-title">Waitlist Page — locavizion.com</div><div class="dc-desc">Live production page. Traveler signup, curator application, live counter, AI chatbot.</div><div class="dc-open">Open →</div></div>
-      <div class="dash-card" onclick="goTab('website')"><div class="dc-cat"><span class="tab-dot cat-platform"></span><span class="dc-cat-label cat-lbl-platform">Platform</span></div><div class="dc-title">Full Website Mockup</div><div class="dc-desc">Complete 10-section website — hero, features, cities, curators, pricing.</div><div class="dc-open">Open →</div></div>
-      <div class="dash-card" onclick="goTab('chatbot')"><div class="dc-cat"><span class="tab-dot cat-platform"></span><span class="dc-cat-label cat-lbl-platform">Platform</span></div><div class="dc-title">AI City Guide Chatbot</div><div class="dc-desc">Claude-powered chatbot for Miami, Tampa Bay, NYC city intelligence.</div><div class="dc-open">Open →</div></div>
-    </div>
+        <div class="dash-section-label">Platform & Product</div>
+        <div class="dash-grid">
+          <div class="dash-card" onclick="goTab('waitlist')"><div class="dc-cat"><span class="tab-dot cat-p"></span><span class="dc-cat-lbl lbl-p">Platform</span></div><div class="dc-title">Waitlist Page — locavizion.com</div><div class="dc-desc">Live production page. Traveler signup, curator application, live counter, AI chatbot, logo.</div><div class="dc-open">Open →</div></div>
+          <div class="dash-card" onclick="goTab('website')"><div class="dc-cat"><span class="tab-dot cat-p"></span><span class="dc-cat-lbl lbl-p">Platform</span></div><div class="dc-title">Full Website Mockup</div><div class="dc-desc">Complete 10-section website — hero, features, cities, curators, pricing, World Cup schedule.</div><div class="dc-open">Open →</div></div>
+          <div class="dash-card" onclick="goTab('chatbot')"><div class="dc-cat"><span class="tab-dot cat-p"></span><span class="dc-cat-lbl lbl-p">Platform</span></div><div class="dc-title">AI City Guide Chatbot</div><div class="dc-desc">Claude-powered chatbot for Miami, Tampa, NYC. Cloudflare Worker architecture.</div><div class="dc-open">Open →</div></div>
+        </div>
 
-    <div class="dash-section-label">Investor & Business</div>
-    <div class="dash-grid">
-      <div class="dash-card" onclick="goTab('investor')"><div class="dc-cat"><span class="tab-dot cat-investor"></span><span class="dc-cat-label cat-lbl-investor">Investor</span></div><div class="dc-title">Investor Briefing</div><div class="dc-desc">Platform overview, market opportunity, World Cup activation, 3-year projections.</div><div class="dc-open">Open →</div></div>
-      <div class="dash-card" onclick="goTab('payment')"><div class="dc-cat"><span class="tab-dot cat-ops"></span><span class="dc-cat-label cat-lbl-ops">Operations</span></div><div class="dc-title">Revenue & Payment Breakdown</div><div class="dc-desc">All 6 revenue streams, exact splits, 3 city scenarios, tracking system.</div><div class="dc-open">Open →</div></div>
-      <div class="dash-card" onclick="goTab('pitch')"><div class="dc-cat"><span class="tab-dot cat-investor"></span><span class="dc-cat-label cat-lbl-investor">Investor</span></div><div class="dc-title">Pitch Deck Notes</div><div class="dc-desc">Slide-by-slide breakdown of the investor pitch and World Cup pitch decks.</div><div class="dc-open">Open →</div></div>
-      <div class="dash-card" onclick="goTab('monetization')"><div class="dc-cat"><span class="tab-dot cat-investor"></span><span class="dc-cat-label cat-lbl-investor">Investor</span></div><div class="dc-title">Monetization & Partner Guide</div><div class="dc-desc">Revenue model, partner tiers, and enterprise pricing strategy.</div><div class="dc-open">Open →</div></div>
-    </div>
+        <div class="dash-section-label">Investor & Business</div>
+        <div class="dash-grid">
+          <div class="dash-card" onclick="goTab('investor')"><div class="dc-cat"><span class="tab-dot cat-i"></span><span class="dc-cat-lbl lbl-i">Investor</span></div><div class="dc-title">Investor Briefing</div><div class="dc-desc">Market opportunity, World Cup activation, 3-year projections, $250K pre-seed ask.</div><div class="dc-open">Open →</div></div>
+          <div class="dash-card" onclick="goTab('payment')"><div class="dc-cat"><span class="tab-dot cat-o"></span><span class="dc-cat-lbl lbl-o">Operations</span></div><div class="dc-title">Revenue & Payment Breakdown</div><div class="dc-desc">All 6 revenue streams, exact splits, 3 real city scenarios, tracking system.</div><div class="dc-open">Open →</div></div>
+          <div class="dash-card" onclick="goTab('pitch')"><div class="dc-cat"><span class="tab-dot cat-i"></span><span class="dc-cat-lbl lbl-i">Investor</span></div><div class="dc-title">Pitch Deck Notes</div><div class="dc-desc">Slide-by-slide breakdown of investor pitch and World Cup pitch decks.</div><div class="dc-open">Open →</div></div>
+          <div class="dash-card" onclick="goTab('monetization')"><div class="dc-cat"><span class="tab-dot cat-i"></span><span class="dc-cat-lbl lbl-i">Investor</span></div><div class="dc-title">Monetization & Partner Guide</div><div class="dc-desc">Revenue model deep dive, partner tiers, enterprise pricing strategy.</div><div class="dc-open">Open →</div></div>
+        </div>
 
-    <div class="dash-section-label">Curator Recruitment</div>
-    <div class="dash-grid">
-      <div class="dash-card" onclick="goTab('curator-outreach')"><div class="dc-cat"><span class="tab-dot cat-curator"></span><span class="dc-cat-label cat-lbl-curator">Curator</span></div><div class="dc-title">Curator Outreach Playbook</div><div class="dc-desc">Tampa, Miami, NYC targets. 8 templates. Pitch angles. Full checklist.</div><div class="dc-open">Open →</div></div>
-      <div class="dash-card" onclick="goTab('curator-tampa')"><div class="dc-cat"><span class="tab-dot cat-curator"></span><span class="dc-cat-label cat-lbl-curator">Curator</span></div><div class="dc-title">Tampa Bay Curator Guide</div><div class="dc-desc">5 Tampa roles with real accounts — @tampafoodgirl, @thisbabeeats, Embarc Collective.</div><div class="dc-open">Open →</div></div>
-      <div class="dash-card" onclick="goTab('curator-sales')"><div class="dc-cat"><span class="tab-dot cat-curator"></span><span class="dc-cat-label cat-lbl-curator">Curator</span></div><div class="dc-title">Curator Sales Guide</div><div class="dc-desc">How to pitch, negotiate, onboard, and retain Curators in every city.</div><div class="dc-open">Open →</div></div>
-    </div>
+        <div class="dash-section-label">Curator Recruitment</div>
+        <div class="dash-grid">
+          <div class="dash-card" onclick="goTab('curator-outreach')"><div class="dc-cat"><span class="tab-dot cat-c"></span><span class="dc-cat-lbl lbl-c">Curator</span></div><div class="dc-title">Curator Outreach Playbook</div><div class="dc-desc">Tampa, Miami, NYC targets. 8 copy-ready templates. Pitch angles. Full checklist.</div><div class="dc-open">Open →</div></div>
+          <div class="dash-card" onclick="goTab('curator-tampa')"><div class="dc-cat"><span class="tab-dot cat-c"></span><span class="dc-cat-lbl lbl-c">Curator</span></div><div class="dc-title">Tampa Bay Curator Guide</div><div class="dc-desc">5 roles with real accounts — @tampafoodgirl, @thisbabeeats, Embarc Collective.</div><div class="dc-open">Open →</div></div>
+          <div class="dash-card" onclick="goTab('curator-sales')"><div class="dc-cat"><span class="tab-dot cat-c"></span><span class="dc-cat-lbl lbl-c">Curator</span></div><div class="dc-title">Curator Sales Guide</div><div class="dc-desc">5-minute pitch structure, objection handling, onboarding flow.</div><div class="dc-open">Open →</div></div>
+        </div>
 
-    <div class="dash-section-label">Marketing & Growth</div>
-    <div class="dash-grid">
-      <div class="dash-card" onclick="goTab('instagram')"><div class="dc-cat"><span class="tab-dot cat-strategy"></span><span class="dc-cat-label cat-lbl-strategy">Strategy</span></div><div class="dc-title">Instagram Launch Plan</div><div class="dc-desc">Content calendar, reels strategy, caption templates, hashtag research.</div><div class="dc-open">Open →</div></div>
-      <div class="dash-card" onclick="goTab('qr')"><div class="dc-cat"><span class="tab-dot cat-strategy"></span><span class="dc-cat-label cat-lbl-strategy">Strategy</span></div><div class="dc-title">QR Codes & Sticker Designs</div><div class="dc-desc">Printable QR stickers, flyers, and guerrilla marketing assets.</div><div class="dc-open">Open →</div></div>
-    </div>
+        <div class="dash-section-label">Marketing & Growth</div>
+        <div class="dash-grid">
+          <div class="dash-card" onclick="goTab('instagram')"><div class="dc-cat"><span class="tab-dot cat-s"></span><span class="dc-cat-lbl lbl-s">Strategy</span></div><div class="dc-title">Instagram Launch Plan</div><div class="dc-desc">Content calendar, reels strategy, caption templates, hashtag research.</div><div class="dc-open">Open →</div></div>
+          <div class="dash-card" onclick="goTab('qr')"><div class="dc-cat"><span class="tab-dot cat-s"></span><span class="dc-cat-lbl lbl-s">Strategy</span></div><div class="dc-title">QR Codes & Sticker Designs</div><div class="dc-desc">Printable QR stickers, flyers, guerrilla marketing assets and placement guide.</div><div class="dc-open">Open →</div></div>
+        </div>
 
-    <div class="dash-section-label">Operations & Execution</div>
-    <div class="dash-grid">
-      <div class="dash-card" onclick="goTab('dashboard-tracker')"><div class="dc-cat"><span class="tab-dot cat-ops"></span><span class="dc-cat-label cat-lbl-ops">Operations</span></div><div class="dc-title">Founder Dashboard & Tracker</div><div class="dc-desc">KPI tracking, milestones, weekly metrics, daily task management.</div><div class="dc-open">Open →</div></div>
-      <div class="dash-card" onclick="goTab('action-plan')"><div class="dc-cat"><span class="tab-dot cat-ops"></span><span class="dc-cat-label cat-lbl-ops">Operations</span></div><div class="dc-title">30-Day Action Plan</div><div class="dc-desc">Step-by-step founder execution plan with checkpoints and deliverables.</div><div class="dc-open">Open →</div></div>
-      <div class="dash-card" onclick="goTab('email-setup')"><div class="dc-cat"><span class="tab-dot cat-ops"></span><span class="dc-cat-label cat-lbl-ops">Operations</span></div><div class="dc-title">Email & Domain Setup</div><div class="dc-desc">Cloudflare routing, Gmail SMTP, professional email configuration.</div><div class="dc-open">Open →</div></div>
-    </div>
+        <div class="dash-section-label">Operations & Execution</div>
+        <div class="dash-grid">
+          <div class="dash-card" onclick="goTab('tracker')"><div class="dc-cat"><span class="tab-dot cat-o"></span><span class="dc-cat-lbl lbl-o">Operations</span></div><div class="dc-title">Founder Dashboard & Tracker</div><div class="dc-desc">KPI tracking, milestones, weekly metrics, daily task management.</div><div class="dc-open">Open →</div></div>
+          <div class="dash-card" onclick="goTab('action-plan')"><div class="dc-cat"><span class="tab-dot cat-o"></span><span class="dc-cat-lbl lbl-o">Operations</span></div><div class="dc-title">30-Day Action Plan</div><div class="dc-desc">Step-by-step founder execution plan with checkpoints and deliverables.</div><div class="dc-open">Open →</div></div>
+          <div class="dash-card" onclick="goTab('email-setup')"><div class="dc-cat"><span class="tab-dot cat-o"></span><span class="dc-cat-lbl lbl-o">Operations</span></div><div class="dc-title">Email & Domain Setup</div><div class="dc-desc">Cloudflare routing, Gmail SMTP, all professional email addresses configured.</div><div class="dc-open">Open →</div></div>
+        </div>
 
-    <div class="dash-section-label">World Cup Intelligence</div>
-    <div class="dash-grid">
-      <div class="dash-card" onclick="goTab('worldcup')"><div class="dc-cat"><span class="tab-dot cat-wc"></span><span class="dc-cat-label cat-lbl-wc">World Cup</span></div><div class="dc-title">World Cup Blueprint</div><div class="dc-desc">Complete activation strategy, match schedule, city preparation timelines.</div><div class="dc-open">Open →</div></div>
-      <div class="dash-card" onclick="goTab('miami-blueprint')"><div class="dc-cat"><span class="tab-dot cat-wc"></span><span class="dc-cat-label cat-lbl-wc">World Cup</span></div><div class="dc-title">Miami City Blueprint</div><div class="dc-desc">7 matches. Neighbourhoods, venues, fan zones, Curator targets.</div><div class="dc-open">Open →</div></div>
-      <div class="dash-card" onclick="goTab('tampa-blueprint')"><div class="dc-cat"><span class="tab-dot cat-wc"></span><span class="dc-cat-label cat-lbl-wc">World Cup</span></div><div class="dc-title">Tampa Bay Blueprint</div><div class="dc-desc">Match hosting, Ybor City, waterfront, tech scene, Latin heritage.</div><div class="dc-open">Open →</div></div>
-      <div class="dash-card" onclick="goTab('nyc-blueprint')"><div class="dc-cat"><span class="tab-dot cat-wc"></span><span class="dc-cat-label cat-lbl-wc">World Cup</span></div><div class="dc-title">New York City Blueprint</div><div class="dc-desc">MetLife Stadium, Manhattan neighbourhoods, Brooklyn culture, transit guide.</div><div class="dc-open">Open →</div></div>
-    </div>
-  </div>
-</div>
-
-<!-- ━━━ 1. WAITLIST ━━━ -->
-<div class="panel" id="panel-waitlist">
-  <div class="artifact-panel">
-    <div class="ap-header"><div class="ap-cat"><span class="tab-dot cat-platform"></span><span class="cat-lbl-platform">Platform</span></div><div class="ap-title">Waitlist Page <em>— locavizion.com</em></div><div class="ap-desc">The live production waitlist page deployed on GitHub Pages with Cloudflare DNS and SSL.</div></div>
-    <div class="ap-section">
-      <div class="ap-section-title">What's Live</div>
-      <ul class="ap-list">
-        <li><strong>Hero section</strong> — "See The World Like A Local" with animated gold eye logo and World Cup countdown</li>
-        <li><strong>Traveler signup form</strong> — connected to Google Forms, submits name + email + city interest</li>
-        <li><strong>Curator application link</strong> — directs to separate Google Form for Curator applicants</li>
-        <li><strong>Live member counter</strong> — reads real submissions from backend counter API</li>
-        <li><strong>AI City Guide chatbot</strong> — floating widget powered by Claude via Cloudflare Worker</li>
-        <li><strong>Professional email</strong> — info@locavizion.com assembled via JS to bypass bot scrapers</li>
-        <li><strong>SSL secured</strong> — HTTPS enforced via Cloudflare with GitHub Pages hosting</li>
-      </ul>
-    </div>
-    <div class="ap-section">
-      <div class="ap-section-title">Technical Stack</div>
-      <table class="ap-table">
-        <tr><th>Layer</th><th>Service</th><th>Cost</th></tr>
-        <tr><td>Hosting</td><td>GitHub Pages</td><td>Free</td></tr>
-        <tr><td>DNS / SSL</td><td>Cloudflare</td><td>Free</td></tr>
-        <tr><td>AI Backend</td><td>Cloudflare Worker → Anthropic API</td><td>~$0.02/day</td></tr>
-        <tr><td>Forms</td><td>Google Forms</td><td>Free</td></tr>
-        <tr><td>Email</td><td>Cloudflare Email Routing → Gmail</td><td>Free</td></tr>
-      </table>
-    </div>
-    <div class="ap-highlight"><div class="ap-highlight-label">Live URL</div><p><strong>locavizion.com</strong> — deployed, SSL active, chatbot running, forms collecting data.</p></div>
-  </div>
-</div>
-
-<!-- ━━━ 2. WEBSITE MOCKUP ━━━ -->
-<div class="panel" id="panel-website">
-  <div class="artifact-panel">
-    <div class="ap-header"><div class="ap-cat"><span class="tab-dot cat-platform"></span><span class="cat-lbl-platform">Platform</span></div><div class="ap-title">Full Website <em>Mockup</em></div><div class="ap-desc">Complete 10-section website design — the full product vision for locavizion.com.</div></div>
-    <div class="ap-section">
-      <div class="ap-section-title">10 Sections</div>
-      <ul class="ap-list">
-        <li><strong>Navigation</strong> — Sticky header, scrolls to solid on scroll, eye+globe logo, all nav links</li>
-        <li><strong>Hero</strong> — Full screen, countdown stat, World Cup Edition hook, animated entry</li>
-        <li><strong>The Problem</strong> — Three pain points for three audiences (tourists, conference attendees, expats)</li>
-        <li><strong>How It Works</strong> — 3-step flow: AI Guide → Curator Briefing → Bookable Experience</li>
-        <li><strong>Platform Features</strong> — Tabbed UI showing all 3 product layers with mock interfaces</li>
-        <li><strong>Cities</strong> — All 6 cities with real match data, neighbourhoods, Curator domains, status badges</li>
-        <li><strong>World Cup Schedule</strong> — Full Miami match schedule with dates, teams, match types</li>
-        <li><strong>Curators</strong> — 3 named profile cards + "Become a Curator" panel with real form link</li>
-        <li><strong>Pricing</strong> — 4 tiers: Explorer (free), Member ($9.99), Insider ($24), Enterprise ($500)</li>
-        <li><strong>Footer</strong> — Brand, platform links, city links, company links, JS-assembled email</li>
-      </ul>
-    </div>
-    <div class="ap-section">
-      <div class="ap-section-title">Pricing Tiers</div>
-      <div class="pricing-grid">
-        <div class="pricing-card-mini"><div class="pcm-name">Explorer</div><div class="pcm-price">$0 <span>/ forever</span></div><div class="pcm-desc">AI city guide, public curator guides, browse experiences</div></div>
-        <div class="pricing-card-mini featured"><div class="pcm-name">Member ⚽</div><div class="pcm-price">$9.99 <span>/ month</span></div><div class="pcm-desc">Full World Cup access, curator briefings, priority booking</div></div>
-        <div class="pricing-card-mini"><div class="pcm-name">Insider</div><div class="pcm-price">$24 <span>/ month</span></div><div class="pcm-desc">Unlimited curator sessions, VIP experiences, concierge</div></div>
-        <div class="pricing-card-mini"><div class="pcm-name">Enterprise</div><div class="pcm-price">$500 <span>/ month</span></div><div class="pcm-desc">Corporate hospitality, group bookings, white-label</div></div>
+        <div class="dash-section-label">World Cup Intelligence</div>
+        <div class="dash-grid">
+          <div class="dash-card" onclick="goTab('worldcup')"><div class="dc-cat"><span class="tab-dot cat-w"></span><span class="dc-cat-lbl lbl-w">World Cup</span></div><div class="dc-title">World Cup Blueprint</div><div class="dc-desc">Complete activation strategy, match schedule, 5-phase city preparation timeline.</div><div class="dc-open">Open →</div></div>
+          <div class="dash-card" onclick="goTab('miami')"><div class="dc-cat"><span class="tab-dot cat-w"></span><span class="dc-cat-lbl lbl-w">World Cup</span></div><div class="dc-title">Miami City Blueprint</div><div class="dc-desc">7 matches. Neighbourhoods, venues, fan zones, Curator targets for launch city.</div><div class="dc-open">Open →</div></div>
+          <div class="dash-card" onclick="goTab('tampa')"><div class="dc-cat"><span class="tab-dot cat-w"></span><span class="dc-cat-lbl lbl-w">World Cup</span></div><div class="dc-title">Tampa Bay Blueprint</div><div class="dc-desc">Ybor City, waterfront, tech scene, Latin heritage activation plan.</div><div class="dc-open">Open →</div></div>
+          <div class="dash-card" onclick="goTab('nyc')"><div class="dc-cat"><span class="tab-dot cat-w"></span><span class="dc-cat-lbl lbl-w">World Cup</span></div><div class="dc-title">New York City Blueprint</div><div class="dc-desc">MetLife Stadium, Manhattan neighbourhoods, Brooklyn culture, transit guide.</div><div class="dc-open">Open →</div></div>
+        </div>
       </div>
     </div>
   </div>
+  <!-- Iframe panels are created dynamically by JS -->
 </div>
 
-<!-- ━━━ 3. INVESTOR BRIEFING ━━━ -->
-<div class="panel" id="panel-investor">
-  <div class="artifact-panel">
-    <div class="ap-header"><div class="ap-cat"><span class="tab-dot cat-investor"></span><span class="cat-lbl-investor">Investor</span></div><div class="ap-title">Investor <em>Briefing</em></div><div class="ap-desc">The written leave-behind document for investor meetings. Print → Save as PDF.</div></div>
-    <div class="ap-section">
-      <div class="ap-section-title">The Opportunity</div>
-      <div class="ap-text"><strong>FIFA World Cup 2026</strong> brings up to <strong>10 million international visitors</strong> to the United States — the largest, most complex sporting event in history. The US alone is projected to see a <strong>$17.2 billion GDP boost</strong> and <strong>185,000 jobs created</strong>.</div>
-      <div class="ap-text">These visitors face a universal problem: they arrive in unfamiliar American cities with no cultural context, no local network, and only generic tourist recommendations. <strong>Locavizion</strong> solves this by connecting them to verified local Curators who provide personalized city intelligence — neighbourhoods, food, culture, business connections — through AI-enhanced briefings and bookable experiences.</div>
-    </div>
-    <div class="ap-section">
-      <div class="ap-section-title">Revenue Model</div>
-      <div class="rev-flow">
-        <div class="rev-item"><div class="rev-val">$9.99</div><div class="rev-label">Member / month</div></div>
-        <div class="rev-item"><div class="rev-val">70/30</div><div class="rev-label">Curator split</div></div>
-        <div class="rev-item"><div class="rev-val">6</div><div class="rev-label">Revenue streams</div></div>
-      </div>
-      <ul class="ap-list">
-        <li><strong>Subscriptions</strong> — Explorer (free), Member ($9.99/mo), Insider ($24/mo)</li>
-        <li><strong>Experience bookings</strong> — Curators host, platform takes 30%</li>
-        <li><strong>Curator briefing sessions</strong> — 1:1 video calls, $50-150/session</li>
-        <li><strong>Enterprise / corporate</strong> — White-label city intelligence for conferences and events</li>
-        <li><strong>Venue partnerships</strong> — Featured listings from restaurants, hotels, venues</li>
-        <li><strong>Data licensing</strong> — Anonymized visitor behaviour and city intelligence data</li>
-      </ul>
-    </div>
-    <div class="ap-section">
-      <div class="ap-section-title">3-Year Projections</div>
-      <table class="ap-table">
-        <tr><th>Metric</th><th>Year 1</th><th>Year 2</th><th>Year 3</th></tr>
-        <tr><td>Cities</td><td>3 (Tampa, Miami, NYC)</td><td>11 (all WC host cities)</td><td>25+ global</td></tr>
-        <tr><td>Curators</td><td>15</td><td>55</td><td>150+</td></tr>
-        <tr><td>Members</td><td>2,500</td><td>15,000</td><td>75,000</td></tr>
-        <tr><td>Revenue</td><td>$180K</td><td>$1.2M</td><td>$5M+</td></tr>
-      </table>
-    </div>
-    <div class="ap-highlight"><div class="ap-highlight-label">The Ask</div><p><strong>$250K pre-seed</strong> to fund 3-city World Cup launch, hire 15 founding Curators, build mobile app MVP, and capture the once-in-a-generation audience window before June 11, 2026.</p></div>
-  </div>
-</div>
-
-<!-- ━━━ 4. PAYMENT BREAKDOWN ━━━ -->
-<div class="panel" id="panel-payment">
-  <div class="artifact-panel">
-    <div class="ap-header"><div class="ap-cat"><span class="tab-dot cat-ops"></span><span class="cat-lbl-ops">Operations</span></div><div class="ap-title">Revenue & <em>Payment Breakdown</em></div><div class="ap-desc">All 6 revenue streams with exact splits, real scenarios, and how to explain to each stakeholder.</div></div>
-    <div class="ap-section">
-      <div class="ap-section-title">Payment Splits by Stream</div>
-      <table class="ap-table">
-        <tr><th>Revenue Stream</th><th>Curator Gets</th><th>Platform Gets</th><th>Avg Transaction</th></tr>
-        <tr><td>Experience Booking</td><td>70%</td><td>30%</td><td>$75–$200</td></tr>
-        <tr><td>Curator Briefing</td><td>65%</td><td>35%</td><td>$50–$150</td></tr>
-        <tr><td>Subscription Revenue</td><td>—</td><td>100%</td><td>$9.99–$24/mo</td></tr>
-        <tr><td>Enterprise Contracts</td><td>—</td><td>100%</td><td>$500+/mo</td></tr>
-        <tr><td>Venue Partnerships</td><td>Referral bonus</td><td>Listing fee</td><td>$200–$500/mo</td></tr>
-        <tr><td>Data Licensing</td><td>—</td><td>100%</td><td>Custom</td></tr>
-      </table>
-    </div>
-    <div class="ap-section">
-      <div class="ap-section-title">Real Scenario — Miami World Cup Week</div>
-      <div class="ap-card"><div class="ap-card-title">Curator: Maria, Food & Culture</div><div class="ap-card-body">Maria hosts 3 food tours at $120 each during a single World Cup match week. She also does 2 briefing sessions at $75 each.<br><br><strong>Maria earns:</strong> (3 × $120 × 0.70) + (2 × $75 × 0.65) = <strong>$252 + $97.50 = $349.50</strong><br><strong>Platform earns:</strong> (3 × $120 × 0.30) + (2 × $75 × 0.35) = <strong>$108 + $52.50 = $160.50</strong></div></div>
-    </div>
-    <div class="ap-highlight"><div class="ap-highlight-label">How to Explain to Curators</div><p>"You keep <strong>70% of every experience</strong> you host and <strong>65% of every briefing</strong> you give. We handle payments, marketing, and the platform. You bring your knowledge and personality. Most food tour companies take 50%+ — we give you the majority because your expertise <em>is</em> the product."</p></div>
-  </div>
-</div>
-
-<!-- ━━━ 5. CURATOR OUTREACH ━━━ -->
-<div class="panel" id="panel-curator-outreach">
-  <div class="artifact-panel">
-    <div class="ap-header"><div class="ap-cat"><span class="tab-dot cat-curator"></span><span class="cat-lbl-curator">Curator</span></div><div class="ap-title">Curator Outreach <em>Playbook</em></div><div class="ap-desc">Tampa, Miami, NYC targets. 8 copy-ready templates. Pitch angles per city. Full action checklist.</div></div>
-    <div class="ap-section">
-      <div class="ap-section-title">The Pitch — What Curators Get</div>
-      <ul class="ap-list">
-        <li><strong>70% of experience bookings</strong> — most food tour companies take 50%+</li>
-        <li><strong>65% of briefing sessions</strong> — your knowledge, your rate, your schedule</li>
-        <li><strong>Founding Curator title</strong> — only 5 per city, locked in permanently</li>
-        <li><strong>Platform handles everything</strong> — payments, marketing, scheduling, AI matching</li>
-        <li><strong>World Cup audience</strong> — millions of international visitors actively looking for local guidance</li>
-      </ul>
-    </div>
-    <div class="ap-section">
-      <div class="ap-section-title">Template — Food Curator (Tampa)</div>
-      <div class="tpl-block">
-        <div class="tpl-header"><span class="tpl-label">DM / Email Template</span><button class="copy-btn" onclick="copyText(this,'tpl-food')">Copy</button></div>
-        <div class="tpl-body" id="tpl-food">Hey <strong>[Name]</strong> — I've been following your Tampa food content and your recommendations are exactly the kind of local knowledge that visitors to this city can't find on Google.
-
-I'm building Locavizion — a platform that connects World Cup visitors and conference travelers with local Curators who actually know the city. Not a review site. Not an influencer deal. A real knowledge-based role where you earn directly from every experience you host and every briefing you give.
-
-We're opening 5 founding Curator positions in Tampa Bay. You'd keep 70% of every booking. Interested in a 15-minute call this week?
-
-locavizion.com</div>
-      </div>
-    </div>
-    <div class="ap-section">
-      <div class="ap-section-title">Template — Tech & Startup (Tampa)</div>
-      <div class="tpl-block">
-        <div class="tpl-header"><span class="tpl-label">Email Template</span><button class="copy-btn" onclick="copyText(this,'tpl-tech')">Copy</button></div>
-        <div class="tpl-body" id="tpl-tech">Hi <strong>[Name]</strong> —
-
-Quick context: I'm building Locavizion — a hospitality intelligence platform launching across all FIFA World Cup host cities this summer. Tampa Bay is one of them.
-
-For conference attendees, founders, and investors flying in for World Cup matches — I'm looking for one founding Tech and Startup Curator who can brief them on the real Tampa Bay: who to meet, where the community gathers, what's happening here.
-
-The World Cup brings a once-in-a-generation audience. I want to make sure the right people find your community when they arrive.
-
-Can we talk for 20 minutes this week?
-
-locavizion.com</div>
-      </div>
-    </div>
-    <div class="ap-section">
-      <div class="ap-section-title">Template — Latin Heritage (Tampa / Miami)</div>
-      <div class="tpl-block">
-        <div class="tpl-header"><span class="tpl-label">WhatsApp / Email</span><button class="copy-btn" onclick="copyText(this,'tpl-latin')">Copy</button></div>
-        <div class="tpl-body" id="tpl-latin">Hola <strong>[Name]</strong> —
-
-The World Cup is bringing millions of Latin American fans to the United States this summer — and many will come through Tampa Bay / Miami without knowing the deep cultural roots here.
-
-I'm building Locavizion — a platform that gives World Cup fans a culturally specific guide to each city. For Latin heritage I'm looking for one Founding Curator who carries that knowledge personally.
-
-This is a paid role. You earn directly from every experience you host and every briefing you give. And you become the person a million Latin American visitors find when they search for authentic local culture.
-
-20 minutes this week?
-
-locavizion.com</div>
-      </div>
-    </div>
-    <div class="ap-section">
-      <div class="ap-section-title">Follow-Up Sequence</div>
-      <table class="ap-table">
-        <tr><th>Day</th><th>Action</th><th>Channel</th></tr>
-        <tr><td>Day 1</td><td>Send initial outreach message</td><td>DM or Email</td></tr>
-        <tr><td>Day 4</td><td>Follow up — "Just circling back, no pressure"</td><td>Same channel</td></tr>
-        <tr><td>Day 8</td><td>Final follow up — "Last note — would love to chat"</td><td>Same channel</td></tr>
-        <tr><td>Call day</td><td>15-min call — explain role, answer questions, gauge fit</td><td>Zoom / Phone</td></tr>
-        <tr><td>Day after call</td><td>Send Curator agreement + onboarding doc</td><td>Email</td></tr>
-      </table>
-    </div>
-  </div>
-</div>
-
-<!-- ━━━ 6. TAMPA CURATORS ━━━ -->
-<div class="panel" id="panel-curator-tampa">
-  <div class="artifact-panel">
-    <div class="ap-header"><div class="ap-cat"><span class="tab-dot cat-curator"></span><span class="cat-lbl-curator">Curator</span></div><div class="ap-title">Tampa Bay <em>Curator Guide</em></div><div class="ap-desc">5 founding Curator roles with real accounts to approach now.</div></div>
-    <div class="ap-section">
-      <div class="curator-card"><div class="curator-avatar">🍽</div><div><div class="curator-name">Food & Restaurant Curator</div><div class="curator-role">Founding Role #1</div><div class="curator-desc">Knows the real Tampa food scene beyond chains. Hidden gems, new openings, chef connections. <strong>Targets:</strong> @tampafoodgirl (33K), @thisbabeeats (57K)</div></div></div>
-      <div class="curator-card"><div class="curator-avatar">💻</div><div><div class="curator-name">Tech & Startup Curator</div><div class="curator-role">Founding Role #2</div><div class="curator-desc">Connected to the Tampa tech ecosystem. <strong>Targets:</strong> Embarc Collective community managers, Tampa Bay Wave alumni, Synapse Summit speakers</div></div></div>
-      <div class="curator-card"><div class="curator-avatar">🎨</div><div><div class="curator-name">Arts & Culture (St. Pete)</div><div class="curator-role">Founding Role #3</div><div class="curator-desc">Gallery openings, Dali Museum, First Friday Art Walk. <strong>Targets:</strong> Creative Pinellas network, Morean Arts Center, SHINE Mural Fest organizers</div></div></div>
-      <div class="curator-card"><div class="curator-avatar">🇨🇺</div><div><div class="curator-name">Latin Heritage & Ybor City</div><div class="curator-role">Founding Role #4</div><div class="curator-desc">Circulo Cubano, Columbia Restaurant, cigar legacy. <strong>Targets:</strong> Ybor Chamber of Commerce, local historians, cultural event organisers</div></div></div>
-      <div class="curator-card"><div class="curator-avatar">🚣</div><div><div class="curator-name">Outdoors & Waterfront</div><div class="curator-role">Founding Role #5</div><div class="curator-desc">Kayaking, nature trails, waterfront dining. <strong>Targets:</strong> Kayak operators, Meetup group organisers, nature photographers with followings</div></div></div>
-    </div>
-    <div class="ap-highlight"><div class="ap-highlight-label">First Move</div><p>Open Instagram, search <strong>@tampafoodgirl</strong>, look at her last 3 posts, pick one to reference, then send the food curator template. One message today starts everything.</p></div>
-  </div>
-</div>
-
-<!-- ━━━ 7. CURATOR SALES GUIDE ━━━ -->
-<div class="panel" id="panel-curator-sales">
-  <div class="artifact-panel">
-    <div class="ap-header"><div class="ap-cat"><span class="tab-dot cat-curator"></span><span class="cat-lbl-curator">Curator</span></div><div class="ap-title">Curator <em>Sales Guide</em></div><div class="ap-desc">How to pitch, negotiate, onboard, and retain Curators across all cities.</div></div>
-    <div class="ap-section">
-      <div class="ap-section-title">The 5-Minute Pitch Structure</div>
-      <ul class="ap-list">
-        <li><strong>Hook (30 sec)</strong> — "The World Cup is bringing 10M visitors. They all need local guidance."</li>
-        <li><strong>Problem (60 sec)</strong> — "Right now they use Google, TripAdvisor, generic guides. Nobody's getting real local knowledge."</li>
-        <li><strong>Solution (60 sec)</strong> — "Locavizion matches visitors with verified local Curators — people like you."</li>
-        <li><strong>Their Role (60 sec)</strong> — "You set your rate, choose your schedule, host experiences you design."</li>
-        <li><strong>The Economics (60 sec)</strong> — "You keep 70% of bookings, 65% of briefings. Most platforms take 50%+."</li>
-        <li><strong>The Urgency (30 sec)</strong> — "Only 5 founding positions per city. World Cup kicks off June 11."</li>
-      </ul>
-    </div>
-    <div class="ap-section">
-      <div class="ap-section-title">Common Objections & Responses</div>
-      <div class="ap-card"><div class="ap-card-title">"How do I know you'll actually get me bookings?"</div><div class="ap-card-body">"The World Cup alone guarantees the audience. 10 million international visitors, most arriving with zero local connections. Our AI matches them to you based on their specific interests. You're not waiting for random customers — they're being sent to you."</div></div>
-      <div class="ap-card"><div class="ap-card-title">"I already do this independently."</div><div class="ap-card-body">"Perfect — that means you already know the value. We just give you a bigger audience and handle all the admin: payments, scheduling, marketing, customer support. You focus on what you're great at."</div></div>
-      <div class="ap-card"><div class="ap-card-title">"What happens after the World Cup?"</div><div class="ap-card-body">"The World Cup is our launch window, not our entire business. After the tournament, we expand to year-round travel, conferences, and business visitors. Founding Curators keep their position permanently."</div></div>
-    </div>
-  </div>
-</div>
-
-<!-- ━━━ 8. INSTAGRAM PLAN ━━━ -->
-<div class="panel" id="panel-instagram">
-  <div class="artifact-panel">
-    <div class="ap-header"><div class="ap-cat"><span class="tab-dot cat-strategy"></span><span class="cat-lbl-strategy">Strategy</span></div><div class="ap-title">Instagram <em>Launch Plan</em></div><div class="ap-desc">Content calendar, reels strategy, caption templates, hashtag research for @locavizion.</div></div>
-    <div class="ap-section">
-      <div class="ap-section-title">Content Pillars</div>
-      <ul class="ap-list">
-        <li><strong>City Intelligence</strong> — "Things nobody tells you about Miami" — neighbourhood breakdowns, hidden spots</li>
-        <li><strong>World Cup Countdown</strong> — Daily/weekly countdown posts with match previews and city prep tips</li>
-        <li><strong>Curator Spotlights</strong> — Short video intros of each Curator, their domain, what they offer</li>
-        <li><strong>Behind the Build</strong> — Founder journey content, building in public, startup transparency</li>
-        <li><strong>Fan Nation Guides</strong> — Content for Brazilian fans, Argentinian fans, Mexican fans — where to go in each city</li>
-      </ul>
-    </div>
-    <div class="ap-section">
-      <div class="ap-section-title">Posting Schedule</div>
-      <table class="ap-table">
-        <tr><th>Day</th><th>Content Type</th><th>Pillar</th></tr>
-        <tr><td>Monday</td><td>Carousel — City neighbourhood guide</td><td>City Intelligence</td></tr>
-        <tr><td>Tuesday</td><td>Reel — "Only locals know..." tip</td><td>City Intelligence</td></tr>
-        <tr><td>Wednesday</td><td>Story — World Cup countdown stat</td><td>World Cup</td></tr>
-        <tr><td>Thursday</td><td>Reel — Curator spotlight interview</td><td>Curator Spotlights</td></tr>
-        <tr><td>Friday</td><td>Carousel — Fan nation guide</td><td>Fan Nation</td></tr>
-        <tr><td>Saturday</td><td>Story — Behind the build update</td><td>Behind the Build</td></tr>
-        <tr><td>Sunday</td><td>Static post — Inspirational/brand</td><td>Brand</td></tr>
-      </table>
-    </div>
-    <div class="ap-section">
-      <div class="ap-section-title">Hashtag Groups</div>
-      <div class="tag-row">
-        <span class="tag">#WorldCup2026</span><span class="tag">#FIFA2026</span><span class="tag">#MiamiTravel</span><span class="tag">#TampaBay</span><span class="tag">#LocalGuide</span><span class="tag">#TravelLikeALocal</span><span class="tag">#CityIntelligence</span><span class="tag">#Locavizion</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ━━━ 9. QR / STICKERS ━━━ -->
-<div class="panel" id="panel-qr">
-  <div class="artifact-panel">
-    <div class="ap-header"><div class="ap-cat"><span class="tab-dot cat-strategy"></span><span class="cat-lbl-strategy">Strategy</span></div><div class="ap-title">QR Codes <em>& Sticker Designs</em></div><div class="ap-desc">Printable guerrilla marketing assets — QR stickers, flyers, and bar/restaurant table cards.</div></div>
-    <div class="ap-section">
-      <div class="ap-section-title">QR Code Placements</div>
-      <ul class="ap-list">
-        <li><strong>Restaurant table cards</strong> — "New to Tampa? Scan for your AI city guide" — place at partner restaurants</li>
-        <li><strong>Hotel lobby stickers</strong> — "See Tampa like a local" — partner with boutique hotels</li>
-        <li><strong>Coffee shop counter cards</strong> — Small 3x5 cards with QR code near the register</li>
-        <li><strong>Airport arrival area</strong> — Flyers in the rideshare pickup zone at TPA</li>
-        <li><strong>Co-working spaces</strong> — Poster at Embarc Collective, Station House, Lab Ybor</li>
-        <li><strong>Fan zone entrances</strong> — Handheld flyers during World Cup match days</li>
-      </ul>
-    </div>
-    <div class="ap-section">
-      <div class="ap-section-title">Sticker Copy Options</div>
-      <div class="ap-card"><div class="ap-card-title">Option A — Minimal</div><div class="ap-card-body">"See the city like a local." + QR + locavizion.com</div></div>
-      <div class="ap-card"><div class="ap-card-title">Option B — World Cup</div><div class="ap-card-body">"⚽ Here for the World Cup? Ask a local." + QR + locavizion.com</div></div>
-      <div class="ap-card"><div class="ap-card-title">Option C — Question</div><div class="ap-card-body">"Where do locals actually eat?" + QR + "Your AI city guide — free"</div></div>
-    </div>
-    <div class="ap-highlight"><div class="ap-highlight-label">Print Run Estimate</div><p>500 stickers (2" circle) ≈ <strong>$45</strong> on StickerMule. 200 table cards ≈ <strong>$30</strong> on Vistaprint. Start with $75 total budget for first guerrilla wave in Tampa.</p></div>
-  </div>
-</div>
-
-<!-- ━━━ 10. FOUNDER DASHBOARD TRACKER ━━━ -->
-<div class="panel" id="panel-dashboard-tracker">
-  <div class="artifact-panel">
-    <div class="ap-header"><div class="ap-cat"><span class="tab-dot cat-ops"></span><span class="cat-lbl-ops">Operations</span></div><div class="ap-title">Founder <em>Dashboard & Tracker</em></div><div class="ap-desc">KPI tracking, milestones, weekly metrics, and daily task management.</div></div>
-    <div class="ap-section">
-      <div class="ap-section-title">Key Metrics to Track Weekly</div>
-      <table class="ap-table">
-        <tr><th>Metric</th><th>Target (Week 1-4)</th><th>Target (Week 5-8)</th><th>Source</th></tr>
-        <tr><td>Waitlist signups</td><td>50</td><td>250</td><td>Google Forms</td></tr>
-        <tr><td>Curator conversations</td><td>10</td><td>25</td><td>Manual track</td></tr>
-        <tr><td>Curators onboarded</td><td>2</td><td>8</td><td>Manual track</td></tr>
-        <tr><td>Instagram followers</td><td>200</td><td>1,000</td><td>IG Analytics</td></tr>
-        <tr><td>Chatbot conversations</td><td>50</td><td>200</td><td>Anthropic Console</td></tr>
-        <tr><td>Website unique visitors</td><td>300</td><td>1,500</td><td>Cloudflare Analytics</td></tr>
-      </table>
-    </div>
-    <div class="ap-section">
-      <div class="ap-section-title">Milestones</div>
-      <ul class="ap-list">
-        <li><strong>Week 1</strong> — Website live, first 10 waitlist signups, first Curator outreach sent</li>
-        <li><strong>Week 2</strong> — First Curator call completed, 25 waitlist signups, Instagram launched</li>
-        <li><strong>Week 4</strong> — 2 Curators signed, 50 waitlist signups, first accelerator application submitted</li>
-        <li><strong>Week 8</strong> — 5 Curators across 2 cities, 250 waitlist, investor brief sent to 5 contacts</li>
-        <li><strong>Week 12</strong> — Mobile app MVP, 8 Curators, 500 waitlist, pre-seed conversations active</li>
-        <li><strong>June 11</strong> — World Cup kickoff. Platform live. Curators active. Game time.</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<!-- ━━━ 11. WORLD CUP BLUEPRINT ━━━ -->
-<div class="panel" id="panel-worldcup">
-  <div class="artifact-panel">
-    <div class="ap-header"><div class="ap-cat"><span class="tab-dot cat-wc"></span><span class="cat-lbl-wc">World Cup</span></div><div class="ap-title">World Cup <em>Blueprint</em></div><div class="ap-desc">Complete activation strategy, match schedule, and city preparation timeline.</div></div>
-    <div class="ap-section">
-      <div class="ap-section-title">Match Schedule — Miami (Hard Rock Stadium)</div>
-      <div class="match-row"><div class="match-date">Jun 12</div><div class="match-teams"><strong>Argentina vs TBD</strong></div><div class="match-venue">Group Stage</div></div>
-      <div class="match-row"><div class="match-date">Jun 15</div><div class="match-teams"><strong>Brazil vs TBD</strong></div><div class="match-venue">Group Stage</div></div>
-      <div class="match-row"><div class="match-date">Jun 18</div><div class="match-teams"><strong>Group Match</strong></div><div class="match-venue">Group Stage</div></div>
-      <div class="match-row"><div class="match-date">Jun 21</div><div class="match-teams"><strong>Group Match</strong></div><div class="match-venue">Group Stage</div></div>
-      <div class="match-row"><div class="match-date">Jun 24</div><div class="match-teams"><strong>Brazil vs Scotland</strong></div><div class="match-venue">Group Stage</div></div>
-      <div class="match-row"><div class="match-date">Jul 2</div><div class="match-teams"><strong>Round of 16</strong></div><div class="match-venue">Knockout</div></div>
-      <div class="match-row"><div class="match-date">Jul 13</div><div class="match-teams"><strong>Semi-Final</strong></div><div class="match-venue">Knockout</div></div>
-    </div>
-    <div class="ap-section">
-      <div class="ap-section-title">Activation Timeline</div>
-      <table class="ap-table">
-        <tr><th>Phase</th><th>Timeline</th><th>Priority</th></tr>
-        <tr><td>Foundation</td><td>Now → April</td><td>Curator recruitment, platform build, content creation</td></tr>
-        <tr><td>Pre-Launch</td><td>April → May</td><td>Beta test with early signups, Instagram ramp, partnerships</td></tr>
-        <tr><td>Launch</td><td>May → Jun 11</td><td>Full marketing push, PR, fan nation guides, guerrilla campaign</td></tr>
-        <tr><td>Game Time</td><td>Jun 11 → Jul 19</td><td>Live operations, Curator support, real-time city intelligence</td></tr>
-        <tr><td>Post-Cup</td><td>Jul 20+</td><td>Retain members, expand cities, transition to year-round model</td></tr>
-      </table>
-    </div>
-    <div class="ap-highlight"><div class="ap-highlight-label">Key Stat</div><p>The 2022 Qatar World Cup generated <strong>$7.5 billion in direct spending</strong>. The 2026 USA edition across 11 cities is projected to be <strong>2-3x larger</strong>. This is the single biggest hospitality opportunity in a generation.</p></div>
-  </div>
-</div>
-
-<!-- ━━━ 12. CHATBOT ━━━ -->
-<div class="panel" id="panel-chatbot">
-  <div class="artifact-panel">
-    <div class="ap-header"><div class="ap-cat"><span class="tab-dot cat-platform"></span><span class="cat-lbl-platform">Platform</span></div><div class="ap-title">AI City Guide <em>Chatbot</em></div><div class="ap-desc">Claude-powered chatbot deployed via Cloudflare Worker, embedded on locavizion.com.</div></div>
-    <div class="ap-section">
-      <div class="ap-section-title">Architecture</div>
-      <table class="ap-table">
-        <tr><th>Component</th><th>Service</th><th>Details</th></tr>
-        <tr><td>Frontend Widget</td><td>Vanilla JS</td><td>Floating chat bubble, embedded in waitlist page</td></tr>
-        <tr><td>API Proxy</td><td>Cloudflare Worker</td><td>Secures API key, rate limits, CORS handling</td></tr>
-        <tr><td>AI Engine</td><td>Anthropic Claude</td><td>System prompt with city knowledge for Miami, Tampa, NYC</td></tr>
-        <tr><td>Cost</td><td>~$0.02/day</td><td>At current usage levels with $5 credit</td></tr>
-      </table>
-    </div>
-    <div class="ap-section">
-      <div class="ap-section-title">System Prompt Domains</div>
-      <ul class="ap-list">
-        <li><strong>Miami</strong> — Neighbourhoods (Wynwood, Brickell, Little Havana, Coconut Grove), food scenes, nightlife, transit</li>
-        <li><strong>Tampa Bay</strong> — Ybor City, St. Pete, Channelside, SoHo, waterfront activities, food scene, tech community</li>
-        <li><strong>New York</strong> — Manhattan neighbourhoods, Brooklyn culture, transit guide, hidden gems, borough-by-borough</li>
-        <li><strong>World Cup</strong> — Match schedules, fan zone info, stadium transit, safety tips, accommodation advice</li>
-      </ul>
-    </div>
-    <div class="ap-section">
-      <div class="ap-section-title">Sample Interactions</div>
-      <div class="ap-card"><div class="ap-card-title">User: "Best area to stay in Miami for the World Cup?"</div><div class="ap-card-body">Bot explains Brickell for business travellers, Wynwood for young fans, Little Havana for Latin American fans, Miami Beach for general tourists — with price ranges and transit access to Hard Rock Stadium.</div></div>
-      <div class="ap-card"><div class="ap-card-title">User: "I'm Brazilian, where should I eat in Tampa?"</div><div class="ap-card-body">Bot recommends Brazilian steakhouses, açaí spots, and Latin markets in the area — plus mentions the Ybor City connection to Latin heritage.</div></div>
-    </div>
-    <div class="ap-highlight"><div class="ap-highlight-label">Worker URL</div><p><strong>locavizion-chat.qms6skh728.workers.dev</strong> — live, serving responses, API key secured server-side.</p></div>
-  </div>
-</div>
-
-<!-- ━━━ 13. PITCH DECK ━━━ -->
-<div class="panel" id="panel-pitch">
-  <div class="artifact-panel">
-    <div class="ap-header"><div class="ap-cat"><span class="tab-dot cat-investor"></span><span class="cat-lbl-investor">Investor</span></div><div class="ap-title">Pitch Deck <em>Notes</em></div><div class="ap-desc">Slide-by-slide breakdown of both the investor pitch and the World Cup pitch decks (.pptx files).</div></div>
-    <div class="ap-section">
-      <div class="ap-section-title">Investor Pitch — 11 Slides</div>
-      <table class="ap-table">
-        <tr><th>#</th><th>Slide</th><th>Key Message</th></tr>
-        <tr><td>1</td><td>Cover</td><td>Locavizion — See The World Like A Local</td></tr>
-        <tr><td>2</td><td>Problem</td><td>10M visitors, zero local knowledge, generic tourist traps</td></tr>
-        <tr><td>3</td><td>Solution</td><td>AI + verified Curators = personalized city intelligence</td></tr>
-        <tr><td>4</td><td>How It Works</td><td>3-step flow: AI Guide → Curator → Experience</td></tr>
-        <tr><td>5</td><td>Market</td><td>$17.2B GDP boost, 185K jobs, 11 host cities</td></tr>
-        <tr><td>6</td><td>Business Model</td><td>6 revenue streams, 70/30 Curator split</td></tr>
-        <tr><td>7</td><td>Traction</td><td>Live site, active chatbot, Curator pipeline</td></tr>
-        <tr><td>8</td><td>Cities</td><td>Tampa, Miami, NYC — expanding to all 11</td></tr>
-        <tr><td>9</td><td>Team</td><td>Founder + advisory network</td></tr>
-        <tr><td>10</td><td>Financials</td><td>3-year projections: $180K → $1.2M → $5M</td></tr>
-        <tr><td>11</td><td>The Ask</td><td>$250K pre-seed, 3-city World Cup launch</td></tr>
-      </table>
-    </div>
-    <div class="ap-section">
-      <div class="ap-section-title">World Cup Pitch — 11 Slides</div>
-      <div class="ap-text">Focused specifically on the World Cup activation opportunity. Includes match-by-match revenue projections, fan nation demographics, city-specific Curator deployment, and the 39-day revenue window analysis.</div>
-    </div>
-    <div class="ap-highlight"><div class="ap-highlight-label">Distribution</div><p>Upload both decks to <strong>Docsend.com</strong> (free tier) — it gives you open notifications and per-slide analytics. When an investor reads the financials slide for 4 minutes at 11pm, you know to follow up the next morning.</p></div>
-  </div>
-</div>
-
-<!-- ━━━ 14. 30-DAY ACTION PLAN ━━━ -->
-<div class="panel" id="panel-action-plan">
-  <div class="artifact-panel">
-    <div class="ap-header"><div class="ap-cat"><span class="tab-dot cat-ops"></span><span class="cat-lbl-ops">Operations</span></div><div class="ap-title">30-Day <em>Action Plan</em></div><div class="ap-desc">Step-by-step founder execution plan — from Day 1 to investor-ready.</div></div>
-    <div class="ap-section">
-      <div class="ap-section-title">Week 1 — Foundation</div>
-      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Day 1:</strong> Website live, SSL confirmed, chatbot tested with 5 questions</div></div>
-      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Day 2:</strong> Email 10 personal contacts with link — ask for honest feedback</div></div>
-      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Day 3:</strong> Send first Curator outreach message (Tampa food — @tampafoodgirl)</div></div>
-      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Day 4:</strong> Set up Instagram @locavizion, post first carousel</div></div>
-      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Day 5:</strong> Send 3 more Curator outreach messages across different roles</div></div>
-      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Day 6-7:</strong> Follow up on Day 3 message, begin LinkedIn content</div></div>
-    </div>
-    <div class="ap-section">
-      <div class="ap-section-title">Week 2 — Outreach</div>
-      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Days 8-10:</strong> 5 more Curator conversations, first call scheduled</div></div>
-      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Days 11-12:</strong> First Curator call — use the 5-minute pitch structure</div></div>
-      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Days 13-14:</strong> Submit first accelerator application, 25 waitlist signups</div></div>
-    </div>
-    <div class="ap-section">
-      <div class="ap-section-title">Week 3-4 — Traction</div>
-      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Days 15-20:</strong> 2 Curators signed, 10 user interviews completed</div></div>
-      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Days 21-25:</strong> Pitch deck sent to 5 warm investor contacts via Docsend</div></div>
-      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Days 26-30:</strong> 50 waitlist signups, 4 accelerator apps submitted, investor brief distributed</div></div>
-    </div>
-    <div class="ap-highlight"><div class="ap-highlight-label">The 30-Day Outcome</div><p>A vision doc, a live waitlist with 50+ signups, 5 curator conversations documented, 20 user interviews with quotes, 4 accelerator applications submitted, a 30-name investor list with 5 warm intro paths. <strong>That is a fundable story.</strong></p></div>
-  </div>
-</div>
-
-<!-- ━━━ 15. EMAIL SETUP ━━━ -->
-<div class="panel" id="panel-email-setup">
-  <div class="artifact-panel">
-    <div class="ap-header"><div class="ap-cat"><span class="tab-dot cat-ops"></span><span class="cat-lbl-ops">Operations</span></div><div class="ap-title">Email & <em>Domain Setup</em></div><div class="ap-desc">Complete email infrastructure — Cloudflare routing, Gmail SMTP, all addresses configured.</div></div>
-    <div class="ap-section">
-      <div class="ap-section-title">Current Email Configuration</div>
-      <table class="ap-table">
-        <tr><th>Address</th><th>Receives</th><th>Sends</th></tr>
-        <tr><td>hello@locavizion.com</td><td>✅ Forwards to Gmail via Cloudflare</td><td>✅ Via Gmail SMTP</td></tr>
-        <tr><td>curators@locavizion.com</td><td>✅ Forwards to Gmail via Cloudflare</td><td>Set up if needed</td></tr>
-        <tr><td>info@locavizion.com</td><td>✅ Forwards to Gmail via Cloudflare</td><td>✅ Via Gmail SMTP</td></tr>
-      </table>
-    </div>
-    <div class="ap-section">
-      <div class="ap-section-title">How It Works</div>
-      <ul class="ap-list">
-        <li><strong>Inbound:</strong> Cloudflare Email Routing catches emails to @locavizion.com → forwards to your personal Gmail</li>
-        <li><strong>Outbound:</strong> Gmail SMTP configured to send as hello@locavizion.com — recipients see your professional address</li>
-        <li><strong>Cost:</strong> $0 — no Zoho, no paid email service needed</li>
-        <li><strong>Bot protection:</strong> Email on website assembled via JS to prevent scraping</li>
-      </ul>
-    </div>
-    <div class="ap-highlight"><div class="ap-highlight-label">Domain Stack</div><p><strong>locavizion.com</strong> → Cloudflare DNS → GitHub Pages hosting → SSL active → Email routing → Gmail inbox. Total monthly cost: <strong>$0</strong>.</p></div>
-  </div>
-</div>
-
-<!-- ━━━ 16. MONETIZATION ━━━ -->
-<div class="panel" id="panel-monetization">
-  <div class="artifact-panel">
-    <div class="ap-header"><div class="ap-cat"><span class="tab-dot cat-investor"></span><span class="cat-lbl-investor">Investor</span></div><div class="ap-title">Monetization & <em>Partner Guide</em></div><div class="ap-desc">Revenue model deep dive, partner tiers, and enterprise pricing strategy.</div></div>
-    <div class="ap-section">
-      <div class="ap-section-title">6 Revenue Streams</div>
-      <div class="rev-flow">
-        <div class="rev-item"><div class="rev-val">1</div><div class="rev-label">Subscriptions</div></div>
-        <div class="rev-item"><div class="rev-val">2</div><div class="rev-label">Experience Bookings</div></div>
-        <div class="rev-item"><div class="rev-val">3</div><div class="rev-label">Curator Briefings</div></div>
-      </div>
-      <div class="rev-flow">
-        <div class="rev-item"><div class="rev-val">4</div><div class="rev-label">Enterprise</div></div>
-        <div class="rev-item"><div class="rev-val">5</div><div class="rev-label">Venue Partners</div></div>
-        <div class="rev-item"><div class="rev-val">6</div><div class="rev-label">Data Licensing</div></div>
-      </div>
-    </div>
-    <div class="ap-section">
-      <div class="ap-section-title">Partner Tiers</div>
-      <div class="ap-card"><div class="ap-card-title">Tier 1 — Featured Venue ($200/mo)</div><div class="ap-card-body">Restaurant, bar, or hotel appears as a recommended spot in AI guide and Curator briefings. Includes profile page, booking integration, and analytics.</div></div>
-      <div class="ap-card"><div class="ap-card-title">Tier 2 — City Partner ($500/mo)</div><div class="ap-card-body">Tourism boards, hotel chains, or event venues. Co-branded city guides, featured placement, bulk experience bookings.</div></div>
-      <div class="ap-card"><div class="ap-card-title">Tier 3 — Enterprise ($2,000+/mo)</div><div class="ap-card-body">White-label city intelligence for conferences, corporate retreats, executive hospitality. Custom Curator assignments and private briefings.</div></div>
-    </div>
-  </div>
-</div>
-
-<!-- ━━━ 17. MIAMI BLUEPRINT ━━━ -->
-<div class="panel" id="panel-miami-blueprint">
-  <div class="artifact-panel">
-    <div class="ap-header"><div class="ap-cat"><span class="tab-dot cat-wc"></span><span class="cat-lbl-wc">World Cup</span></div><div class="ap-title">Miami <em>City Blueprint</em></div><div class="ap-desc">7 World Cup matches. Complete neighbourhood and Curator deployment guide.</div></div>
-    <div class="ap-section">
-      <div class="ap-section-title">Why Miami Is the Launch City</div>
-      <div class="ap-text">Miami hosts <strong>7 World Cup matches</strong> including a likely semi-final. Brazil vs Scotland on June 24 alone will bring more fans than any other single match. The city's existing Latin American diaspora creates a natural cultural bridge for visiting fans from Brazil, Argentina, Colombia, and Mexico.</div>
-    </div>
-    <div class="ap-section">
-      <div class="ap-section-title">Key Neighbourhoods</div>
-      <ul class="ap-list">
-        <li><strong>Brickell</strong> — Business travelers, finance crowd, high-rise hotels, upscale dining</li>
-        <li><strong>Wynwood</strong> — Art scene, young fans, street food, nightlife, mural district</li>
-        <li><strong>Little Havana</strong> — Cuban culture, Latin American fans' natural home base, Calle Ocho</li>
-        <li><strong>Coconut Grove</strong> — Relaxed waterfront, families, boutique hotels, farmers markets</li>
-        <li><strong>Miami Beach</strong> — Tourist standard, beach access, nightlife, hotels at every price point</li>
-        <li><strong>Design District</strong> — Luxury shopping, high-end dining, art galleries</li>
-      </ul>
-    </div>
-    <div class="ap-section">
-      <div class="ap-section-title">Curator Roles — Miami</div>
-      <div class="curator-card"><div class="curator-avatar">🌴</div><div><div class="curator-name">Latin Culture Curator</div><div class="curator-role">Priority Hire</div><div class="curator-desc">Speaks to Brazilian, Argentine, Colombian fan nations. Knows Little Havana, Doral, Hialeah — the real Latin Miami.</div></div></div>
-      <div class="curator-card"><div class="curator-avatar">🍹</div><div><div class="curator-name">Nightlife & Social Curator</div><div class="curator-role">Founding Role</div><div class="curator-desc">Club access, rooftop bars, private events. Knows the after-party scene that fans can't find on Google.</div></div></div>
-      <div class="curator-card"><div class="curator-avatar">🏢</div><div><div class="curator-name">Business & Conference Curator</div><div class="curator-role">Founding Role</div><div class="curator-desc">For executives attending matches. Private dining, meeting spaces, who to know in Miami business.</div></div></div>
-    </div>
-  </div>
-</div>
-
-<!-- ━━━ 18. TAMPA BLUEPRINT ━━━ -->
-<div class="panel" id="panel-tampa-blueprint">
-  <div class="artifact-panel">
-    <div class="ap-header"><div class="ap-cat"><span class="tab-dot cat-wc"></span><span class="cat-lbl-wc">World Cup</span></div><div class="ap-title">Tampa Bay <em>City Blueprint</em></div><div class="ap-desc">Match hosting, Ybor City, waterfront, tech scene, Latin heritage activation.</div></div>
-    <div class="ap-section">
-      <div class="ap-section-title">Tampa Bay's World Cup Angle</div>
-      <div class="ap-text">Tampa is a <strong>host city</strong> with matches at Raymond James Stadium. But beyond the stadium, visitors have almost zero context for what Tampa Bay actually offers. That's the opportunity — <strong>every visitor needs a local guide</strong>, and nobody is providing one.</div>
-    </div>
-    <div class="ap-section">
-      <div class="ap-section-title">Key Areas</div>
-      <ul class="ap-list">
-        <li><strong>Ybor City</strong> — Historic Latin quarter. Cigar heritage, Columbia Restaurant, Circulo Cubano. Latin American fans will feel an immediate connection here.</li>
-        <li><strong>SoHo (South Howard)</strong> — Restaurant row, nightlife, young professional energy</li>
-        <li><strong>St. Petersburg</strong> — Art museums (Dali Museum), craft beer scene, waterfront parks, independent boutiques</li>
-        <li><strong>Channelside / Water Street</strong> — New development district, walking distance to stadium, hotels and dining</li>
-        <li><strong>Davis Islands / Bayshore</strong> — Bayshore Boulevard (world's longest continuous sidewalk), waterfront running, residential charm</li>
-      </ul>
-    </div>
-    <div class="ap-section">
-      <div class="ap-section-title">5 Founding Curator Roles</div>
-      <div class="ap-text">Food & Restaurant · Tech & Startup · Arts & Culture (St. Pete) · Latin Heritage & Ybor City · Outdoors & Waterfront — see the Tampa Curator Guide tab for full details and real targets.</div>
-    </div>
-  </div>
-</div>
-
-<!-- ━━━ 19. NYC BLUEPRINT ━━━ -->
-<div class="panel" id="panel-nyc-blueprint">
-  <div class="artifact-panel">
-    <div class="ap-header"><div class="ap-cat"><span class="tab-dot cat-wc"></span><span class="cat-lbl-wc">World Cup</span></div><div class="ap-title">New York City <em>Blueprint</em></div><div class="ap-desc">MetLife Stadium, Manhattan neighbourhoods, Brooklyn culture, transit guide.</div></div>
-    <div class="ap-section">
-      <div class="ap-section-title">NYC World Cup Context</div>
-      <div class="ap-text">MetLife Stadium in East Rutherford, NJ hosts World Cup matches — but fans stay in <strong>Manhattan, Brooklyn, and Queens</strong>. The disconnect between stadium location and city experience is enormous. Visitors need local guidance more than anywhere else in the tournament.</div>
-    </div>
-    <div class="ap-section">
-      <div class="ap-section-title">Key Neighbourhoods for Fans</div>
-      <ul class="ap-list">
-        <li><strong>Midtown Manhattan</strong> — Hotel hub, Times Square fan zones, transit access to MetLife via NJ Transit</li>
-        <li><strong>Lower East Side</strong> — Nightlife, independent restaurants, younger fan crowd</li>
-        <li><strong>Williamsburg, Brooklyn</strong> — Creative scene, rooftop bars, street food, Airbnb density</li>
-        <li><strong>Jackson Heights, Queens</strong> — The most ethnically diverse neighbourhood in the world. Latin American, South Asian, and African communities. The real NYC.</li>
-        <li><strong>Harlem</strong> — Cultural heritage, gospel brunches, jazz clubs, African diaspora connections</li>
-        <li><strong>DUMBO / Brooklyn Heights</strong> — Waterfront views, upscale dining, Instagram-worthy locations</li>
-      </ul>
-    </div>
-    <div class="ap-section">
-      <div class="ap-section-title">Transit to MetLife</div>
-      <div class="ap-card"><div class="ap-card-title">From Manhattan</div><div class="ap-card-body">NJ Transit from Penn Station to MetLife Stadium station. ~30 minutes. Trains run frequently on match days. <strong>Do NOT take a car</strong> — traffic will be catastrophic. Buy NJ Transit tickets in advance via the app.</div></div>
-      <div class="ap-card"><div class="ap-card-title">Fan Zone Locations</div><div class="ap-card-body">Expect FIFA Fan Fest in Times Square or Hudson Yards. Additional fan zones likely in Brooklyn (Prospect Park) and potentially Flushing Meadows (Queens). Official locations TBA.</div></div>
-    </div>
-    <div class="ap-section">
-      <div class="ap-section-title">Curator Roles — NYC</div>
-      <ul class="ap-list">
-        <li><strong>Manhattan Insider</strong> — High-end dining, cocktail bars, hidden speakeasies, cultural events</li>
-        <li><strong>Brooklyn Culture Curator</strong> — Art galleries, music venues, food markets, neighbourhood walks</li>
-        <li><strong>Queens Diversity Curator</strong> — Ethnic food tours, community events, the "real" New York</li>
-        <li><strong>Business & Finance Curator</strong> — Wall Street connections, private dining, executive networking</li>
-        <li><strong>Nightlife Curator</strong> — Club access, rooftop bars, after-parties, underground events</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-</div><!-- /content -->
-
-<!-- ═══════════ STATUS BAR ═══════════ -->
+<!-- STATUSBAR -->
 <div class="statusbar">
   <div class="sb-left">
     <div class="sb-item"><span class="sb-dot-green"></span>Hub Active</div>
@@ -878,74 +192,79 @@ locavizion.com</div>
   <div id="sb-date"></div>
 </div>
 
-<!-- ═══════════ SCRIPT ═══════════ -->
 <script>
 // ── Countdown ──
 var kickoff = new Date('2026-06-11');
 var today = new Date();
 var days = Math.ceil((kickoff - today) / (1000*60*60*24));
-document.getElementById('hub-days').textContent = days > 0 ? days : '🔴 LIVE';
+document.getElementById('hub-days').textContent = days > 0 ? days : 'LIVE';
 
 // ── Clock ──
-function updateClock() {
+function updateClock(){
   var now = new Date();
   document.getElementById('sb-time').textContent = now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
   document.getElementById('sb-date').textContent = now.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
 }
-updateClock();
-setInterval(updateClock, 1000);
+updateClock(); setInterval(updateClock,1000);
 
-// ── Panel Switching ──
+// ── Panel system ──
+// Base URL for hub files — UPDATE THIS to match your GitHub Pages path
+var HUB_BASE = './';  // Works when hub files are in same folder
+
 var currentPanel = 'dash';
-function showPanel(name, btn) {
+var loaded = {};
+
+function showPanel(name, src, btn){
+  // hide current
   var cur = document.getElementById('panel-' + currentPanel);
-  var nxt = document.getElementById('panel-' + name);
-  if (!nxt) return;
-  if (cur) cur.classList.remove('active');
-  nxt.classList.add('active');
-  nxt.scrollTop = 0;
-  currentPanel = name;
-  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
-  if (btn) btn.classList.add('active');
+  if(cur) cur.classList.remove('active');
+
+  // create iframe panel if needed
+  var panelId = 'panel-' + name;
+  var panel = document.getElementById(panelId);
+  if(!panel && src){
+    panel = document.createElement('div');
+    panel.className = 'panel';
+    panel.id = panelId;
+    panel.innerHTML = '<div class="iframe-loading" id="load-'+name+'">Loading…</div>' +
+      '<iframe class="panel-iframe" src="'+HUB_BASE+src+'" onload="hideLoader(\''+name+'\')"></iframe>';
+    document.getElementById('contentArea').appendChild(panel);
+  }
+
+  if(panel){
+    panel.classList.add('active');
+    currentPanel = name;
+  }
+
+  // update tabs
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
+  if(btn) btn.classList.add('active');
   document.getElementById('sb-tab').textContent = btn ? btn.textContent.trim() : name;
 }
 
+function hideLoader(name){
+  var el = document.getElementById('load-'+name);
+  if(el) el.style.display='none';
+}
+
+// ── Tab click handler ──
+document.querySelectorAll('.tab-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var panelName = this.getAttribute('data-panel');
+    var src = this.getAttribute('data-src');
+    showPanel(panelName, src, this);
+  });
+});
+
 // ── Dashboard card click ──
-function goTab(name) {
+function goTab(name){
   var btns = document.querySelectorAll('.tab-btn');
-  for (var i = 0; i < btns.length; i++) {
-    if (btns[i].getAttribute('onclick') && btns[i].getAttribute('onclick').indexOf("'" + name + "'") !== -1) {
-      showPanel(name, btns[i]);
+  for(var i=0;i<btns.length;i++){
+    if(btns[i].getAttribute('data-panel') === name){
+      btns[i].click();
       return;
     }
   }
-  showPanel(name, null);
-}
-
-// ── Copy template text ──
-function copyText(btn, id) {
-  var el = document.getElementById(id);
-  if (!el) return;
-  navigator.clipboard.writeText(el.innerText).then(function(){
-    btn.textContent = 'Copied ✓';
-    setTimeout(function(){ btn.textContent = 'Copy'; }, 2000);
-  }).catch(function(){
-    var ta = document.createElement('textarea');
-    ta.value = el.innerText;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    btn.textContent = 'Copied ✓';
-    setTimeout(function(){ btn.textContent = 'Copy'; }, 2000);
-  });
-}
-
-// ── Checklist toggle ──
-function toggleCheck(el) {
-  el.classList.toggle('done');
-  var box = el.querySelector('.check-box');
-  box.textContent = el.classList.contains('done') ? '✓' : '';
 }
 </script>
 </body>
