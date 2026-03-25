@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Locavizion — Curator Sales Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0c0b09;--paper:#faf7f2;--gold:#c49a2a;--gold2:#e8b84b;--sage:#3a6650;--rust:#a83d20;--muted:#7a6e58;--bg:#0e0d0b;--border:rgba(255,255,255,0.08);--miami:#ff6b35;--nyc:#4a90d9}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--paper);padding:0;margin:0}
+.doc{max-width:860px;margin:0 auto;padding:3rem 2.5rem}
+.doc-badge{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--rust);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.4rem}
+.doc-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--rust)}
+h1{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--gold);line-height:1.2;margin-bottom:0.4rem}
+h1 em{color:var(--paper);font-style:italic}
+.subtitle{font-size:0.78rem;color:rgba(255,255,255,0.4);margin-bottom:2.5rem;line-height:1.6}
+h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--gold);margin:2.5rem 0 1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(196,154,42,0.15)}
+h3{font-size:0.9rem;font-weight:600;color:var(--paper);margin:1.5rem 0 0.6rem}
+h4{font-size:0.8rem;font-weight:500;color:var(--gold2);margin:1rem 0 0.4rem}
+p{font-size:0.8rem;color:rgba(255,255,255,0.6);line-height:1.85;margin-bottom:1rem}
+p strong{color:var(--paper);font-weight:500}
+p em{color:var(--gold);font-style:italic}
+ul{list-style:none;margin-bottom:1.5rem}
+ul li{font-size:0.78rem;color:rgba(255,255,255,0.6);line-height:1.85;padding:0.4rem 0 0.4rem 1.2rem;position:relative;border-bottom:1px solid rgba(255,255,255,0.03)}
+ul li::before{content:'→';position:absolute;left:0;color:var(--gold)}
+ul li strong{color:var(--paper);font-weight:500}
+table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:0.75rem}
+th{text-align:left;font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);padding:0.6rem 0.8rem;border-bottom:1px solid rgba(196,154,42,0.2);font-weight:500}
+td{padding:0.6rem 0.8rem;color:rgba(255,255,255,0.6);border-bottom:1px solid var(--border)}
+tr:hover td{background:rgba(255,255,255,0.02)}
+.highlight{background:rgba(196,154,42,0.08);border:1px solid rgba(196,154,42,0.2);padding:1.2rem 1.5rem;margin:1.5rem 0}
+.highlight-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem}
+.card{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem}
+.card-title{font-size:0.85rem;font-weight:600;color:var(--paper);margin-bottom:0.4rem}
+.card-body{font-size:0.72rem;color:rgba(255,255,255,0.55);line-height:1.8}
+.card-body strong{color:var(--paper)}
+.tpl{background:rgba(255,255,255,0.03);border:1px solid var(--border);margin:1rem 0}
+.tpl-head{display:flex;justify-content:space-between;align-items:center;padding:0.7rem 1rem;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.02)}
+.tpl-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold)}
+.tpl-body{padding:1rem;font-size:0.72rem;color:rgba(255,255,255,0.6);line-height:1.9;white-space:pre-line}
+.tpl-body strong{color:var(--paper)}
+.copy-btn{background:rgba(196,154,42,0.15);border:1px solid rgba(196,154,42,0.3);color:var(--gold);font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;padding:0.3rem 0.7rem;cursor:pointer;text-transform:uppercase}
+.copy-btn:hover{background:rgba(196,154,42,0.3)}
+.check{display:flex;align-items:flex-start;gap:0.6rem;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;font-size:0.72rem;color:rgba(255,255,255,0.6)}
+.check:hover{color:var(--paper)}
+.check-box{width:16px;height:16px;border:1px solid rgba(196,154,42,0.4);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:2px;font-size:0.6rem;color:var(--gold)}
+.check.done{color:rgba(255,255,255,0.25);text-decoration:line-through}
+.check.done .check-box{background:rgba(196,154,42,0.2)}
+.curator-card{display:grid;grid-template-columns:55px 1fr;gap:1rem;background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem}
+.curator-avatar{width:45px;height:45px;border-radius:50%;background:rgba(196,154,42,0.15);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.curator-name{font-size:0.85rem;font-weight:500;color:var(--paper)}
+.curator-role{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-top:0.15rem}
+.curator-desc{font-size:0.68rem;color:rgba(255,255,255,0.5);line-height:1.7;margin-top:0.3rem}
+.curator-desc strong{color:var(--paper)}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0 1.5rem}
+.rev-item{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1rem;text-align:center}
+.rev-val{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--gold)}
+.rev-label{font-size:0.6rem;color:rgba(255,255,255,0.4);margin-top:0.3rem;letter-spacing:0.08em;text-transform:uppercase}
+.match-row{display:grid;grid-template-columns:90px 1fr 100px;gap:0.5rem;padding:0.6rem 0;border-bottom:1px solid var(--border);align-items:center;font-size:0.72rem}
+.match-date{font-family:'DM Mono',monospace;color:var(--gold);font-size:0.65rem}
+.match-teams{color:var(--paper)}
+.match-venue{color:rgba(255,255,255,0.35);font-size:0.6rem;text-align:right}
+.tag-row{display:flex;flex-wrap:wrap;gap:0.4rem;margin:0.5rem 0 1rem}
+.tag{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.6rem;border:1px solid rgba(196,154,42,0.3);color:var(--gold)}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin:1rem 0 1.5rem}
+.pc{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;text-align:center}
+.pc.feat{border-color:var(--gold);background:rgba(196,154,42,0.06)}
+.pc-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--paper)}
+.pc-price{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--gold);margin:0.3rem 0}
+.pc-price span{font-size:0.7rem;color:rgba(255,255,255,0.35)}
+.pc-desc{font-size:0.65rem;color:rgba(255,255,255,0.4);line-height:1.6}
+.footer{text-align:center;padding:2rem 0;margin-top:3rem;border-top:1px solid var(--border);font-size:0.6rem;color:rgba(255,255,255,0.2)}
+@media(max-width:600px){.doc{padding:2rem 1.5rem}.rev-grid{grid-template-columns:1fr}.pricing-grid{grid-template-columns:1fr}.match-row{grid-template-columns:70px 1fr 60px}}
+</style>
+</head>
+<body>
+<div class="doc">
+
+<div class="doc-badge">Curator</div>
+<h1>Curator <em>Sales Guide</em></h1>
+<p class="subtitle">How to pitch Locavizion to potential Curators — the 5-minute structure, common objections with responses, onboarding flow, and retention strategy.</p>
+
+<h2>The 5-Minute Pitch Structure</h2>
+<p>Every Curator call should follow this structure. Don't wing it — prepare each section in advance.</p>
+
+<h3>1. Hook (30 seconds)</h3>
+<div class="card"><div class="card-body">"The FIFA World Cup is coming to the US this summer — 10 million international visitors across 11 cities. Every single one of them needs local knowledge, and right now nobody is providing it."</div></div>
+
+<h3>2. The Problem (60 seconds)</h3>
+<div class="card"><div class="card-body">"Right now these visitors use Google, TripAdvisor, and generic travel blogs. They end up at the same 10 tourist restaurants in every city. Business travelers fly in for 72 hours and never leave the hotel. Brazilian fans arrive in Tampa and have no idea Ybor City has one of the deepest Latin heritage stories in America. The real city — the one you know — never reaches them."</div></div>
+
+<h3>3. The Solution (60 seconds)</h3>
+<div class="card"><div class="card-body">"Locavizion matches visitors with verified local Curators — people like you who actually know the city. Not a review site. Not a mass-market tour company. A platform where your specific knowledge becomes a bookable product. You do briefing calls before their trip and host in-person experiences while they're here."</div></div>
+
+<h3>4. Their Role (60 seconds)</h3>
+<div class="card"><div class="card-body">"As a founding Curator, you'd design your own experiences — whatever you think shows visitors the real [city]. Food tours, neighbourhood walks, nightlife guides, business networking, cultural deep-dives. You set your own price, choose your own schedule, and decide how many bookings to take. This isn't a gig where someone tells you what to do. This is your knowledge, packaged your way."</div></div>
+
+<h3>5. The Economics (60 seconds)</h3>
+<div class="card"><div class="card-body">"You keep 70% of every experience booking and 65% of every briefing session. Most platforms take 50%+. We take less because your expertise IS the product — you deserve the majority. Let me give you a real number: if you host two food tours a week at $95/person with 8 guests, that's $1,064 per week going directly to you. That's on top of briefing calls, which you price yourself."</div></div>
+
+<h3>6. The Urgency (30 seconds)</h3>
+<div class="card"><div class="card-body">"We're opening only 5 founding Curator positions per city. Founding Curators keep their position permanently, get priority traveler matching, and get featured first in our AI recommendations. The World Cup kicks off June 11 — we need to have Curators trained and ready before then. That's why I reached out to you specifically."</div></div>
+
+<h2>Common Objections & Responses</h2>
+
+<div class="card"><div class="card-title">"How do I know you'll actually send me customers?"</div><div class="card-body">"The World Cup alone guarantees the audience — 10 million international visitors, most arriving with zero local connections. Our AI city guide matches them to you based on their specific interests. You're not waiting for random customers. They're being sent to you because they asked for exactly what you offer. And beyond the World Cup, we're building year-round for business travelers, new residents, and conference attendees."</div></div>
+
+<div class="card"><div class="card-title">"I already do this on my own — why do I need you?"</div><div class="card-body">"Perfect — that means you already know the value of what you offer. We don't replace what you do independently. We give you a bigger audience and handle everything you probably don't love doing: payments, scheduling, marketing, customer support, reviews, disputes. You focus on what you're great at — knowing the city and sharing it."</div></div>
+
+<div class="card"><div class="card-title">"What happens after the World Cup ends?"</div><div class="card-body">"The World Cup is our launch window, not our entire business. After the tournament, we expand to year-round travel, conferences, corporate hospitality, and new residents. Tampa alone adds thousands of new residents every month who need exactly what you offer. Founding Curators keep their position permanently — this isn't a seasonal gig."</div></div>
+
+<div class="card"><div class="card-title">"That's a lot of work. How much time would this take?"</div><div class="card-body">"Entirely up to you. Some Curators will do 2 experiences a week. Some will do 5. Some will focus on briefing calls from home. You control your schedule completely. There's no minimum commitment. If you're busy one week, you block those dates and we don't send you bookings. This scales to whatever you want it to be."</div></div>
+
+<div class="card"><div class="card-title">"I'm not a 'tour guide' — I don't want to walk around with a flag."</div><div class="card-body">"Neither do we. This isn't a walking tour with a microphone. Think of it more like showing a friend around your city. Small groups — 4 to 8 people max. You take them to places you actually go. The briefing calls are even simpler — it's a video call where someone tells you their trip and you tell them exactly where to go and what to do. Your personality IS the product."</div></div>
+
+<div class="card"><div class="card-title">"What if a bad review hurts my reputation?"</div><div class="card-body">"We review every booking feedback privately with you before anything is published. If there's a legitimate issue, we work with you to address it. If it's an unreasonable complaint, we handle the customer directly. Your reputation matters to us as much as it matters to you — great Curators are the entire business."</div></div>
+
+<h2>After the Call — Onboarding Flow</h2>
+<ul>
+  <li><strong>Day 1 post-call:</strong> Send Curator agreement via email. Simple terms — revenue split, cancellation policy, quality expectations. No exclusivity clause</li>
+  <li><strong>Day 2-3:</strong> Curator signs agreement. Platform creates their profile. Curator provides: bio, photo, 5 "domain tags" (e.g. "Cuban food" · "Ybor City" · "Cigar history")</li>
+  <li><strong>Day 4-5:</strong> Curator designs their first experience. Template provided: title, description, duration, max group size, price, what's included</li>
+  <li><strong>Day 6-7:</strong> Platform reviews experience listing, suggests improvements if needed. Curator profile goes live in AI guide</li>
+  <li><strong>Week 2:</strong> First briefing call scheduled (can be a test run with you as the "traveler")</li>
+  <li><strong>Week 3+:</strong> Curator is fully active. Bookings start flowing. Weekly check-in calls for first month</li>
+</ul>
+
+<h2>Retention Strategy</h2>
+<ul>
+  <li><strong>Weekly check-ins</strong> for the first month — catch issues early, make them feel supported</li>
+  <li><strong>Monthly revenue reports</strong> — show them exactly what they earned, how many travelers they helped</li>
+  <li><strong>Curator community</strong> — Group chat (WhatsApp or Slack) where Curators across cities share tips and support each other</li>
+  <li><strong>Feedback loop</strong> — Share positive traveler feedback with Curators immediately. People need to hear they're doing great</li>
+  <li><strong>Revenue growth support</strong> — Help them create new experiences, adjust pricing, optimise their schedule. Their success is platform success</li>
+</ul>
+
+<div class="highlight">
+  <div class="highlight-label">The Golden Rule</div>
+  <p><strong>Listen more than you talk on the call.</strong> The best Curators are people who love talking about their city. If you let them talk for 5 minutes about their favourite neighbourhood, you'll learn exactly how to position the role for them — and they'll have already sold themselves on the idea.</p>
+</div>
+
+<div class="footer">Locavizion · Curator Sales Guide · Internal Reference</div>
+</div>
+<script>
+function copyText(btn,id){var el=document.getElementById(id);if(!el)return;navigator.clipboard.writeText(el.innerText).then(function(){btn.textContent='Copied ✓';setTimeout(function(){btn.textContent='Copy'},2000);}).catch(function(){var ta=document.createElement('textarea');ta.value=el.innerText;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);btn.textContent='Copied ✓';setTimeout(function(){btn.textContent='Copy'},2000);});}
+function toggleCheck(el){el.classList.toggle('done');var b=el.querySelector('.check-box');b.textContent=el.classList.contains('done')?'✓':'';}
+</script>
+</body>
+</html>

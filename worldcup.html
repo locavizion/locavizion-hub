@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Locavizion — World Cup Blueprint</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0c0b09;--paper:#faf7f2;--gold:#c49a2a;--gold2:#e8b84b;--sage:#3a6650;--rust:#a83d20;--muted:#7a6e58;--bg:#0e0d0b;--border:rgba(255,255,255,0.08);--miami:#ff6b35;--nyc:#4a90d9}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--paper);padding:0;margin:0}
+.doc{max-width:860px;margin:0 auto;padding:3rem 2.5rem}
+.doc-badge{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--sage);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.4rem}
+.doc-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--sage)}
+h1{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--gold);line-height:1.2;margin-bottom:0.4rem}
+h1 em{color:var(--paper);font-style:italic}
+.subtitle{font-size:0.78rem;color:rgba(255,255,255,0.4);margin-bottom:2.5rem;line-height:1.6}
+h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--gold);margin:2.5rem 0 1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(196,154,42,0.15)}
+h3{font-size:0.9rem;font-weight:600;color:var(--paper);margin:1.5rem 0 0.6rem}
+h4{font-size:0.8rem;font-weight:500;color:var(--gold2);margin:1rem 0 0.4rem}
+p{font-size:0.8rem;color:rgba(255,255,255,0.6);line-height:1.85;margin-bottom:1rem}
+p strong{color:var(--paper);font-weight:500}
+p em{color:var(--gold);font-style:italic}
+ul{list-style:none;margin-bottom:1.5rem}
+ul li{font-size:0.78rem;color:rgba(255,255,255,0.6);line-height:1.85;padding:0.4rem 0 0.4rem 1.2rem;position:relative;border-bottom:1px solid rgba(255,255,255,0.03)}
+ul li::before{content:'→';position:absolute;left:0;color:var(--gold)}
+ul li strong{color:var(--paper);font-weight:500}
+table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:0.75rem}
+th{text-align:left;font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);padding:0.6rem 0.8rem;border-bottom:1px solid rgba(196,154,42,0.2);font-weight:500}
+td{padding:0.6rem 0.8rem;color:rgba(255,255,255,0.6);border-bottom:1px solid var(--border)}
+tr:hover td{background:rgba(255,255,255,0.02)}
+.highlight{background:rgba(196,154,42,0.08);border:1px solid rgba(196,154,42,0.2);padding:1.2rem 1.5rem;margin:1.5rem 0}
+.highlight-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem}
+.card{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem}
+.card-title{font-size:0.85rem;font-weight:600;color:var(--paper);margin-bottom:0.4rem}
+.card-body{font-size:0.72rem;color:rgba(255,255,255,0.55);line-height:1.8}
+.card-body strong{color:var(--paper)}
+.tpl{background:rgba(255,255,255,0.03);border:1px solid var(--border);margin:1rem 0}
+.tpl-head{display:flex;justify-content:space-between;align-items:center;padding:0.7rem 1rem;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.02)}
+.tpl-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold)}
+.tpl-body{padding:1rem;font-size:0.72rem;color:rgba(255,255,255,0.6);line-height:1.9;white-space:pre-line}
+.tpl-body strong{color:var(--paper)}
+.copy-btn{background:rgba(196,154,42,0.15);border:1px solid rgba(196,154,42,0.3);color:var(--gold);font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;padding:0.3rem 0.7rem;cursor:pointer;text-transform:uppercase}
+.copy-btn:hover{background:rgba(196,154,42,0.3)}
+.check{display:flex;align-items:flex-start;gap:0.6rem;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;font-size:0.72rem;color:rgba(255,255,255,0.6)}
+.check:hover{color:var(--paper)}
+.check-box{width:16px;height:16px;border:1px solid rgba(196,154,42,0.4);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:2px;font-size:0.6rem;color:var(--gold)}
+.check.done{color:rgba(255,255,255,0.25);text-decoration:line-through}
+.check.done .check-box{background:rgba(196,154,42,0.2)}
+.curator-card{display:grid;grid-template-columns:55px 1fr;gap:1rem;background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem}
+.curator-avatar{width:45px;height:45px;border-radius:50%;background:rgba(196,154,42,0.15);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.curator-name{font-size:0.85rem;font-weight:500;color:var(--paper)}
+.curator-role{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-top:0.15rem}
+.curator-desc{font-size:0.68rem;color:rgba(255,255,255,0.5);line-height:1.7;margin-top:0.3rem}
+.curator-desc strong{color:var(--paper)}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0 1.5rem}
+.rev-item{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1rem;text-align:center}
+.rev-val{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--gold)}
+.rev-label{font-size:0.6rem;color:rgba(255,255,255,0.4);margin-top:0.3rem;letter-spacing:0.08em;text-transform:uppercase}
+.match-row{display:grid;grid-template-columns:90px 1fr 100px;gap:0.5rem;padding:0.6rem 0;border-bottom:1px solid var(--border);align-items:center;font-size:0.72rem}
+.match-date{font-family:'DM Mono',monospace;color:var(--gold);font-size:0.65rem}
+.match-teams{color:var(--paper)}
+.match-venue{color:rgba(255,255,255,0.35);font-size:0.6rem;text-align:right}
+.tag-row{display:flex;flex-wrap:wrap;gap:0.4rem;margin:0.5rem 0 1rem}
+.tag{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.6rem;border:1px solid rgba(196,154,42,0.3);color:var(--gold)}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin:1rem 0 1.5rem}
+.pc{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;text-align:center}
+.pc.feat{border-color:var(--gold);background:rgba(196,154,42,0.06)}
+.pc-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--paper)}
+.pc-price{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--gold);margin:0.3rem 0}
+.pc-price span{font-size:0.7rem;color:rgba(255,255,255,0.35)}
+.pc-desc{font-size:0.65rem;color:rgba(255,255,255,0.4);line-height:1.6}
+.footer{text-align:center;padding:2rem 0;margin-top:3rem;border-top:1px solid var(--border);font-size:0.6rem;color:rgba(255,255,255,0.2)}
+@media(max-width:600px){.doc{padding:2rem 1.5rem}.rev-grid{grid-template-columns:1fr}.pricing-grid{grid-template-columns:1fr}.match-row{grid-template-columns:70px 1fr 60px}}
+</style>
+</head>
+<body>
+<div class="doc">
+
+<div class="doc-badge">World Cup</div>
+<h1>World Cup <em>Blueprint</em></h1>
+<p class="subtitle">Complete FIFA 2026 activation strategy — match schedule, city preparation timeline, fan nation analysis, and 5-phase execution plan.</p>
+
+<h2>The Opportunity</h2>
+<p>The 2026 FIFA World Cup is the first 48-team tournament, hosted across the United States, Canada, and Mexico. The US alone hosts matches in <strong>11 cities</strong> from June 11 to July 19, 2026 — a 39-day window that represents the single largest hospitality opportunity in a generation.</p>
+<div class="rev-grid">
+  <div class="rev-item"><div class="rev-val">10M+</div><div class="rev-label">International Visitors</div></div>
+  <div class="rev-item"><div class="rev-val">$17.2B</div><div class="rev-label">Projected GDP Boost</div></div>
+  <div class="rev-item"><div class="rev-val">39</div><div class="rev-label">Days of Matches</div></div>
+</div>
+
+<h2>Match Schedule — Miami (Hard Rock Stadium)</h2>
+<p>Miami hosts 7 matches including group stage games featuring Argentina and Brazil — the two biggest fan nations with the largest diaspora communities in South Florida.</p>
+<div class="match-row"><div class="match-date">Jun 12</div><div class="match-teams"><strong>Argentina vs TBD</strong></div><div class="match-venue">Group Stage</div></div>
+<div class="match-row"><div class="match-date">Jun 15</div><div class="match-teams"><strong>Brazil vs TBD</strong></div><div class="match-venue">Group Stage</div></div>
+<div class="match-row"><div class="match-date">Jun 18</div><div class="match-teams"><strong>Group Match</strong></div><div class="match-venue">Group Stage</div></div>
+<div class="match-row"><div class="match-date">Jun 21</div><div class="match-teams"><strong>Group Match</strong></div><div class="match-venue">Group Stage</div></div>
+<div class="match-row"><div class="match-date">Jun 24</div><div class="match-teams"><strong>Brazil vs Scotland</strong></div><div class="match-venue">Group Stage</div></div>
+<div class="match-row"><div class="match-date">Jul 2</div><div class="match-teams"><strong>Round of 16</strong></div><div class="match-venue">Knockout</div></div>
+<div class="match-row"><div class="match-date">Jul 13</div><div class="match-teams"><strong>Semi-Final</strong></div><div class="match-venue">Knockout</div></div>
+
+<h2>5-Phase Activation Timeline</h2>
+
+<h3>Phase 1 — Foundation (Now → April 2026)</h3>
+<ul>
+  <li>Recruit and sign 15 founding Curators across Tampa, Miami, and NYC (5 per city)</li>
+  <li>Build Curator onboarding materials and experience design templates</li>
+  <li>Launch Instagram @locavizion with consistent content across all 5 pillars</li>
+  <li>Submit accelerator applications (Techstars, Y Combinator, local programs)</li>
+  <li>Begin investor outreach with briefing doc and pitch deck</li>
+  <li>Create fan nation guides for top 10 visiting countries</li>
+</ul>
+
+<h3>Phase 2 — Pre-Launch (April → May 2026)</h3>
+<ul>
+  <li>Beta test platform with early waitlist signups — free Curator briefings in exchange for feedback</li>
+  <li>Instagram ramp to 1,000+ followers with daily content</li>
+  <li>Secure 5-10 venue partnerships (restaurants, hotels willing to display QR codes)</li>
+  <li>Mobile app MVP in development (React Native, iOS + Android)</li>
+  <li>First press outreach — local media in Tampa, Miami, NYC about World Cup preparation</li>
+  <li>Print and distribute QR stickers, table cards, and flyers across Tampa Bay</li>
+</ul>
+
+<h3>Phase 3 — Launch (May → June 11, 2026)</h3>
+<ul>
+  <li>Full marketing push — Instagram, LinkedIn, TikTok, local media, podcast appearances</li>
+  <li>PR campaign — "How a Tampa founder is solving the World Cup's local knowledge problem"</li>
+  <li>Fan nation guide distribution — partner with fan clubs, cultural organisations, Facebook groups</li>
+  <li>Guerrilla campaign — QR flyers at airports, fan zone entrances, hotel lobbies</li>
+  <li>Curator readiness check — all experiences listed, all briefing slots open, all profiles optimised</li>
+  <li>Mobile app beta launch to waitlist members</li>
+</ul>
+
+<h3>Phase 4 — Game Time (June 11 → July 19, 2026)</h3>
+<ul>
+  <li>Live operations — real-time city intelligence updates, match-day logistics, fan zone coverage</li>
+  <li>Curator support — daily check-ins, booking management, issue resolution</li>
+  <li>Content machine — 3+ Instagram posts per day, stories from every match city, Curator experience recaps</li>
+  <li>Data collection — track bookings, user behaviour, chatbot queries, popular neighbourhoods, Curator performance</li>
+  <li>Customer success — follow up with every booker, collect reviews and testimonials</li>
+  <li>Media engagement — share user stories, Curator spotlights, city intelligence with press</li>
+</ul>
+
+<h3>Phase 5 — Post-Cup & Transition (July 20+ )</h3>
+<ul>
+  <li>Retain World Cup members — transition to year-round membership with ongoing city intelligence</li>
+  <li>Expand to remaining 8 WC host cities based on Phase 4 learnings</li>
+  <li>Transition Curators to year-round model — conferences, business travel, new residents</li>
+  <li>Raise Series A based on World Cup traction data</li>
+  <li>Build partnerships with convention centres, corporate travel managers, relocation companies</li>
+  <li>International expansion planning — 2028 World Cup (NA again?) and beyond</li>
+</ul>
+
+<h2>Fan Nation Analysis — Top Visiting Countries</h2>
+<table>
+  <tr><th>Nation</th><th>Est. Visitors</th><th>Key Cities</th><th>Cultural Needs</th></tr>
+  <tr><td>Brazil</td><td>500K+</td><td>Miami, NYC</td><td>Portuguese speakers, Latin food, samba culture, beach access</td></tr>
+  <tr><td>Mexico</td><td>1M+</td><td>All border cities, LA, Houston</td><td>Spanish speakers, familia culture, authentic Mexican food</td></tr>
+  <tr><td>Argentina</td><td>200K+</td><td>Miami, NYC</td><td>Spanish speakers, steak/asado, football culture, nightlife</td></tr>
+  <tr><td>England</td><td>300K+</td><td>NYC, Boston, Philadelphia</td><td>Pubs, sports bars, English-speaking comfort, transit familiarity</td></tr>
+  <tr><td>Germany</td><td>200K+</td><td>NYC, Philadelphia</td><td>Beer culture, efficiency expectations, public transit, craft brewing</td></tr>
+  <tr><td>Colombia</td><td>150K+</td><td>Miami, NYC</td><td>Spanish speakers, salsa culture, Colombian food communities</td></tr>
+  <tr><td>Japan</td><td>100K+</td><td>LA, NYC</td><td>Japanese food, safety-conscious, technology expectations, politeness norms</td></tr>
+</table>
+
+<div class="highlight">
+  <div class="highlight-label">Key Stat</div>
+  <p>The 2022 Qatar World Cup generated <strong>$7.5 billion in direct spending</strong>. The 2026 USA edition across 11 cities with a 48-team format is projected to be <strong>2-3x larger</strong>. This is the single biggest hospitality opportunity in a generation — and Locavizion is positioned to capture it.</p>
+</div>
+
+<div class="footer">Locavizion · World Cup Blueprint · Internal Reference</div>
+</div>
+<script>function copyText(btn,id){var el=document.getElementById(id);if(!el)return;navigator.clipboard.writeText(el.innerText).then(function(){btn.textContent="Copied ✓";setTimeout(function(){btn.textContent="Copy"},2000)}).catch(function(){var ta=document.createElement("textarea");ta.value=el.innerText;document.body.appendChild(ta);ta.select();document.execCommand("copy");document.body.removeChild(ta);btn.textContent="Copied ✓";setTimeout(function(){btn.textContent="Copy"},2000)});}function toggleCheck(el){el.classList.toggle("done");var b=el.querySelector(".check-box");b.textContent=el.classList.contains("done")?"✓":"";}</script>
+</body>
+</html>

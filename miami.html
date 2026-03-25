@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Locavizion — Miami City Blueprint</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0c0b09;--paper:#faf7f2;--gold:#c49a2a;--gold2:#e8b84b;--sage:#3a6650;--rust:#a83d20;--muted:#7a6e58;--bg:#0e0d0b;--border:rgba(255,255,255,0.08);--miami:#ff6b35;--nyc:#4a90d9}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--paper);padding:0;margin:0}
+.doc{max-width:860px;margin:0 auto;padding:3rem 2.5rem}
+.doc-badge{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--sage);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.4rem}
+.doc-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--sage)}
+h1{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--gold);line-height:1.2;margin-bottom:0.4rem}
+h1 em{color:var(--paper);font-style:italic}
+.subtitle{font-size:0.78rem;color:rgba(255,255,255,0.4);margin-bottom:2.5rem;line-height:1.6}
+h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--gold);margin:2.5rem 0 1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(196,154,42,0.15)}
+h3{font-size:0.9rem;font-weight:600;color:var(--paper);margin:1.5rem 0 0.6rem}
+h4{font-size:0.8rem;font-weight:500;color:var(--gold2);margin:1rem 0 0.4rem}
+p{font-size:0.8rem;color:rgba(255,255,255,0.6);line-height:1.85;margin-bottom:1rem}
+p strong{color:var(--paper);font-weight:500}
+p em{color:var(--gold);font-style:italic}
+ul{list-style:none;margin-bottom:1.5rem}
+ul li{font-size:0.78rem;color:rgba(255,255,255,0.6);line-height:1.85;padding:0.4rem 0 0.4rem 1.2rem;position:relative;border-bottom:1px solid rgba(255,255,255,0.03)}
+ul li::before{content:'→';position:absolute;left:0;color:var(--gold)}
+ul li strong{color:var(--paper);font-weight:500}
+table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:0.75rem}
+th{text-align:left;font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);padding:0.6rem 0.8rem;border-bottom:1px solid rgba(196,154,42,0.2);font-weight:500}
+td{padding:0.6rem 0.8rem;color:rgba(255,255,255,0.6);border-bottom:1px solid var(--border)}
+tr:hover td{background:rgba(255,255,255,0.02)}
+.highlight{background:rgba(196,154,42,0.08);border:1px solid rgba(196,154,42,0.2);padding:1.2rem 1.5rem;margin:1.5rem 0}
+.highlight-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem}
+.card{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem}
+.card-title{font-size:0.85rem;font-weight:600;color:var(--paper);margin-bottom:0.4rem}
+.card-body{font-size:0.72rem;color:rgba(255,255,255,0.55);line-height:1.8}
+.card-body strong{color:var(--paper)}
+.tpl{background:rgba(255,255,255,0.03);border:1px solid var(--border);margin:1rem 0}
+.tpl-head{display:flex;justify-content:space-between;align-items:center;padding:0.7rem 1rem;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.02)}
+.tpl-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold)}
+.tpl-body{padding:1rem;font-size:0.72rem;color:rgba(255,255,255,0.6);line-height:1.9;white-space:pre-line}
+.tpl-body strong{color:var(--paper)}
+.copy-btn{background:rgba(196,154,42,0.15);border:1px solid rgba(196,154,42,0.3);color:var(--gold);font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;padding:0.3rem 0.7rem;cursor:pointer;text-transform:uppercase}
+.copy-btn:hover{background:rgba(196,154,42,0.3)}
+.check{display:flex;align-items:flex-start;gap:0.6rem;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;font-size:0.72rem;color:rgba(255,255,255,0.6)}
+.check:hover{color:var(--paper)}
+.check-box{width:16px;height:16px;border:1px solid rgba(196,154,42,0.4);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:2px;font-size:0.6rem;color:var(--gold)}
+.check.done{color:rgba(255,255,255,0.25);text-decoration:line-through}
+.check.done .check-box{background:rgba(196,154,42,0.2)}
+.curator-card{display:grid;grid-template-columns:55px 1fr;gap:1rem;background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem}
+.curator-avatar{width:45px;height:45px;border-radius:50%;background:rgba(196,154,42,0.15);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.curator-name{font-size:0.85rem;font-weight:500;color:var(--paper)}
+.curator-role{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-top:0.15rem}
+.curator-desc{font-size:0.68rem;color:rgba(255,255,255,0.5);line-height:1.7;margin-top:0.3rem}
+.curator-desc strong{color:var(--paper)}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0 1.5rem}
+.rev-item{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1rem;text-align:center}
+.rev-val{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--gold)}
+.rev-label{font-size:0.6rem;color:rgba(255,255,255,0.4);margin-top:0.3rem;letter-spacing:0.08em;text-transform:uppercase}
+.match-row{display:grid;grid-template-columns:90px 1fr 100px;gap:0.5rem;padding:0.6rem 0;border-bottom:1px solid var(--border);align-items:center;font-size:0.72rem}
+.match-date{font-family:'DM Mono',monospace;color:var(--gold);font-size:0.65rem}
+.match-teams{color:var(--paper)}
+.match-venue{color:rgba(255,255,255,0.35);font-size:0.6rem;text-align:right}
+.tag-row{display:flex;flex-wrap:wrap;gap:0.4rem;margin:0.5rem 0 1rem}
+.tag{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.6rem;border:1px solid rgba(196,154,42,0.3);color:var(--gold)}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin:1rem 0 1.5rem}
+.pc{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;text-align:center}
+.pc.feat{border-color:var(--gold);background:rgba(196,154,42,0.06)}
+.pc-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--paper)}
+.pc-price{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--gold);margin:0.3rem 0}
+.pc-price span{font-size:0.7rem;color:rgba(255,255,255,0.35)}
+.pc-desc{font-size:0.65rem;color:rgba(255,255,255,0.4);line-height:1.6}
+.footer{text-align:center;padding:2rem 0;margin-top:3rem;border-top:1px solid var(--border);font-size:0.6rem;color:rgba(255,255,255,0.2)}
+@media(max-width:600px){.doc{padding:2rem 1.5rem}.rev-grid{grid-template-columns:1fr}.pricing-grid{grid-template-columns:1fr}.match-row{grid-template-columns:70px 1fr 60px}}
+</style>
+</head>
+<body>
+<div class="doc">
+
+<div class="doc-badge">World Cup</div>
+<h1>Miami <em>City Blueprint</em></h1>
+<p class="subtitle">The launch city. 7 World Cup matches including a semi-final. Complete neighbourhood guide, Curator deployment plan, and fan nation strategy.</p>
+
+<h2>Why Miami Is City #1</h2>
+<p>Miami hosts <strong>7 World Cup matches</strong> at Hard Rock Stadium — more than most other US host cities. The match roster includes games likely featuring <strong>Argentina and Brazil</strong>, the two biggest fan nations with the largest diaspora communities already living in South Florida. Brazil vs Scotland on June 24 alone will bring more concentrated international fan traffic than any other single group-stage match.</p>
+<p>Miami also has the strongest existing infrastructure for international visitors: multilingual population, international airport hub (MIA), established tourism infrastructure, and a Latin American cultural foundation that makes visiting fans from South America feel immediately welcome.</p>
+
+<h2>Neighbourhood Guide — For Visitors</h2>
+
+<h3>Brickell</h3>
+<p><strong>Best for:</strong> Business travelers, finance professionals, upscale dining<br>
+<strong>Vibe:</strong> Manhattan-meets-Miami. High-rise condos, corporate offices, rooftop bars<br>
+<strong>Key spots:</strong> Brickell City Centre (shopping/dining), Quinto La Huella (Argentine restaurant), Komodo (upscale Asian), La Mar (Peruvian)<br>
+<strong>Transit:</strong> Metromover stops at Brickell and Fifth Street. Walking distance to downtown<br>
+<strong>Stay here if:</strong> You want luxury, walkability, and a professional atmosphere</p>
+
+<h3>Wynwood</h3>
+<p><strong>Best for:</strong> Young fans, art lovers, food enthusiasts, nightlife seekers<br>
+<strong>Vibe:</strong> Open-air art gallery meets gastro district. Colourful, energetic, photogenic<br>
+<strong>Key spots:</strong> Wynwood Walls (free outdoor murals), KYU (Asian BBQ), Salty Donut (Instagram-famous), NW 2nd Ave restaurant row<br>
+<strong>Transit:</strong> No direct Metrorail. Uber/Lyft or walking from Design District<br>
+<strong>Stay here if:</strong> You want art, street food, craft cocktails, and a creative atmosphere</p>
+
+<h3>Little Havana</h3>
+<p><strong>Best for:</strong> Latin American fans, cultural explorers, authentic food seekers<br>
+<strong>Vibe:</strong> The heart of Cuban Miami. Vibrant, authentic, bilingual (Spanish dominant)<br>
+<strong>Key spots:</strong> Calle Ocho (SW 8th Street), Domino Park (Máximo Gómez Park), Versailles Restaurant (Cuban coffee institution), Ball & Chain (live Latin music)<br>
+<strong>Transit:</strong> Bus routes along SW 8th Street. 15-minute drive from downtown<br>
+<strong>Stay here if:</strong> You're a Latin American fan who wants to feel at home immediately</p>
+
+<h3>Coconut Grove</h3>
+<p><strong>Best for:</strong> Families, relaxed travelers, waterfront lovers<br>
+<strong>Vibe:</strong> Miami's oldest neighbourhood. Bohemian roots, now upscale-casual<br>
+<strong>Key spots:</strong> Peacock Park (Saturday farmers market), CocoWalk (shopping), Vizcaya Museum, waterfront parks<br>
+<strong>Transit:</strong> Metrorail Coconut Grove station. Walkable neighbourhood once you arrive<br>
+<strong>Stay here if:</strong> You want a calmer, greener Miami experience away from the tourist intensity</p>
+
+<h3>Miami Beach</h3>
+<p><strong>Best for:</strong> General tourists, beach access, nightlife (mainstream)<br>
+<strong>Vibe:</strong> The postcard version of Miami. Art Deco architecture, beach, party scene<br>
+<strong>Key spots:</strong> Ocean Drive (walk it, don't eat there — tourist trap pricing), Lincoln Road (outdoor dining), North Beach (quieter, less crowded beaches)<br>
+<strong>Transit:</strong> Causeway bus from downtown. 20-30 minute drive depending on traffic<br>
+<strong>Stay here if:</strong> You want the classic beach experience and don't mind tourist pricing</p>
+
+<h3>Design District</h3>
+<p><strong>Best for:</strong> Luxury shoppers, art collectors, fine dining<br>
+<strong>Vibe:</strong> Polished, curated, upscale. The anti-South Beach<br>
+<strong>Key spots:</strong> Louis Vuitton, Prada flagship stores. Michael's Genuine (restaurant), Mandolin (Mediterranean). Institute of Contemporary Art (free)<br>
+<strong>Transit:</strong> Walking distance from Wynwood. No direct Metrorail — drive or ride<br>
+<strong>Stay here if:</strong> You want luxury retail and high-end dining in a less crowded setting</p>
+
+<h2>Getting to Hard Rock Stadium</h2>
+<div class="card"><div class="card-title">From Downtown / Brickell / Wynwood</div><div class="card-body">
+<strong>Distance:</strong> ~17 miles north<br>
+<strong>Normal drive time:</strong> 30-45 minutes<br>
+<strong>Match day drive time:</strong> 90-120+ minutes<br>
+<strong>Recommendation:</strong> Take the Tri-Rail or arrange rideshare 3+ hours before kickoff. Parking at the stadium is available but fills early. Tailgating culture exists — arrive early if driving<br>
+<strong>DO NOT:</strong> Plan to Uber 1 hour before kickoff — surge pricing will be extreme and wait times long
+</div></div>
+
+<h2>Curator Deployment — Miami</h2>
+
+<div class="curator-card"><div class="curator-avatar">🌴</div><div><div class="curator-name">Latin Culture Curator</div><div class="curator-role">Priority Hire #1 · Highest Revenue Potential</div><div class="curator-desc">Must speak Spanish and ideally Portuguese. Deep knowledge of Little Havana, Doral (Venezuelan/Colombian community), Hialeah (Cuban community). Can connect Brazilian and Argentine fans to the Latin Miami that matches their culture. This is the most valuable Curator role for World Cup because the biggest fan nations (Brazil, Argentina, Colombia, Mexico) are all Spanish/Portuguese speaking.</div></div></div>
+
+<div class="curator-card"><div class="curator-avatar">🍹</div><div><div class="curator-name">Nightlife & Social Curator</div><div class="curator-role">Founding Role · Match Night Revenue</div><div class="curator-desc">Knows which clubs have real energy vs tourist traps. Rooftop bar access. Private event connections. After-party intel. This Curator's revenue will spike on match nights when thousands of fans want to celebrate. Must know Brickell, Wynwood, and South Beach nightlife thoroughly.</div></div></div>
+
+<div class="curator-card"><div class="curator-avatar">🏢</div><div><div class="curator-name">Business & Conference Curator</div><div class="curator-role">Founding Role · Enterprise Crossover</div><div class="curator-desc">For executives attending World Cup matches alongside business trips. Private dining recommendations, meeting spaces, who to know in Miami's business community. This role doubles as the enterprise product — corporate clients pay premium for executive hospitality.</div></div></div>
+
+<div class="curator-card"><div class="curator-avatar">🍽</div><div><div class="curator-name">Food & Restaurant Curator</div><div class="curator-role">Founding Role · Highest Volume</div><div class="curator-desc">The "where should I eat?" expert. Covers everything from Versailles to fine dining. Knows which restaurants to book weeks in advance during World Cup and which hidden gems will still have availability. Food tours across multiple neighbourhoods.</div></div></div>
+
+<div class="curator-card"><div class="curator-avatar">🎨</div><div><div class="curator-name">Art & Culture Curator</div><div class="curator-role">Founding Role · Premium Audience</div><div class="curator-desc">Pérez Art Museum, ICA, Wynwood galleries, Design District. Connects visitors with Miami's art scene beyond the murals. Gallery opening access, artist studio visits, cultural event calendar. Appeals to the higher-spending visitor segment.</div></div></div>
+
+<h2>Fan Nation Strategy — Miami</h2>
+<table>
+  <tr><th>Nation</th><th>Est. Miami Visitors</th><th>Where They'll Gravitate</th><th>Curator Angle</th></tr>
+  <tr><td>Brazil</td><td>100K+</td><td>Miami Beach, Brickell, Brazilian community in Deerfield Beach</td><td>Portuguese-speaking Latin Culture Curator. Brazilian food spots, samba nights</td></tr>
+  <tr><td>Argentina</td><td>75K+</td><td>Brickell (large Argentine community), Coral Gables</td><td>Argentine steak guide, mate culture, tango nights. Quinto La Huella is the anchor</td></tr>
+  <tr><td>Colombia</td><td>50K+</td><td>Doral, Weston, Little Havana adjacent</td><td>Colombian food tour, salsa dancing, community events</td></tr>
+  <tr><td>Mexico</td><td>75K+</td><td>Citywide, especially Homestead area</td><td>Authentic Mexican food (not Tex-Mex), family-friendly experiences</td></tr>
+  <tr><td>England</td><td>40K+</td><td>South Beach, Brickell, hotel clusters</td><td>Pub guide, proper English breakfast spots, rugby-bar equivalents</td></tr>
+</table>
+
+<div class="highlight">
+  <div class="highlight-label">Miami Revenue Projection — World Cup Period</div>
+  <p>With 5 active Curators, 7 match days, and projected visitor volume: <strong>$45,000-$65,000 gross revenue</strong> during the 39-day World Cup window. Platform share (30-35%): <strong>$15,000-$22,000</strong>. This is Miami alone. Tampa and NYC add to this independently.</p>
+</div>
+
+<div class="footer">Locavizion · Miami City Blueprint · Internal Reference</div>
+</div>
+<script>function toggleCheck(el){el.classList.toggle("done");var b=el.querySelector(".check-box");b.textContent=el.classList.contains("done")?"✓":"";}</script>
+</body>
+</html>

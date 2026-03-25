@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Locavizion — Instagram Launch Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0c0b09;--paper:#faf7f2;--gold:#c49a2a;--gold2:#e8b84b;--sage:#3a6650;--rust:#a83d20;--muted:#7a6e58;--bg:#0e0d0b;--border:rgba(255,255,255,0.08);--miami:#ff6b35;--nyc:#4a90d9}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--paper);padding:0;margin:0}
+.doc{max-width:860px;margin:0 auto;padding:3rem 2.5rem}
+.doc-badge{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--sage);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.4rem}
+.doc-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--sage)}
+h1{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--gold);line-height:1.2;margin-bottom:0.4rem}
+h1 em{color:var(--paper);font-style:italic}
+.subtitle{font-size:0.78rem;color:rgba(255,255,255,0.4);margin-bottom:2.5rem;line-height:1.6}
+h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--gold);margin:2.5rem 0 1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(196,154,42,0.15)}
+h3{font-size:0.9rem;font-weight:600;color:var(--paper);margin:1.5rem 0 0.6rem}
+h4{font-size:0.8rem;font-weight:500;color:var(--gold2);margin:1rem 0 0.4rem}
+p{font-size:0.8rem;color:rgba(255,255,255,0.6);line-height:1.85;margin-bottom:1rem}
+p strong{color:var(--paper);font-weight:500}
+p em{color:var(--gold);font-style:italic}
+ul{list-style:none;margin-bottom:1.5rem}
+ul li{font-size:0.78rem;color:rgba(255,255,255,0.6);line-height:1.85;padding:0.4rem 0 0.4rem 1.2rem;position:relative;border-bottom:1px solid rgba(255,255,255,0.03)}
+ul li::before{content:'→';position:absolute;left:0;color:var(--gold)}
+ul li strong{color:var(--paper);font-weight:500}
+table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:0.75rem}
+th{text-align:left;font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);padding:0.6rem 0.8rem;border-bottom:1px solid rgba(196,154,42,0.2);font-weight:500}
+td{padding:0.6rem 0.8rem;color:rgba(255,255,255,0.6);border-bottom:1px solid var(--border)}
+tr:hover td{background:rgba(255,255,255,0.02)}
+.highlight{background:rgba(196,154,42,0.08);border:1px solid rgba(196,154,42,0.2);padding:1.2rem 1.5rem;margin:1.5rem 0}
+.highlight-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem}
+.card{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem}
+.card-title{font-size:0.85rem;font-weight:600;color:var(--paper);margin-bottom:0.4rem}
+.card-body{font-size:0.72rem;color:rgba(255,255,255,0.55);line-height:1.8}
+.card-body strong{color:var(--paper)}
+.tpl{background:rgba(255,255,255,0.03);border:1px solid var(--border);margin:1rem 0}
+.tpl-head{display:flex;justify-content:space-between;align-items:center;padding:0.7rem 1rem;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.02)}
+.tpl-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold)}
+.tpl-body{padding:1rem;font-size:0.72rem;color:rgba(255,255,255,0.6);line-height:1.9;white-space:pre-line}
+.tpl-body strong{color:var(--paper)}
+.copy-btn{background:rgba(196,154,42,0.15);border:1px solid rgba(196,154,42,0.3);color:var(--gold);font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;padding:0.3rem 0.7rem;cursor:pointer;text-transform:uppercase}
+.copy-btn:hover{background:rgba(196,154,42,0.3)}
+.check{display:flex;align-items:flex-start;gap:0.6rem;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;font-size:0.72rem;color:rgba(255,255,255,0.6)}
+.check:hover{color:var(--paper)}
+.check-box{width:16px;height:16px;border:1px solid rgba(196,154,42,0.4);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:2px;font-size:0.6rem;color:var(--gold)}
+.check.done{color:rgba(255,255,255,0.25);text-decoration:line-through}
+.check.done .check-box{background:rgba(196,154,42,0.2)}
+.curator-card{display:grid;grid-template-columns:55px 1fr;gap:1rem;background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem}
+.curator-avatar{width:45px;height:45px;border-radius:50%;background:rgba(196,154,42,0.15);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.curator-name{font-size:0.85rem;font-weight:500;color:var(--paper)}
+.curator-role{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-top:0.15rem}
+.curator-desc{font-size:0.68rem;color:rgba(255,255,255,0.5);line-height:1.7;margin-top:0.3rem}
+.curator-desc strong{color:var(--paper)}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0 1.5rem}
+.rev-item{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1rem;text-align:center}
+.rev-val{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--gold)}
+.rev-label{font-size:0.6rem;color:rgba(255,255,255,0.4);margin-top:0.3rem;letter-spacing:0.08em;text-transform:uppercase}
+.match-row{display:grid;grid-template-columns:90px 1fr 100px;gap:0.5rem;padding:0.6rem 0;border-bottom:1px solid var(--border);align-items:center;font-size:0.72rem}
+.match-date{font-family:'DM Mono',monospace;color:var(--gold);font-size:0.65rem}
+.match-teams{color:var(--paper)}
+.match-venue{color:rgba(255,255,255,0.35);font-size:0.6rem;text-align:right}
+.tag-row{display:flex;flex-wrap:wrap;gap:0.4rem;margin:0.5rem 0 1rem}
+.tag{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.6rem;border:1px solid rgba(196,154,42,0.3);color:var(--gold)}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin:1rem 0 1.5rem}
+.pc{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;text-align:center}
+.pc.feat{border-color:var(--gold);background:rgba(196,154,42,0.06)}
+.pc-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--paper)}
+.pc-price{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--gold);margin:0.3rem 0}
+.pc-price span{font-size:0.7rem;color:rgba(255,255,255,0.35)}
+.pc-desc{font-size:0.65rem;color:rgba(255,255,255,0.4);line-height:1.6}
+.footer{text-align:center;padding:2rem 0;margin-top:3rem;border-top:1px solid var(--border);font-size:0.6rem;color:rgba(255,255,255,0.2)}
+@media(max-width:600px){.doc{padding:2rem 1.5rem}.rev-grid{grid-template-columns:1fr}.pricing-grid{grid-template-columns:1fr}.match-row{grid-template-columns:70px 1fr 60px}}
+</style>
+</head>
+<body>
+<div class="doc">
+
+<div class="doc-badge">Strategy</div>
+<h1>Instagram <em>Launch Plan</em></h1>
+<p class="subtitle">Complete content strategy for @locavizion — 5 content pillars, 7-day posting schedule, caption templates, hashtag groups, reels strategy, and growth tactics.</p>
+
+<h2>Account Setup</h2>
+<ul>
+  <li><strong>Handle:</strong> @locavizion</li>
+  <li><strong>Name:</strong> Locavizion · City Intelligence</li>
+  <li><strong>Bio:</strong> See the world like a local ✦ AI + Expert Curators ⚽ World Cup 2026 · Miami · Tampa · NYC 🔗 locavizion.com</li>
+  <li><strong>Profile photo:</strong> Gold eye logo on dark background (the SVG mark, exported as PNG at 400x400)</li>
+  <li><strong>Account type:</strong> Business account (for analytics access)</li>
+  <li><strong>Link:</strong> locavizion.com (use Linktree only if you need multiple links later)</li>
+</ul>
+
+<h2>5 Content Pillars</h2>
+
+<h3>Pillar 1 — City Intelligence</h3>
+<p>The core of the brand. Posts that prove Locavizion has knowledge worth paying for.</p>
+<ul>
+  <li>"5 things nobody tells you about Miami" carousels</li>
+  <li>Neighbourhood breakdowns — "Wynwood vs Design District: Where should you actually stay?"</li>
+  <li>Hidden gem reveals — specific restaurants, bars, parks that tourists never find</li>
+  <li>"Locals only" tips — the real version of each city that Google doesn't know</li>
+  <li>Transit guides — "How to actually get to Hard Rock Stadium without sitting in traffic for 3 hours"</li>
+</ul>
+
+<h3>Pillar 2 — World Cup Countdown</h3>
+<p>Time-sensitive content that creates urgency and taps into World Cup search traffic.</p>
+<ul>
+  <li>Daily/weekly countdown posts — "82 days until kickoff. Is your city ready?"</li>
+  <li>Match preview posts — "Brazil vs Scotland, June 24, Miami. Here's what Brazilian fans need to know"</li>
+  <li>City preparation updates — "Miami's fan zone locations announced" (when available)</li>
+  <li>Fan travel tips — "Flying into MIA vs FLL — which airport for which matches"</li>
+</ul>
+
+<h3>Pillar 3 — Curator Spotlights</h3>
+<p>Human faces of the brand. Shows that real people power the platform.</p>
+<ul>
+  <li>Short video intros of each Curator — 30-60 second reels showing their personality and domain</li>
+  <li>"Day in the life" stories showing Curators in their element — at a restaurant, at a gallery, on the water</li>
+  <li>Curator recommendations — "Our Tampa Food Curator's top 3 this week"</li>
+  <li>Behind-the-scenes of experience design — "How Sofia designs a Little Havana food walk"</li>
+</ul>
+
+<h3>Pillar 4 — Behind the Build</h3>
+<p>Founder journey content. Building in public. Startup transparency.</p>
+<ul>
+  <li>Weekly updates — "Week 3: First Curator signed, 47 waitlist signups"</li>
+  <li>Lessons learned — "What I got wrong about travel apps"</li>
+  <li>Milestone celebrations — "100 waitlist signups" (screenshot of Google Sheet with names blurred)</li>
+  <li>Honest posts — "Nobody replied to my first 5 Curator messages. Here's what I changed"</li>
+</ul>
+
+<h3>Pillar 5 — Fan Nation Guides</h3>
+<p>Content targeted at specific fan nations visiting the US for the World Cup.</p>
+<ul>
+  <li>Brazilian fans — "Where to find açaí, feijoada, and samba in Miami"</li>
+  <li>Argentine fans — "The best steak in Tampa Bay (yes, it exists)"</li>
+  <li>Mexican fans — "Where to watch matches with fellow fans in NYC"</li>
+  <li>English fans — "A proper pub guide for every World Cup host city"</li>
+  <li>German fans — "Craft beer in Tampa Bay — a guide for Bundesliga fans"</li>
+</ul>
+
+<h2>7-Day Posting Schedule</h2>
+<table>
+  <tr><th>Day</th><th>Format</th><th>Pillar</th><th>Example</th></tr>
+  <tr><td>Monday</td><td>Carousel (5-8 slides)</td><td>City Intelligence</td><td>"7 neighbourhoods in Miami: which one is yours?"</td></tr>
+  <tr><td>Tuesday</td><td>Reel (30-60 sec)</td><td>City Intelligence</td><td>"Only locals know about this spot in Ybor City…"</td></tr>
+  <tr><td>Wednesday</td><td>Story (3-5 slides)</td><td>World Cup Countdown</td><td>"78 days. Match schedule update for Miami"</td></tr>
+  <tr><td>Thursday</td><td>Reel (30-60 sec)</td><td>Curator Spotlight</td><td>"Meet your Tampa Food Curator" interview clip</td></tr>
+  <tr><td>Friday</td><td>Carousel (5-8 slides)</td><td>Fan Nation Guide</td><td>"Brazilian fans: your Miami survival guide"</td></tr>
+  <tr><td>Saturday</td><td>Story (3-5 slides)</td><td>Behind the Build</td><td>"This week: 2 Curator calls, 15 new signups"</td></tr>
+  <tr><td>Sunday</td><td>Static image post</td><td>Brand / Inspiration</td><td>Beautiful city photo + brand quote overlay</td></tr>
+</table>
+
+<h2>Caption Templates</h2>
+
+<h3>City Intelligence Post</h3>
+<div class="tpl">
+  <div class="tpl-head"><span class="tpl-label">Caption Template</span><button class="copy-btn" onclick="copyText(this,'cap1')">Copy</button></div>
+  <div class="tpl-body" id="cap1">Everyone tells you to go to [popular tourist spot].
+
+Here's what they don't tell you:
+
+→ [Hidden alternative #1] — [why it's better]
+→ [Hidden alternative #2] — [what makes it special]
+→ [Hidden alternative #3] — [the insider angle]
+
+The tourist version of [city] and the local version are two completely different cities. We show you the local one.
+
+🔗 Link in bio → locavizion.com
+
+#Locavizion #[City] #TravelLikeALocal #WorldCup2026 #HiddenGems</div>
+</div>
+
+<h3>World Cup Countdown</h3>
+<div class="tpl">
+  <div class="tpl-head"><span class="tpl-label">Caption Template</span><button class="copy-btn" onclick="copyText(this,'cap2')">Copy</button></div>
+  <div class="tpl-body" id="cap2">[XX] days until the World Cup kicks off in [city].
+
+[Specific fact about that city's preparation or match schedule]
+
+If you're coming to [city] for the tournament — you need a local. Not Google. Not TripAdvisor. A real person who knows the city.
+
+That's what we're building. Join the waitlist → link in bio.
+
+⚽ #WorldCup2026 #FIFA2026 #[City] #Locavizion</div>
+</div>
+
+<h2>Hashtag Strategy</h2>
+
+<h3>Primary (use on every post)</h3>
+<div class="tag-row">
+  <span class="tag">#Locavizion</span><span class="tag">#SeeTheWorldLikeALocal</span><span class="tag">#CityIntelligence</span>
+</div>
+
+<h3>World Cup (use on WC content)</h3>
+<div class="tag-row">
+  <span class="tag">#WorldCup2026</span><span class="tag">#FIFA2026</span><span class="tag">#WC2026</span><span class="tag">#FIFAWorldCup</span>
+</div>
+
+<h3>City-Specific (rotate by city)</h3>
+<div class="tag-row">
+  <span class="tag">#MiamiTravel</span><span class="tag">#TampaBay</span><span class="tag">#NYCTravel</span><span class="tag">#VisitMiami</span><span class="tag">#TampaBayFood</span><span class="tag">#NYCFood</span>
+</div>
+
+<h3>Discovery (broader reach)</h3>
+<div class="tag-row">
+  <span class="tag">#TravelLikeALocal</span><span class="tag">#LocalGuide</span><span class="tag">#HiddenGems</span><span class="tag">#FoodTour</span><span class="tag">#CityGuide</span><span class="tag">#TravelTips</span>
+</div>
+
+<h2>Growth Tactics</h2>
+<ul>
+  <li><strong>Comment strategy:</strong> Spend 15 min/day commenting meaningfully on posts from local food bloggers, travel accounts, and World Cup pages. Not generic comments — specific, value-adding responses that make people click your profile</li>
+  <li><strong>Collab posts:</strong> Once Curators are signed, create collab posts that appear on both accounts. Instant audience sharing</li>
+  <li><strong>Reels hooks:</strong> First 3 seconds decide everything. Start with "Nobody tells you this about [city]…" or "POV: you actually know where to eat in Miami"</li>
+  <li><strong>DM strategy:</strong> When someone comments asking for a recommendation, DM them directly with a personalised response + link to waitlist. Convert engagement into signups</li>
+  <li><strong>Cross-posting:</strong> Repurpose carousels as LinkedIn posts (different audience, same content). Repurpose reels as TikToks</li>
+</ul>
+
+<div class="footer">Locavizion · Instagram Launch Plan · Internal Reference</div>
+</div>
+<script>function copyText(btn,id){var el=document.getElementById(id);if(!el)return;navigator.clipboard.writeText(el.innerText).then(function(){btn.textContent="Copied ✓";setTimeout(function(){btn.textContent="Copy"},2000)}).catch(function(){var ta=document.createElement("textarea");ta.value=el.innerText;document.body.appendChild(ta);ta.select();document.execCommand("copy");document.body.removeChild(ta);btn.textContent="Copied ✓";setTimeout(function(){btn.textContent="Copy"},2000)});}function toggleCheck(el){el.classList.toggle("done");var b=el.querySelector(".check-box");b.textContent=el.classList.contains("done")?"✓":"";}</script>
+</body>
+</html>

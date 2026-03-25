@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Locavizion — AI City Guide Chatbot</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0c0b09;--paper:#faf7f2;--gold:#c49a2a;--gold2:#e8b84b;--sage:#3a6650;--rust:#a83d20;--muted:#7a6e58;--bg:#0e0d0b;--border:rgba(255,255,255,0.08);--miami:#ff6b35;--nyc:#4a90d9}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--paper);padding:0;margin:0}
+.doc{max-width:860px;margin:0 auto;padding:3rem 2.5rem}
+.doc-badge{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--sage);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.4rem}
+.doc-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--sage)}
+h1{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--gold);line-height:1.2;margin-bottom:0.4rem}
+h1 em{color:var(--paper);font-style:italic}
+.subtitle{font-size:0.78rem;color:rgba(255,255,255,0.4);margin-bottom:2.5rem;line-height:1.6}
+h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--gold);margin:2.5rem 0 1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(196,154,42,0.15)}
+h3{font-size:0.9rem;font-weight:600;color:var(--paper);margin:1.5rem 0 0.6rem}
+h4{font-size:0.8rem;font-weight:500;color:var(--gold2);margin:1rem 0 0.4rem}
+p{font-size:0.8rem;color:rgba(255,255,255,0.6);line-height:1.85;margin-bottom:1rem}
+p strong{color:var(--paper);font-weight:500}
+p em{color:var(--gold);font-style:italic}
+ul{list-style:none;margin-bottom:1.5rem}
+ul li{font-size:0.78rem;color:rgba(255,255,255,0.6);line-height:1.85;padding:0.4rem 0 0.4rem 1.2rem;position:relative;border-bottom:1px solid rgba(255,255,255,0.03)}
+ul li::before{content:'→';position:absolute;left:0;color:var(--gold)}
+ul li strong{color:var(--paper);font-weight:500}
+table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:0.75rem}
+th{text-align:left;font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);padding:0.6rem 0.8rem;border-bottom:1px solid rgba(196,154,42,0.2);font-weight:500}
+td{padding:0.6rem 0.8rem;color:rgba(255,255,255,0.6);border-bottom:1px solid var(--border)}
+tr:hover td{background:rgba(255,255,255,0.02)}
+.highlight{background:rgba(196,154,42,0.08);border:1px solid rgba(196,154,42,0.2);padding:1.2rem 1.5rem;margin:1.5rem 0}
+.highlight-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem}
+.card{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem}
+.card-title{font-size:0.85rem;font-weight:600;color:var(--paper);margin-bottom:0.4rem}
+.card-body{font-size:0.72rem;color:rgba(255,255,255,0.55);line-height:1.8}
+.card-body strong{color:var(--paper)}
+.tpl{background:rgba(255,255,255,0.03);border:1px solid var(--border);margin:1rem 0}
+.tpl-head{display:flex;justify-content:space-between;align-items:center;padding:0.7rem 1rem;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.02)}
+.tpl-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold)}
+.tpl-body{padding:1rem;font-size:0.72rem;color:rgba(255,255,255,0.6);line-height:1.9;white-space:pre-line}
+.tpl-body strong{color:var(--paper)}
+.copy-btn{background:rgba(196,154,42,0.15);border:1px solid rgba(196,154,42,0.3);color:var(--gold);font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;padding:0.3rem 0.7rem;cursor:pointer;text-transform:uppercase}
+.copy-btn:hover{background:rgba(196,154,42,0.3)}
+.check{display:flex;align-items:flex-start;gap:0.6rem;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;font-size:0.72rem;color:rgba(255,255,255,0.6)}
+.check:hover{color:var(--paper)}
+.check-box{width:16px;height:16px;border:1px solid rgba(196,154,42,0.4);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:2px;font-size:0.6rem;color:var(--gold)}
+.check.done{color:rgba(255,255,255,0.25);text-decoration:line-through}
+.check.done .check-box{background:rgba(196,154,42,0.2)}
+.curator-card{display:grid;grid-template-columns:55px 1fr;gap:1rem;background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem}
+.curator-avatar{width:45px;height:45px;border-radius:50%;background:rgba(196,154,42,0.15);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.curator-name{font-size:0.85rem;font-weight:500;color:var(--paper)}
+.curator-role{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-top:0.15rem}
+.curator-desc{font-size:0.68rem;color:rgba(255,255,255,0.5);line-height:1.7;margin-top:0.3rem}
+.curator-desc strong{color:var(--paper)}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0 1.5rem}
+.rev-item{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1rem;text-align:center}
+.rev-val{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--gold)}
+.rev-label{font-size:0.6rem;color:rgba(255,255,255,0.4);margin-top:0.3rem;letter-spacing:0.08em;text-transform:uppercase}
+.match-row{display:grid;grid-template-columns:90px 1fr 100px;gap:0.5rem;padding:0.6rem 0;border-bottom:1px solid var(--border);align-items:center;font-size:0.72rem}
+.match-date{font-family:'DM Mono',monospace;color:var(--gold);font-size:0.65rem}
+.match-teams{color:var(--paper)}
+.match-venue{color:rgba(255,255,255,0.35);font-size:0.6rem;text-align:right}
+.tag-row{display:flex;flex-wrap:wrap;gap:0.4rem;margin:0.5rem 0 1rem}
+.tag{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.6rem;border:1px solid rgba(196,154,42,0.3);color:var(--gold)}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin:1rem 0 1.5rem}
+.pc{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;text-align:center}
+.pc.feat{border-color:var(--gold);background:rgba(196,154,42,0.06)}
+.pc-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--paper)}
+.pc-price{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--gold);margin:0.3rem 0}
+.pc-price span{font-size:0.7rem;color:rgba(255,255,255,0.35)}
+.pc-desc{font-size:0.65rem;color:rgba(255,255,255,0.4);line-height:1.6}
+.footer{text-align:center;padding:2rem 0;margin-top:3rem;border-top:1px solid var(--border);font-size:0.6rem;color:rgba(255,255,255,0.2)}
+@media(max-width:600px){.doc{padding:2rem 1.5rem}.rev-grid{grid-template-columns:1fr}.pricing-grid{grid-template-columns:1fr}.match-row{grid-template-columns:70px 1fr 60px}}
+</style>
+</head>
+<body>
+<div class="doc">
+
+<div class="doc-badge">Platform</div>
+<h1>AI City Guide <em>Chatbot</em></h1>
+<p class="subtitle">Claude-powered conversational city guide deployed via Cloudflare Worker, embedded on locavizion.com as a floating chat widget.</p>
+
+<h2>Architecture</h2>
+<table>
+  <tr><th>Component</th><th>Service</th><th>Details</th></tr>
+  <tr><td>Frontend Widget</td><td>Vanilla JavaScript</td><td>Floating chat bubble in bottom-right corner. Opens to a full chat window with message history, typing indicator, and suggested question chips. No external dependencies — pure HTML/CSS/JS injected into the waitlist page</td></tr>
+  <tr><td>API Proxy</td><td>Cloudflare Worker</td><td>Sits between the frontend and Anthropic API. Secures the API key server-side so it never appears in client-side code. Handles CORS headers, rate limiting (10 requests per IP per minute), and error responses. Deployed at locavizion-chat.qms6skh728.workers.dev</td></tr>
+  <tr><td>AI Engine</td><td>Anthropic Claude Haiku</td><td>Uses the claude-haiku model for fast, cost-effective responses. System prompt contains comprehensive city knowledge for Miami, Tampa Bay, and NYC. Each conversation maintains context through message history passed with each request</td></tr>
+  <tr><td>Cost</td><td>~$0.02/day</td><td>At current usage levels. Claude Haiku is the most cost-efficient model. $5 initial credit expected to last 3-6 months at waitlist-stage traffic</td></tr>
+</table>
+
+<h2>System Prompt — Full City Knowledge</h2>
+<p>The chatbot's system prompt contains structured knowledge across 4 domains. This knowledge was compiled from local expertise and verified against real locations, addresses, and operating hours.</p>
+
+<h3>Miami Knowledge Base</h3>
+<ul>
+  <li><strong>Wynwood</strong> — Art district north of downtown. Wynwood Walls (free outdoor gallery), graffiti murals on every block, NW 2nd Avenue restaurant row. Trendy restaurants: KYU, Zak the Baker, Salty Donut. Best visited Thursday-Sunday. Street parking difficult — use the Wynwood Garage on NW 27th Street. Walking distance from Design District</li>
+  <li><strong>Brickell</strong> — Miami's financial district. High-rise condos, corporate offices, upscale dining. Best for business travelers. Brickell City Centre for shopping. Metromover stops at Brickell and Fifth Street. Restaurants: Quinto La Huella, Komodo, La Mar. Evening happy hour culture on Brickell Ave</li>
+  <li><strong>Little Havana</strong> — Heart of Cuban Miami. Calle Ocho (SW 8th Street) is the main drag. Domino Park (Máximo Gómez Park) for authentic atmosphere. Versailles restaurant for Cuban coffee and conversation. Ball & Chain for live music. Best area for Latin American World Cup fans — they'll feel instantly at home</li>
+  <li><strong>Coconut Grove</strong> — Oldest continuously inhabited neighbourhood in Miami. Waterfront parks, farmers markets (Saturday mornings at Peacock Park), boutique shopping on Main Highway. More relaxed vibe than South Beach. Good for families. CocoWalk shopping centre recently renovated</li>
+  <li><strong>Miami Beach</strong> — Tourist standard. Ocean Drive for Art Deco architecture (walk, don't eat there — tourist trap pricing). Lincoln Road Mall for outdoor dining and people-watching. Best beaches north of 21st Street where it's less crowded. Collins Avenue for mid-range hotels</li>
+  <li><strong>Design District</strong> — Luxury shopping (Louis Vuitton, Prada, Dior), high-end galleries, and some of Miami's best restaurants (Michael's Genuine, Mandolin). Less foot traffic than Wynwood. More polished, less gritty. Walking distance from Wynwood</li>
+  <li><strong>Transit</strong> — Metrorail runs north-south (airport to downtown). Metromover is free and covers downtown/Brickell. Uber/Lyft widely available. Driving to Hard Rock Stadium from downtown takes 30-45 minutes without traffic, 90+ minutes on match days. Consider staying near Tri-Rail if attending matches</li>
+</ul>
+
+<h3>Tampa Bay Knowledge Base</h3>
+<ul>
+  <li><strong>Ybor City</strong> — Historic Latin quarter, founded by cigar manufacturers in 1880s. Columbia Restaurant (oldest restaurant in Florida, 1905). Seventh Avenue is the main strip — bars, clubs, restaurants. Saturday night is the biggest night. Cigar shops still hand-roll on Seventh Ave. Circulo Cubano and other social clubs are historic landmarks. This is where Latin American World Cup fans will feel most at home in Tampa</li>
+  <li><strong>SoHo (South Howard)</strong> — Tampa's restaurant row. Howard Avenue between Bayshore and Kennedy. Dozens of restaurants within walking distance. Best area for a food crawl. Datz, Bulla Gastrobar, The Refinery, Ciro's Speakeasy. Young professional crowd, 25-40 age range. Walkable from Hyde Park</li>
+  <li><strong>Downtown / Water Street</strong> — Massive new development district. Tampa Riverwalk (2.6 miles along the waterfront) is excellent for walking/running. Sparkman Wharf for waterfront dining. Walking distance to Raymond James Stadium on match days. Convention center is here. Hotels: JW Marriott, Tampa Edition, Hyatt</li>
+  <li><strong>St. Petersburg</strong> — 30 minutes from Tampa across the bay. Salvador Dali Museum (world's largest collection outside Spain). Central Avenue is the main drag — independent shops, galleries, craft breweries (Green Bench, 3 Daughters, Cycle). First Friday Art Walk draws thousands monthly. Beach access at St. Pete Beach and Treasure Island</li>
+  <li><strong>Bayshore Boulevard</strong> — World's longest continuous sidewalk (4.5 miles along Bayshore). Stunning waterfront views. Running, cycling, and walking. Best at sunrise or sunset. Davis Islands neighbourhood is just south — residential charm, small-town feel within the city</li>
+  <li><strong>Tech scene</strong> — Embarc Collective (premier startup hub), Tampa Bay Wave (accelerator), Synapse Summit (annual innovation conference). Growing tech community driven by USF graduates and remote-worker transplants. Not Silicon Valley scale but genuine momentum</li>
+</ul>
+
+<h3>New York Knowledge Base</h3>
+<ul>
+  <li><strong>Midtown Manhattan</strong> — Hotel hub for World Cup visitors. Times Square (see it once, then leave). Bryant Park for a peaceful break. Grand Central Terminal is beautiful and worth a visit. Penn Station for NJ Transit to MetLife Stadium. Koreatown on 32nd Street for excellent late-night Korean food</li>
+  <li><strong>Lower East Side</strong> — Best nightlife neighbourhood below 14th Street. Cocktail bars (Attaboy, Death & Co), live music venues, late-night food (Katz's Delicatessen, open since 1888). Young, diverse crowd. Easily accessible via F/J/M/Z trains</li>
+  <li><strong>Williamsburg, Brooklyn</strong> — Creative hub across the river from Manhattan. Bedford Avenue is the main strip. Excellent restaurants (Lilia, St. Anselm, Diner). Rooftop bars with Manhattan skyline views. Smorgasburg food market on weekends. High Airbnb density — good for longer stays</li>
+  <li><strong>Jackson Heights, Queens</strong> — The most ethnically diverse neighbourhood in the world. 74th Street for Indian food, Roosevelt Avenue for Latin American food, Diversity Plaza for people-watching. A 20-minute subway ride from Midtown. The "real" New York that most tourists never see</li>
+  <li><strong>Transit to MetLife Stadium</strong> — NJ Transit from Penn Station (34th St) to MetLife Stadium station. ~30 minutes. Trains run frequently on match days. DO NOT DRIVE — traffic will be catastrophic. Buy NJ Transit tickets in advance via the NJ Transit app. Allow extra time — trains will be packed</li>
+</ul>
+
+<h3>World Cup Intelligence</h3>
+<ul>
+  <li><strong>Match schedule awareness</strong> — Knows dates, teams, and venues for Miami, Tampa, and NYC matches</li>
+  <li><strong>Fan zone predictions</strong> — Expects FIFA Fan Fest in major downtown areas of each host city. Official locations TBA but likely Times Square, Bayfront Park Miami, Curtis Hixon Park Tampa</li>
+  <li><strong>Safety guidance</strong> — US is generally safe but advises awareness in crowded areas, pickpocket caution at fan zones, Uber/Lyft preferred over walking at night in unfamiliar areas</li>
+  <li><strong>Tipping culture</strong> — Explains US tipping norms (20% restaurants, $1-2 per drink at bars, 15-20% for Uber/Lyft) which confuses many international visitors</li>
+  <li><strong>Phone/data</strong> — Recommends buying a US SIM or eSIM (T-Mobile tourist plan, Airalo eSIM) rather than relying on international roaming</li>
+  <li><strong>Weather</strong> — June-July in South Florida is hot (90°F+/32°C+) and humid with afternoon thunderstorms. NYC is warm (80-85°F). Advises hydration, sunscreen, and weather-appropriate clothing</li>
+</ul>
+
+<h2>Widget UI Components</h2>
+<ul>
+  <li><strong>Chat bubble</strong> — Gold circle with map icon (🗺), positioned bottom-right with 20px margin. Tooltip appears after 3 seconds: "Ask me about your city"</li>
+  <li><strong>Chat window</strong> — 380px wide, 520px tall. Dark background matching site theme. Header with Locavizion branding and close button. Scrollable message area. Input field with send button</li>
+  <li><strong>Message bubbles</strong> — AI messages left-aligned with subtle border, user messages right-aligned in gold. Both with rounded corners</li>
+  <li><strong>Typing indicator</strong> — Three bouncing dots animation while waiting for Claude response</li>
+  <li><strong>Suggested chips</strong> — Pre-written question buttons below the message area. 6 suggestions covering common queries: "Best area to stay in Miami?", "Where to eat in Tampa?", "How to get to MetLife?", etc.</li>
+  <li><strong>Handoff message</strong> — If the chatbot can't help, it directs users to email hello@locavizion.com for human assistance</li>
+</ul>
+
+<div class="highlight">
+  <div class="highlight-label">Live Endpoints</div>
+  <p><strong>Widget:</strong> Embedded in locavizion.com (index.html)<br>
+  <strong>Worker:</strong> locavizion-chat.qms6skh728.workers.dev<br>
+  <strong>API:</strong> Anthropic Claude Haiku via console.anthropic.com<br>
+  <strong>Cost monitoring:</strong> console.anthropic.com → Usage tab</p>
+</div>
+
+<div class="footer">Locavizion · AI City Guide Chatbot · Internal Reference</div>
+</div>
+<script>function toggleCheck(el){el.classList.toggle("done");var b=el.querySelector(".check-box");b.textContent=el.classList.contains("done")?"✓":"";}</script>
+</body>
+</html>

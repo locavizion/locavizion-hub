@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Locavizion — QR Codes & Sticker Designs</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0c0b09;--paper:#faf7f2;--gold:#c49a2a;--gold2:#e8b84b;--sage:#3a6650;--rust:#a83d20;--muted:#7a6e58;--bg:#0e0d0b;--border:rgba(255,255,255,0.08);--miami:#ff6b35;--nyc:#4a90d9}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--paper);padding:0;margin:0}
+.doc{max-width:860px;margin:0 auto;padding:3rem 2.5rem}
+.doc-badge{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--sage);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.4rem}
+.doc-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--sage)}
+h1{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--gold);line-height:1.2;margin-bottom:0.4rem}
+h1 em{color:var(--paper);font-style:italic}
+.subtitle{font-size:0.78rem;color:rgba(255,255,255,0.4);margin-bottom:2.5rem;line-height:1.6}
+h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--gold);margin:2.5rem 0 1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(196,154,42,0.15)}
+h3{font-size:0.9rem;font-weight:600;color:var(--paper);margin:1.5rem 0 0.6rem}
+h4{font-size:0.8rem;font-weight:500;color:var(--gold2);margin:1rem 0 0.4rem}
+p{font-size:0.8rem;color:rgba(255,255,255,0.6);line-height:1.85;margin-bottom:1rem}
+p strong{color:var(--paper);font-weight:500}
+p em{color:var(--gold);font-style:italic}
+ul{list-style:none;margin-bottom:1.5rem}
+ul li{font-size:0.78rem;color:rgba(255,255,255,0.6);line-height:1.85;padding:0.4rem 0 0.4rem 1.2rem;position:relative;border-bottom:1px solid rgba(255,255,255,0.03)}
+ul li::before{content:'→';position:absolute;left:0;color:var(--gold)}
+ul li strong{color:var(--paper);font-weight:500}
+table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:0.75rem}
+th{text-align:left;font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);padding:0.6rem 0.8rem;border-bottom:1px solid rgba(196,154,42,0.2);font-weight:500}
+td{padding:0.6rem 0.8rem;color:rgba(255,255,255,0.6);border-bottom:1px solid var(--border)}
+tr:hover td{background:rgba(255,255,255,0.02)}
+.highlight{background:rgba(196,154,42,0.08);border:1px solid rgba(196,154,42,0.2);padding:1.2rem 1.5rem;margin:1.5rem 0}
+.highlight-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem}
+.card{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem}
+.card-title{font-size:0.85rem;font-weight:600;color:var(--paper);margin-bottom:0.4rem}
+.card-body{font-size:0.72rem;color:rgba(255,255,255,0.55);line-height:1.8}
+.card-body strong{color:var(--paper)}
+.tpl{background:rgba(255,255,255,0.03);border:1px solid var(--border);margin:1rem 0}
+.tpl-head{display:flex;justify-content:space-between;align-items:center;padding:0.7rem 1rem;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.02)}
+.tpl-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold)}
+.tpl-body{padding:1rem;font-size:0.72rem;color:rgba(255,255,255,0.6);line-height:1.9;white-space:pre-line}
+.tpl-body strong{color:var(--paper)}
+.copy-btn{background:rgba(196,154,42,0.15);border:1px solid rgba(196,154,42,0.3);color:var(--gold);font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;padding:0.3rem 0.7rem;cursor:pointer;text-transform:uppercase}
+.copy-btn:hover{background:rgba(196,154,42,0.3)}
+.check{display:flex;align-items:flex-start;gap:0.6rem;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;font-size:0.72rem;color:rgba(255,255,255,0.6)}
+.check:hover{color:var(--paper)}
+.check-box{width:16px;height:16px;border:1px solid rgba(196,154,42,0.4);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:2px;font-size:0.6rem;color:var(--gold)}
+.check.done{color:rgba(255,255,255,0.25);text-decoration:line-through}
+.check.done .check-box{background:rgba(196,154,42,0.2)}
+.curator-card{display:grid;grid-template-columns:55px 1fr;gap:1rem;background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem}
+.curator-avatar{width:45px;height:45px;border-radius:50%;background:rgba(196,154,42,0.15);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.curator-name{font-size:0.85rem;font-weight:500;color:var(--paper)}
+.curator-role{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-top:0.15rem}
+.curator-desc{font-size:0.68rem;color:rgba(255,255,255,0.5);line-height:1.7;margin-top:0.3rem}
+.curator-desc strong{color:var(--paper)}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0 1.5rem}
+.rev-item{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1rem;text-align:center}
+.rev-val{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--gold)}
+.rev-label{font-size:0.6rem;color:rgba(255,255,255,0.4);margin-top:0.3rem;letter-spacing:0.08em;text-transform:uppercase}
+.match-row{display:grid;grid-template-columns:90px 1fr 100px;gap:0.5rem;padding:0.6rem 0;border-bottom:1px solid var(--border);align-items:center;font-size:0.72rem}
+.match-date{font-family:'DM Mono',monospace;color:var(--gold);font-size:0.65rem}
+.match-teams{color:var(--paper)}
+.match-venue{color:rgba(255,255,255,0.35);font-size:0.6rem;text-align:right}
+.tag-row{display:flex;flex-wrap:wrap;gap:0.4rem;margin:0.5rem 0 1rem}
+.tag{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.6rem;border:1px solid rgba(196,154,42,0.3);color:var(--gold)}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin:1rem 0 1.5rem}
+.pc{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;text-align:center}
+.pc.feat{border-color:var(--gold);background:rgba(196,154,42,0.06)}
+.pc-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--paper)}
+.pc-price{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--gold);margin:0.3rem 0}
+.pc-price span{font-size:0.7rem;color:rgba(255,255,255,0.35)}
+.pc-desc{font-size:0.65rem;color:rgba(255,255,255,0.4);line-height:1.6}
+.footer{text-align:center;padding:2rem 0;margin-top:3rem;border-top:1px solid var(--border);font-size:0.6rem;color:rgba(255,255,255,0.2)}
+@media(max-width:600px){.doc{padding:2rem 1.5rem}.rev-grid{grid-template-columns:1fr}.pricing-grid{grid-template-columns:1fr}.match-row{grid-template-columns:70px 1fr 60px}}
+</style>
+</head>
+<body>
+<div class="doc">
+
+<div class="doc-badge">Strategy</div>
+<h1>QR Codes <em>& Sticker Designs</em></h1>
+<p class="subtitle">Printable guerrilla marketing assets — QR stickers, flyers, bar/restaurant table cards, and placement strategy for Tampa Bay, Miami, and NYC.</p>
+
+<h2>Why Guerrilla Marketing Works for Locavizion</h2>
+<p>Digital ads are expensive and generic. A QR sticker at the right restaurant reaches exactly the right person — someone already in the city, already exploring, already open to local recommendations. The conversion rate on a well-placed QR code in a relevant location is dramatically higher than any Instagram ad.</p>
+<p>Cost comparison: 500 QR stickers = $45. One week of Instagram ads reaching the same audience = $200+. And the sticker stays there for months.</p>
+
+<h2>QR Code Placements — By Location Type</h2>
+
+<h3>1. Restaurant Table Cards</h3>
+<ul>
+  <li><strong>What:</strong> Small 3×5 tent cards placed on tables at partner restaurants</li>
+  <li><strong>Copy:</strong> "New to [city]? Scan for your free AI city guide" + QR code + locavizion.com</li>
+  <li><strong>Targets:</strong> Tourist-friendly restaurants in Brickell, Wynwood, Ybor City, SoHo Tampa, Times Square area</li>
+  <li><strong>Ask:</strong> Offer the restaurant a free Featured Venue listing in exchange for table card placement</li>
+  <li><strong>Cost:</strong> 200 tent cards ≈ $30 on Vistaprint</li>
+</ul>
+
+<h3>2. Hotel Lobby Displays</h3>
+<ul>
+  <li><strong>What:</strong> Small acrylic display with QR card at concierge desk or elevator bank</li>
+  <li><strong>Copy:</strong> "See [city] like a local — free AI city guide" + QR</li>
+  <li><strong>Targets:</strong> Boutique hotels and Airbnb-managed buildings. Avoid major chains (require corporate approval)</li>
+  <li><strong>Ask:</strong> Offer the hotel a partnership listing. Many boutique hotels love offering guests unique local experiences</li>
+</ul>
+
+<h3>3. Coffee Shop Counter Cards</h3>
+<ul>
+  <li><strong>What:</strong> Small cards near the register or on the bar counter</li>
+  <li><strong>Copy:</strong> "Ask a local, not Google" + QR</li>
+  <li><strong>Targets:</strong> Independent coffee shops in creative neighbourhoods (Wynwood, St. Pete, Williamsburg)</li>
+  <li><strong>Ask:</strong> Just ask the barista. Most indie coffee shops are happy to put a small card near the register</li>
+</ul>
+
+<h3>4. Airport Arrival Areas</h3>
+<ul>
+  <li><strong>What:</strong> Handheld flyers or small posters in the rideshare pickup zone</li>
+  <li><strong>Copy:</strong> "Just landed? Get your free [city] guide before you leave the airport" + QR</li>
+  <li><strong>Targets:</strong> TPA (Tampa), MIA and FLL (Miami), JFK and EWR (NYC)</li>
+  <li><strong>Legal note:</strong> Airport authorities may remove unofficial materials. Focus on rideshare pickup zones and nearby parking areas which are less monitored</li>
+</ul>
+
+<h3>5. Co-working Spaces</h3>
+<ul>
+  <li><strong>What:</strong> A4 poster on the community board + counter cards</li>
+  <li><strong>Copy:</strong> "New to [city]? Your AI-powered local guide" + QR + "Built for remote workers, digital nomads, and new residents"</li>
+  <li><strong>Targets:</strong> Embarc Collective, Station House, WeWork locations, Lab Ybor, The LAB Miami</li>
+  <li><strong>Ask:</strong> Most co-working spaces have community boards where members can post</li>
+</ul>
+
+<h3>6. World Cup Fan Zone Entrances</h3>
+<ul>
+  <li><strong>What:</strong> Handheld flyers distributed to fans entering fan zones or heading to matches</li>
+  <li><strong>Copy:</strong> "⚽ Your World Cup city guide — free" + QR + "Find the best food, bars & parties near every match"</li>
+  <li><strong>Timing:</strong> 2-3 hours before each match. Position at transit stations near the stadium</li>
+  <li><strong>Team:</strong> You + 2-3 friends/hired helpers. Wear Locavizion branded shirts</li>
+</ul>
+
+<h2>Sticker Copy Options</h2>
+
+<div class="card"><div class="card-title">Option A — Minimal</div><div class="card-body">
+"See the city like a local."<br>
+[QR CODE]<br>
+locavizion.com<br><br>
+<em>Best for: upscale restaurants, hotel lobbies, co-working spaces. Clean and professional.</em>
+</div></div>
+
+<div class="card"><div class="card-title">Option B — World Cup</div><div class="card-body">
+"⚽ Here for the World Cup? Ask a local."<br>
+[QR CODE]<br>
+locavizion.com · Free AI city guide<br><br>
+<em>Best for: fan zones, sports bars, airport arrivals. Time-sensitive urgency.</em>
+</div></div>
+
+<div class="card"><div class="card-title">Option C — Question Hook</div><div class="card-body">
+"Where do locals actually eat?"<br>
+[QR CODE]<br>
+"Your AI city guide — free"<br><br>
+<em>Best for: restaurant areas, food halls, tourist-heavy neighbourhoods. Curiosity-driven.</em>
+</div></div>
+
+<div class="card"><div class="card-title">Option D — New Resident</div><div class="card-body">
+"New to [city]? Stop feeling like a tourist."<br>
+[QR CODE]<br>
+locavizion.com<br><br>
+<em>Best for: co-working spaces, apartment building lobbies, community boards. Year-round play.</em>
+</div></div>
+
+<h2>Print Specifications</h2>
+<table>
+  <tr><th>Item</th><th>Size</th><th>Quantity</th><th>Cost</th><th>Source</th></tr>
+  <tr><td>Circle stickers</td><td>2" diameter</td><td>500</td><td>≈ $45</td><td>StickerMule</td></tr>
+  <tr><td>Table tent cards</td><td>3.5" × 5"</td><td>200</td><td>≈ $30</td><td>Vistaprint</td></tr>
+  <tr><td>Handheld flyers</td><td>4" × 6"</td><td>500</td><td>≈ $25</td><td>Vistaprint</td></tr>
+  <tr><td>A4 posters</td><td>8.5" × 11"</td><td>50</td><td>≈ $15</td><td>FedEx Print</td></tr>
+</table>
+
+<div class="highlight">
+  <div class="highlight-label">Total First Wave Budget</div>
+  <p><strong>$115</strong> covers 500 stickers + 200 table cards + 500 flyers + 50 posters. That's enough for a full guerrilla launch across Tampa Bay. Miami and NYC waves can follow once you see initial QR scan rates.</p>
+</div>
+
+<h2>QR Code Generation</h2>
+<p>Use <strong>qr-code-generator.com</strong> (free) or <strong>Canva</strong> (free, includes design tools). Point all QR codes to <strong>locavizion.com</strong>. If you want to track which placements drive the most scans, create separate QR codes for each location type pointing to URL variants: locavizion.com?ref=restaurant, locavizion.com?ref=hotel, etc. Google Analytics will show you which ref sources perform best.</p>
+
+<h2>Design Guidelines</h2>
+<ul>
+  <li><strong>Background:</strong> Dark (#0c0b09) — matches the brand and stands out on light surfaces</li>
+  <li><strong>QR code:</strong> Gold (#c49a2a) on dark background, or dark on gold background for light surfaces</li>
+  <li><strong>Font:</strong> Outfit for body text, Cormorant Garamond for "Locavizion" brand name</li>
+  <li><strong>Logo:</strong> Include the eye mark at top or bottom, small but recognisable</li>
+  <li><strong>Minimum info:</strong> QR code + one line of copy + locavizion.com. Don't overcrowd</li>
+</ul>
+
+<div class="footer">Locavizion · QR Codes & Sticker Designs · Internal Reference</div>
+</div>
+<script>function copyText(btn,id){var el=document.getElementById(id);if(!el)return;navigator.clipboard.writeText(el.innerText).then(function(){btn.textContent="Copied ✓";setTimeout(function(){btn.textContent="Copy"},2000)}).catch(function(){var ta=document.createElement("textarea");ta.value=el.innerText;document.body.appendChild(ta);ta.select();document.execCommand("copy");document.body.removeChild(ta);btn.textContent="Copied ✓";setTimeout(function(){btn.textContent="Copy"},2000)});}function toggleCheck(el){el.classList.toggle("done");var b=el.querySelector(".check-box");b.textContent=el.classList.contains("done")?"✓":"";}</script>
+</body>
+</html>

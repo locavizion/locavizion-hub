@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Locavizion — Waitlist Page</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0c0b09;--paper:#faf7f2;--gold:#c49a2a;--gold2:#e8b84b;--sage:#3a6650;--rust:#a83d20;--muted:#7a6e58;--bg:#0e0d0b;--border:rgba(255,255,255,0.08)}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--paper);padding:0;margin:0}
+.doc{max-width:860px;margin:0 auto;padding:3rem 2.5rem}
+.doc-badge{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--sage);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.4rem}
+.doc-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--sage)}
+h1{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--gold);line-height:1.2;margin-bottom:0.4rem}
+h1 em{color:var(--paper);font-style:italic}
+.subtitle{font-size:0.78rem;color:rgba(255,255,255,0.4);margin-bottom:2.5rem;line-height:1.6}
+h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--gold);margin:2.5rem 0 1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(196,154,42,0.15)}
+h3{font-size:0.9rem;font-weight:600;color:var(--paper);margin:1.5rem 0 0.6rem}
+p{font-size:0.8rem;color:rgba(255,255,255,0.6);line-height:1.85;margin-bottom:1rem}
+p strong{color:var(--paper);font-weight:500}
+p em{color:var(--gold);font-style:italic}
+ul{list-style:none;margin-bottom:1.5rem}
+ul li{font-size:0.78rem;color:rgba(255,255,255,0.6);line-height:1.85;padding:0.4rem 0 0.4rem 1.2rem;position:relative;border-bottom:1px solid rgba(255,255,255,0.03)}
+ul li::before{content:'→';position:absolute;left:0;color:var(--gold)}
+ul li strong{color:var(--paper);font-weight:500}
+table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:0.75rem}
+th{text-align:left;font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);padding:0.6rem 0.8rem;border-bottom:1px solid rgba(196,154,42,0.2);font-weight:500}
+td{padding:0.6rem 0.8rem;color:rgba(255,255,255,0.6);border-bottom:1px solid var(--border)}
+.highlight{background:rgba(196,154,42,0.08);border:1px solid rgba(196,154,42,0.2);padding:1.2rem 1.5rem;margin:1.5rem 0}
+.highlight-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem}
+.card{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem}
+.card-title{font-size:0.85rem;font-weight:600;color:var(--paper);margin-bottom:0.4rem}
+.card-body{font-size:0.72rem;color:rgba(255,255,255,0.55);line-height:1.8}
+.footer{text-align:center;padding:2rem 0;margin-top:3rem;border-top:1px solid var(--border);font-size:0.6rem;color:rgba(255,255,255,0.2)}
+</style>
+</head>
+<body>
+<div class="doc">
+
+<div class="doc-badge">Platform</div>
+<h1>Waitlist Page <em>— locavizion.com</em></h1>
+<p class="subtitle">The live production waitlist page deployed on GitHub Pages with Cloudflare DNS, SSL, and an embedded AI city guide chatbot.</p>
+
+<h2>What's Live Right Now</h2>
+
+<ul>
+  <li><strong>Hero section</strong> — "See The World Like A Local" headline with the animated gold eye logo and a real-time World Cup countdown timer showing days until June 11, 2026</li>
+  <li><strong>Traveler signup form</strong> — Connected to Google Forms. Collects first name, email address, and city interest (Miami, Tampa Bay, or NYC). On submit, the member counter increments and the form shows a confirmation</li>
+  <li><strong>Curator application link</strong> — Separate call-to-action directing potential Curators to a dedicated Google Form with questions about their city expertise, social following, and availability</li>
+  <li><strong>Live member counter</strong> — Displays the real number of waitlist signups. Reads from a server-side counter API so every visitor sees the same number regardless of device</li>
+  <li><strong>AI City Guide chatbot</strong> — Floating chat widget in the bottom-right corner. Powered by Claude via a Cloudflare Worker proxy. Knows Miami, Tampa Bay, and NYC. Answers questions about neighbourhoods, food, transit, World Cup preparation, and local culture</li>
+  <li><strong>Professional email</strong> — info@locavizion.com displayed in the footer, assembled via JavaScript so Cloudflare's email protection doesn't obfuscate it. Visitors see a real clickable mailto link</li>
+  <li><strong>SSL secured</strong> — HTTPS enforced via Cloudflare with GitHub Pages hosting. Green padlock confirmed</li>
+  <li><strong>Open Graph meta tags</strong> — Custom preview image and description for link sharing on LinkedIn, WhatsApp, iMessage, Twitter/X. Uses the Locavizion eye logo as the social preview image</li>
+  <li><strong>Mobile responsive</strong> — Two-row nav on phones, full-width form fields, properly sized touch targets for all buttons</li>
+</ul>
+
+<h2>Technical Architecture</h2>
+
+<table>
+  <tr><th>Layer</th><th>Service</th><th>Cost</th><th>Notes</th></tr>
+  <tr><td>Domain</td><td>locavizion.com</td><td>~$12/year</td><td>Registered via Cloudflare</td></tr>
+  <tr><td>DNS + SSL</td><td>Cloudflare</td><td>Free</td><td>Automatic SSL, edge caching, DDoS protection</td></tr>
+  <tr><td>Hosting</td><td>GitHub Pages</td><td>Free</td><td>Static site from public repo. Push to main = deploy</td></tr>
+  <tr><td>AI Backend</td><td>Cloudflare Worker</td><td>Free tier</td><td>Proxies requests to Anthropic API. Secures API key server-side</td></tr>
+  <tr><td>AI Engine</td><td>Anthropic Claude Haiku</td><td>~$0.02/day</td><td>City intelligence system prompt. $5 initial credit lasts months</td></tr>
+  <tr><td>Forms</td><td>Google Forms</td><td>Free</td><td>Responses auto-populate a Google Sheet</td></tr>
+  <tr><td>Email Routing</td><td>Cloudflare Email Routing</td><td>Free</td><td>@locavizion.com → personal Gmail</td></tr>
+  <tr><td>Email Sending</td><td>Gmail SMTP</td><td>Free</td><td>Send as hello@locavizion.com from Gmail</td></tr>
+</table>
+
+<h2>Page Sections — Top to Bottom</h2>
+
+<h3>1. Navigation Bar</h3>
+<p>Sticky header with the Locavizion eye+globe SVG logo, brand name in Cormorant Garamond, tagline "See the world like a local" (hidden on mobile to save space), and a live traveler count badge. On phones the nav splits into two rows — logo on top, count below — so nothing is cramped.</p>
+
+<h3>2. Hero Section</h3>
+<p>Full-viewport dark section with a large animated eye logo (gold, 120px, pulsing iris). The headline <strong>"See The World Like A Local"</strong> in Cormorant Garamond at 3.5rem. Below it, the subheadline explaining the platform in one sentence. Two CTAs: primary gold button for the waitlist form, secondary outline button for "Become a Curator." Background has a subtle radial gold glow and film grain overlay.</p>
+
+<h3>3. Value Proposition Cards</h3>
+<p>Three cards in a row (stacking on mobile): <strong>"Local Intelligence"</strong> — AI-powered city guides with real Curator knowledge. <strong>"Expert Curators"</strong> — Verified locals in food, culture, nightlife, business. <strong>"World Cup Ready"</strong> — Purpose-built for the 2026 FIFA World Cup visitor wave. Each card has an icon, title, and 2-line description.</p>
+
+<h3>4. City Grid</h3>
+<p>Three city cards showing Miami, Tampa Bay, and New York. Each displays the city name, a status badge (<em>"Active"</em> in green), the number of Curator positions available, and a brief tagline about what makes that city's offering unique.</p>
+
+<h3>5. Waitlist Form</h3>
+<p>Clean dark form with three fields: First Name, Email, and a City Interest dropdown (Miami / Tampa Bay / New York / All Cities). Gold submit button. On successful submission: form hides, confirmation message appears, counter increments. The form submits to a Google Forms endpoint via JavaScript fetch — no page reload.</p>
+
+<h3>6. Curator CTA Section</h3>
+<p>Separate section targeting potential Curators. Headline: <strong>"Know your city? Get paid for it."</strong> Brief explanation of the 70/30 split, founding positions, World Cup opportunity. Gold button linking to the Curator application Google Form.</p>
+
+<h3>7. Footer</h3>
+<p>Brand name, copyright, and the info@locavizion.com email assembled via JavaScript. Three links: Privacy (placeholder), Terms (placeholder), and a mailto link.</p>
+
+<h2>Deployment Process</h2>
+
+<div class="card">
+  <div class="card-title">How to Update the Live Site</div>
+  <div class="card-body">
+    <strong>Step 1:</strong> Download the updated HTML file from Claude<br>
+    <strong>Step 2:</strong> Rename it to <code>index.html</code><br>
+    <strong>Step 3:</strong> Go to your GitHub repository → click on <code>index.html</code> → click the pencil (edit) icon<br>
+    <strong>Step 4:</strong> Select all → paste the new code → scroll down → click "Commit changes"<br>
+    <strong>Step 5:</strong> Wait 60-90 seconds. GitHub Pages rebuilds automatically. Clear your browser cache and reload locavizion.com to see changes.<br><br>
+    <strong>No terminal, no Git commands, no deployment tools needed.</strong> The entire workflow happens in the GitHub web interface.
+  </div>
+</div>
+
+<h2>Chatbot System Prompt Domains</h2>
+<p>The AI chatbot has city intelligence covering:</p>
+
+<h3>Miami</h3>
+<p>Neighbourhoods: Wynwood (art/murals, young crowd), Brickell (finance/business, high-rises), Little Havana (Cuban culture, Calle Ocho), Coconut Grove (waterfront, families), Miami Beach (tourist standard), Design District (luxury), Coral Gables (historic, upscale residential), Edgewater/Midtown (up-and-coming). Food scenes by cuisine type. Nightlife by vibe. Transit guide including Metrorail, Metromover, rideshare tips. Hard Rock Stadium access for World Cup matches.</p>
+
+<h3>Tampa Bay</h3>
+<p>Ybor City (historic Latin quarter, cigar heritage, Columbia Restaurant, nightlife), SoHo/South Howard (restaurant row, bars), Downtown/Channelside (Water Street development, convention center), St. Petersburg (Dali Museum, craft beer, art walks, waterfront), Davis Islands/Bayshore (running, residential charm). Tech community: Embarc Collective, Tampa Bay Wave, Synapse Summit. Food scene including Cuban sandwiches, seafood, emerging chef culture.</p>
+
+<h3>New York</h3>
+<p>Manhattan by neighbourhood: Midtown (hotels, Times Square), Lower East Side (nightlife, independent), West Village (charm, dining), Harlem (culture, gospel, jazz), Financial District (business). Brooklyn: Williamsburg (creative), DUMBO (waterfront, upscale), Park Slope (families), Bushwick (emerging art). Queens: Jackson Heights (global food, diversity), Flushing (Asian cuisine). Transit: subway tips, MetroCard vs OMNY, NJ Transit to MetLife Stadium, rideshare zones.</p>
+
+<h3>World Cup Intelligence</h3>
+<p>Match schedule awareness, fan zone predictions, stadium transit guides, safety tips, accommodation advice by budget level, what to expect as an international visitor, tipping culture, weather expectations, phone/data recommendations.</p>
+
+<div class="highlight">
+  <div class="highlight-label">Live URLs</div>
+  <p><strong>Website:</strong> locavizion.com<br>
+  <strong>Chatbot Worker:</strong> locavizion-chat.qms6skh728.workers.dev<br>
+  <strong>Traveler Form:</strong> Google Forms (linked from page)<br>
+  <strong>Curator Form:</strong> Google Forms (linked from page)<br>
+  <strong>API Console:</strong> console.anthropic.com</p>
+</div>
+
+<div class="footer">Locavizion · Waitlist Page Documentation · Internal Reference</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Locavizion — New York City Blueprint</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0c0b09;--paper:#faf7f2;--gold:#c49a2a;--gold2:#e8b84b;--sage:#3a6650;--rust:#a83d20;--muted:#7a6e58;--bg:#0e0d0b;--border:rgba(255,255,255,0.08);--miami:#ff6b35;--nyc:#4a90d9}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--paper);padding:0;margin:0}
+.doc{max-width:860px;margin:0 auto;padding:3rem 2.5rem}
+.doc-badge{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--sage);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.4rem}
+.doc-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--sage)}
+h1{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--gold);line-height:1.2;margin-bottom:0.4rem}
+h1 em{color:var(--paper);font-style:italic}
+.subtitle{font-size:0.78rem;color:rgba(255,255,255,0.4);margin-bottom:2.5rem;line-height:1.6}
+h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--gold);margin:2.5rem 0 1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(196,154,42,0.15)}
+h3{font-size:0.9rem;font-weight:600;color:var(--paper);margin:1.5rem 0 0.6rem}
+h4{font-size:0.8rem;font-weight:500;color:var(--gold2);margin:1rem 0 0.4rem}
+p{font-size:0.8rem;color:rgba(255,255,255,0.6);line-height:1.85;margin-bottom:1rem}
+p strong{color:var(--paper);font-weight:500}
+p em{color:var(--gold);font-style:italic}
+ul{list-style:none;margin-bottom:1.5rem}
+ul li{font-size:0.78rem;color:rgba(255,255,255,0.6);line-height:1.85;padding:0.4rem 0 0.4rem 1.2rem;position:relative;border-bottom:1px solid rgba(255,255,255,0.03)}
+ul li::before{content:'→';position:absolute;left:0;color:var(--gold)}
+ul li strong{color:var(--paper);font-weight:500}
+table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:0.75rem}
+th{text-align:left;font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);padding:0.6rem 0.8rem;border-bottom:1px solid rgba(196,154,42,0.2);font-weight:500}
+td{padding:0.6rem 0.8rem;color:rgba(255,255,255,0.6);border-bottom:1px solid var(--border)}
+tr:hover td{background:rgba(255,255,255,0.02)}
+.highlight{background:rgba(196,154,42,0.08);border:1px solid rgba(196,154,42,0.2);padding:1.2rem 1.5rem;margin:1.5rem 0}
+.highlight-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem}
+.card{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem}
+.card-title{font-size:0.85rem;font-weight:600;color:var(--paper);margin-bottom:0.4rem}
+.card-body{font-size:0.72rem;color:rgba(255,255,255,0.55);line-height:1.8}
+.card-body strong{color:var(--paper)}
+.tpl{background:rgba(255,255,255,0.03);border:1px solid var(--border);margin:1rem 0}
+.tpl-head{display:flex;justify-content:space-between;align-items:center;padding:0.7rem 1rem;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.02)}
+.tpl-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold)}
+.tpl-body{padding:1rem;font-size:0.72rem;color:rgba(255,255,255,0.6);line-height:1.9;white-space:pre-line}
+.tpl-body strong{color:var(--paper)}
+.copy-btn{background:rgba(196,154,42,0.15);border:1px solid rgba(196,154,42,0.3);color:var(--gold);font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;padding:0.3rem 0.7rem;cursor:pointer;text-transform:uppercase}
+.copy-btn:hover{background:rgba(196,154,42,0.3)}
+.check{display:flex;align-items:flex-start;gap:0.6rem;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;font-size:0.72rem;color:rgba(255,255,255,0.6)}
+.check:hover{color:var(--paper)}
+.check-box{width:16px;height:16px;border:1px solid rgba(196,154,42,0.4);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:2px;font-size:0.6rem;color:var(--gold)}
+.check.done{color:rgba(255,255,255,0.25);text-decoration:line-through}
+.check.done .check-box{background:rgba(196,154,42,0.2)}
+.curator-card{display:grid;grid-template-columns:55px 1fr;gap:1rem;background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem}
+.curator-avatar{width:45px;height:45px;border-radius:50%;background:rgba(196,154,42,0.15);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.curator-name{font-size:0.85rem;font-weight:500;color:var(--paper)}
+.curator-role{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-top:0.15rem}
+.curator-desc{font-size:0.68rem;color:rgba(255,255,255,0.5);line-height:1.7;margin-top:0.3rem}
+.curator-desc strong{color:var(--paper)}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0 1.5rem}
+.rev-item{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1rem;text-align:center}
+.rev-val{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--gold)}
+.rev-label{font-size:0.6rem;color:rgba(255,255,255,0.4);margin-top:0.3rem;letter-spacing:0.08em;text-transform:uppercase}
+.match-row{display:grid;grid-template-columns:90px 1fr 100px;gap:0.5rem;padding:0.6rem 0;border-bottom:1px solid var(--border);align-items:center;font-size:0.72rem}
+.match-date{font-family:'DM Mono',monospace;color:var(--gold);font-size:0.65rem}
+.match-teams{color:var(--paper)}
+.match-venue{color:rgba(255,255,255,0.35);font-size:0.6rem;text-align:right}
+.tag-row{display:flex;flex-wrap:wrap;gap:0.4rem;margin:0.5rem 0 1rem}
+.tag{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.6rem;border:1px solid rgba(196,154,42,0.3);color:var(--gold)}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin:1rem 0 1.5rem}
+.pc{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;text-align:center}
+.pc.feat{border-color:var(--gold);background:rgba(196,154,42,0.06)}
+.pc-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--paper)}
+.pc-price{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--gold);margin:0.3rem 0}
+.pc-price span{font-size:0.7rem;color:rgba(255,255,255,0.35)}
+.pc-desc{font-size:0.65rem;color:rgba(255,255,255,0.4);line-height:1.6}
+.footer{text-align:center;padding:2rem 0;margin-top:3rem;border-top:1px solid var(--border);font-size:0.6rem;color:rgba(255,255,255,0.2)}
+@media(max-width:600px){.doc{padding:2rem 1.5rem}.rev-grid{grid-template-columns:1fr}.pricing-grid{grid-template-columns:1fr}.match-row{grid-template-columns:70px 1fr 60px}}
+</style>
+</head>
+<body>
+<div class="doc">
+
+<div class="doc-badge">World Cup</div>
+<h1>New York City <em>Blueprint</em></h1>
+<p class="subtitle">MetLife Stadium matches. Manhattan, Brooklyn, and Queens neighbourhood guide. Transit strategy. 5 Curator roles for the world's most complex city.</p>
+
+<h2>NYC World Cup Context</h2>
+<p>MetLife Stadium in East Rutherford, New Jersey hosts World Cup matches — but fans stay in <strong>Manhattan, Brooklyn, and Queens</strong>. The disconnect between stadium location (NJ) and city experience (NYC) is enormous. Visitors need guidance on:</p>
+<ul>
+  <li>How to get to MetLife Stadium from their hotel (NJ Transit from Penn Station, ~30 min)</li>
+  <li>Which neighbourhoods match their vibe and budget</li>
+  <li>Where to eat beyond Times Square tourist traps</li>
+  <li>How to navigate the subway system efficiently</li>
+  <li>Where to watch matches if they don't have tickets (fan zones, sports bars)</li>
+</ul>
+
+<h2>Neighbourhood Guide — For World Cup Visitors</h2>
+
+<h3>Midtown Manhattan</h3>
+<p><strong>Best for:</strong> First-time NYC visitors, hotel convenience, Times Square proximity<br>
+<strong>Vibe:</strong> Classic tourist NYC. Crowded, loud, iconic<br>
+<strong>Key spots:</strong> Times Square (see it once, then leave), Bryant Park (peaceful retreat), Grand Central Terminal (stunning architecture, food court downstairs), Koreatown on 32nd Street (excellent Korean BBQ, open late)<br>
+<strong>Stay here if:</strong> You want maximum hotel options and easy Penn Station access for MetLife<br>
+<strong>Warning:</strong> Restaurant quality on major avenues is poor. Walk one block east or west of Times Square for dramatically better food at lower prices</p>
+
+<h3>Lower East Side / East Village</h3>
+<p><strong>Best for:</strong> Nightlife seekers, food enthusiasts, cultural explorers<br>
+<strong>Vibe:</strong> Gritty, authentic, diverse. NYC's best cocktail bars and late-night food<br>
+<strong>Key spots:</strong> Katz's Delicatessen (open since 1888), Attaboy (cocktail bar, no sign, no menu), Death & Co (pioneering cocktail bar), Russ & Daughters (Jewish deli, iconic), Essex Market (food hall)<br>
+<strong>Transit:</strong> F/J/M/Z trains to Delancey-Essex, L train to First Ave<br>
+<strong>Stay here if:</strong> You want authentic NYC nightlife and don't mind walking on busy sidewalks at 2am</p>
+
+<h3>Williamsburg, Brooklyn</h3>
+<p><strong>Best for:</strong> Creative types, foodies, Airbnb-preferred travelers<br>
+<strong>Vibe:</strong> Brooklyn's creative hub. Cafes, vintage shops, rooftop bars with Manhattan views<br>
+<strong>Key spots:</strong> Bedford Avenue (main strip), Lilia (incredible pasta, book ahead), St. Anselm (steak), Diner (seasonal American), Smorgasburg food market (weekends), Domino Park (waterfront)<br>
+<strong>Transit:</strong> L train from 14th St Manhattan to Bedford Ave (one stop under the river)<br>
+<strong>Stay here if:</strong> You want the Brooklyn experience — creative, independent, slightly less expensive than Manhattan</p>
+
+<h3>Jackson Heights, Queens</h3>
+<p><strong>Best for:</strong> Food adventurers, cultural immersion seekers, budget travelers<br>
+<strong>Vibe:</strong> The most ethnically diverse neighbourhood in the world. 167 languages spoken<br>
+<strong>Key spots:</strong> 74th Street (Indian/Nepali/Bangladeshi restaurants), Roosevelt Avenue (Mexican, Colombian, Ecuadorian food), Diversity Plaza, Himalayan Yak (Tibetan/Nepali food)<br>
+<strong>Transit:</strong> 7 train from Times Square to 74th St-Broadway (20 minutes)<br>
+<strong>Stay here if:</strong> You want the "real" NYC that 99% of tourists never see</p>
+
+<h3>Harlem</h3>
+<p><strong>Best for:</strong> Cultural heritage, music lovers, African diaspora connections<br>
+<strong>Vibe:</strong> Historic, proud, cultural. The capital of Black America<br>
+<strong>Key spots:</strong> Apollo Theater (legendary venue), Sylvia's (soul food institution), Red Rooster (Marcus Samuelsson's restaurant), Sunday gospel brunches, Malcolm Shabazz Harlem Market<br>
+<strong>Transit:</strong> 2/3 trains to 125th Street (15 min from Midtown)<br>
+<strong>Stay here if:</strong> You want cultural depth and are comfortable exploring beyond tourist zones</p>
+
+<h3>DUMBO / Brooklyn Heights</h3>
+<p><strong>Best for:</strong> Photo-seekers, waterfront dining, upscale Brooklyn<br>
+<strong>Vibe:</strong> Polished, photogenic, Instagram-ready<br>
+<strong>Key spots:</strong> Brooklyn Bridge Park (stunning Manhattan views), Jane's Carousel, Time Out Market (food hall), Grimaldi's Pizza, Manhattan Bridge view (the most photographed spot in Brooklyn)<br>
+<strong>Transit:</strong> A/C trains to High Street, F train to York Street, or walk across Brooklyn Bridge from Manhattan<br>
+<strong>Stay here if:</strong> You want Brooklyn charm with Manhattan accessibility</p>
+
+<h2>Getting to MetLife Stadium</h2>
+
+<div class="card"><div class="card-title">NJ Transit — The Only Sensible Option</div><div class="card-body">
+<strong>From:</strong> Penn Station (34th Street, Manhattan)<br>
+<strong>To:</strong> Meadowlands Sports Complex / MetLife Stadium<br>
+<strong>Duration:</strong> ~30 minutes<br>
+<strong>Frequency:</strong> Special match-day service runs every few minutes<br>
+<strong>Cost:</strong> ~$8 each way<br>
+<strong>App:</strong> Download NJ Transit app and buy tickets in advance<br>
+<strong>Timing:</strong> Arrive at Penn Station 2+ hours before kickoff. Trains will be packed<br><br>
+<strong>DO NOT DRIVE.</strong> Traffic on the NJ Turnpike approaching MetLife on match days will be catastrophic. Parking is limited and expensive. NJ Transit is faster, cheaper, and stress-free.
+</div></div>
+
+<div class="card"><div class="card-title">Fan Zone Predictions</div><div class="card-body">
+<strong>Times Square:</strong> Almost certainly a FIFA Fan Fest location. Giant screens, live entertainment, sponsor activations. Will be extremely crowded.<br>
+<strong>Hudson Yards:</strong> Possible secondary fan zone location. More space, newer venue.<br>
+<strong>Brooklyn — Prospect Park:</strong> Potential outdoor screening location. More relaxed atmosphere.<br>
+<strong>Queens — Flushing Meadows:</strong> Site of 1964 World's Fair. Large open space for screenings. Diverse neighbourhood matches fan demographics.<br><br>
+<em>Official locations TBA by FIFA closer to the tournament.</em>
+</div></div>
+
+<h2>Curator Roles — NYC</h2>
+
+<div class="curator-card"><div class="curator-avatar">🏙</div><div><div class="curator-name">Manhattan Insider</div><div class="curator-role">Founding Role</div><div class="curator-desc">Knows Manhattan beyond the tourist layer. Hidden speakeasies, reservation-only restaurants, rooftop bars with views, cultural events happening this week. The person who turns a generic NYC trip into an unforgettable one.</div></div></div>
+
+<div class="curator-card"><div class="curator-avatar">🎭</div><div><div class="curator-name">Brooklyn Culture Curator</div><div class="curator-role">Founding Role</div><div class="curator-desc">Art galleries in Bushwick, music venues in Williamsburg, food markets in DUMBO, vintage shops in Park Slope. The creative Brooklyn that exists beyond the Instagram version.</div></div></div>
+
+<div class="curator-card"><div class="curator-avatar">🌍</div><div><div class="curator-name">Queens Diversity Curator</div><div class="curator-role">Founding Role · Unique to Locavizion</div><div class="curator-desc">Jackson Heights food tours, Flushing Chinatown deep dives, Astoria Greek and Middle Eastern culture. This Curator shows visitors the most diverse county in America. No other platform offers this.</div></div></div>
+
+<div class="curator-card"><div class="curator-avatar">💼</div><div><div class="curator-name">Business & Finance Curator</div><div class="curator-role">Founding Role · Enterprise Crossover</div><div class="curator-desc">Wall Street connections, private dining at members-only clubs, executive networking events. For visiting CEOs and investors who want introductions, not just restaurants.</div></div></div>
+
+<div class="curator-card"><div class="curator-avatar">🌙</div><div><div class="curator-name">Nightlife Curator</div><div class="curator-role">Founding Role · Match Night Revenue</div><div class="curator-desc">Club access (Somewhere Nowhere, Le Bain, PHD), cocktail bar crawls, live music venues, late-night food spots. The person fans call after every match when they want to celebrate.</div></div></div>
+
+<div class="highlight">
+  <div class="highlight-label">NYC Complexity</div>
+  <p>New York is the most complex city in the tournament. Visitors need more guidance here than anywhere else — the subway alone has 472 stations. This complexity is Locavizion's advantage: <strong>the more overwhelming a city is, the more valuable a local guide becomes.</strong></p>
+</div>
+
+<div class="footer">Locavizion · New York City Blueprint · Internal Reference</div>
+</div>
+<script>function toggleCheck(el){el.classList.toggle("done");var b=el.querySelector(".check-box");b.textContent=el.classList.contains("done")?"✓":"";}</script>
+</body>
+</html>

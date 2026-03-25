@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Locavizion — Tampa Bay Blueprint</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0c0b09;--paper:#faf7f2;--gold:#c49a2a;--gold2:#e8b84b;--sage:#3a6650;--rust:#a83d20;--muted:#7a6e58;--bg:#0e0d0b;--border:rgba(255,255,255,0.08);--miami:#ff6b35;--nyc:#4a90d9}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--paper);padding:0;margin:0}
+.doc{max-width:860px;margin:0 auto;padding:3rem 2.5rem}
+.doc-badge{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--sage);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.4rem}
+.doc-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--sage)}
+h1{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--gold);line-height:1.2;margin-bottom:0.4rem}
+h1 em{color:var(--paper);font-style:italic}
+.subtitle{font-size:0.78rem;color:rgba(255,255,255,0.4);margin-bottom:2.5rem;line-height:1.6}
+h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--gold);margin:2.5rem 0 1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(196,154,42,0.15)}
+h3{font-size:0.9rem;font-weight:600;color:var(--paper);margin:1.5rem 0 0.6rem}
+h4{font-size:0.8rem;font-weight:500;color:var(--gold2);margin:1rem 0 0.4rem}
+p{font-size:0.8rem;color:rgba(255,255,255,0.6);line-height:1.85;margin-bottom:1rem}
+p strong{color:var(--paper);font-weight:500}
+p em{color:var(--gold);font-style:italic}
+ul{list-style:none;margin-bottom:1.5rem}
+ul li{font-size:0.78rem;color:rgba(255,255,255,0.6);line-height:1.85;padding:0.4rem 0 0.4rem 1.2rem;position:relative;border-bottom:1px solid rgba(255,255,255,0.03)}
+ul li::before{content:'→';position:absolute;left:0;color:var(--gold)}
+ul li strong{color:var(--paper);font-weight:500}
+table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:0.75rem}
+th{text-align:left;font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);padding:0.6rem 0.8rem;border-bottom:1px solid rgba(196,154,42,0.2);font-weight:500}
+td{padding:0.6rem 0.8rem;color:rgba(255,255,255,0.6);border-bottom:1px solid var(--border)}
+tr:hover td{background:rgba(255,255,255,0.02)}
+.highlight{background:rgba(196,154,42,0.08);border:1px solid rgba(196,154,42,0.2);padding:1.2rem 1.5rem;margin:1.5rem 0}
+.highlight-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem}
+.card{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem}
+.card-title{font-size:0.85rem;font-weight:600;color:var(--paper);margin-bottom:0.4rem}
+.card-body{font-size:0.72rem;color:rgba(255,255,255,0.55);line-height:1.8}
+.card-body strong{color:var(--paper)}
+.tpl{background:rgba(255,255,255,0.03);border:1px solid var(--border);margin:1rem 0}
+.tpl-head{display:flex;justify-content:space-between;align-items:center;padding:0.7rem 1rem;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.02)}
+.tpl-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold)}
+.tpl-body{padding:1rem;font-size:0.72rem;color:rgba(255,255,255,0.6);line-height:1.9;white-space:pre-line}
+.tpl-body strong{color:var(--paper)}
+.copy-btn{background:rgba(196,154,42,0.15);border:1px solid rgba(196,154,42,0.3);color:var(--gold);font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;padding:0.3rem 0.7rem;cursor:pointer;text-transform:uppercase}
+.copy-btn:hover{background:rgba(196,154,42,0.3)}
+.check{display:flex;align-items:flex-start;gap:0.6rem;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;font-size:0.72rem;color:rgba(255,255,255,0.6)}
+.check:hover{color:var(--paper)}
+.check-box{width:16px;height:16px;border:1px solid rgba(196,154,42,0.4);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:2px;font-size:0.6rem;color:var(--gold)}
+.check.done{color:rgba(255,255,255,0.25);text-decoration:line-through}
+.check.done .check-box{background:rgba(196,154,42,0.2)}
+.curator-card{display:grid;grid-template-columns:55px 1fr;gap:1rem;background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem}
+.curator-avatar{width:45px;height:45px;border-radius:50%;background:rgba(196,154,42,0.15);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.curator-name{font-size:0.85rem;font-weight:500;color:var(--paper)}
+.curator-role{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-top:0.15rem}
+.curator-desc{font-size:0.68rem;color:rgba(255,255,255,0.5);line-height:1.7;margin-top:0.3rem}
+.curator-desc strong{color:var(--paper)}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0 1.5rem}
+.rev-item{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1rem;text-align:center}
+.rev-val{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--gold)}
+.rev-label{font-size:0.6rem;color:rgba(255,255,255,0.4);margin-top:0.3rem;letter-spacing:0.08em;text-transform:uppercase}
+.match-row{display:grid;grid-template-columns:90px 1fr 100px;gap:0.5rem;padding:0.6rem 0;border-bottom:1px solid var(--border);align-items:center;font-size:0.72rem}
+.match-date{font-family:'DM Mono',monospace;color:var(--gold);font-size:0.65rem}
+.match-teams{color:var(--paper)}
+.match-venue{color:rgba(255,255,255,0.35);font-size:0.6rem;text-align:right}
+.tag-row{display:flex;flex-wrap:wrap;gap:0.4rem;margin:0.5rem 0 1rem}
+.tag{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.6rem;border:1px solid rgba(196,154,42,0.3);color:var(--gold)}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin:1rem 0 1.5rem}
+.pc{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;text-align:center}
+.pc.feat{border-color:var(--gold);background:rgba(196,154,42,0.06)}
+.pc-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--paper)}
+.pc-price{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--gold);margin:0.3rem 0}
+.pc-price span{font-size:0.7rem;color:rgba(255,255,255,0.35)}
+.pc-desc{font-size:0.65rem;color:rgba(255,255,255,0.4);line-height:1.6}
+.footer{text-align:center;padding:2rem 0;margin-top:3rem;border-top:1px solid var(--border);font-size:0.6rem;color:rgba(255,255,255,0.2)}
+@media(max-width:600px){.doc{padding:2rem 1.5rem}.rev-grid{grid-template-columns:1fr}.pricing-grid{grid-template-columns:1fr}.match-row{grid-template-columns:70px 1fr 60px}}
+</style>
+</head>
+<body>
+<div class="doc">
+
+<div class="doc-badge">World Cup</div>
+<h1>Tampa Bay <em>Blueprint</em></h1>
+<p class="subtitle">World Cup host city. Raymond James Stadium. Complete area guide, 5 founding Curator roles, cultural activation plan, and year-round growth strategy.</p>
+
+<h2>Tampa Bay's World Cup Opportunity</h2>
+<p>Tampa is a World Cup host city with matches at <strong>Raymond James Stadium</strong> — but beyond the stadium, visitors have almost zero context for what Tampa Bay actually offers. Unlike Miami (internationally famous) or NYC (globally recognised), Tampa Bay is a relative unknown to international visitors. That's both the challenge and the opportunity.</p>
+<p><strong>The challenge:</strong> Visitors won't know to explore Ybor City, St. Pete, or the waterfront unless someone tells them.<br>
+<strong>The opportunity:</strong> Every single visitor needs guidance. There's no "I already know Tampa" crowd. The addressable market is 100% of visitors.</p>
+
+<h2>Key Areas</h2>
+
+<h3>Ybor City</h3>
+<p>Tampa's historic Latin quarter, founded in the 1880s by cigar manufacturers. The most culturally significant neighbourhood for World Cup visitors, especially Latin American fans.</p>
+<ul>
+  <li><strong>Columbia Restaurant</strong> — Oldest restaurant in Florida (1905). Spanish-Cuban cuisine. Multiple dining rooms with Moorish tile work. A must-visit for every visitor</li>
+  <li><strong>Seventh Avenue (La Séptima)</strong> — Main strip. Bars, restaurants, clubs, cigar shops. Saturday night is the biggest night. Walking distance end-to-end</li>
+  <li><strong>Circulo Cubano</strong> — Historic Cuban social club. Cultural events, community gatherings. One of several historic social clubs (Italian Club, Spanish Club) that tell the immigration story</li>
+  <li><strong>Cigar shops</strong> — Several shops on 7th Ave still hand-roll cigars. Visitors can watch the process and buy fresh cigars. Unique to Tampa — this tradition exists almost nowhere else in America</li>
+  <li><strong>Nightlife</strong> — Gaspar's Grotto, The Castle, Club Prana. Ybor has Tampa's densest nightlife district. Safe, walkable, well-lit. Police presence on weekends</li>
+</ul>
+
+<h3>SoHo (South Howard Avenue)</h3>
+<p>Tampa's restaurant row. The best dining density in the city.</p>
+<ul>
+  <li><strong>Howard Avenue between Bayshore and Kennedy</strong> — 20+ restaurants within a 6-block walk. Perfect for a food crawl</li>
+  <li><strong>Key restaurants:</strong> Datz (American eclectic), Bulla Gastrobar (Spanish tapas), The Refinery (seasonal American), Ciro's Speakeasy (hidden cocktail bar)</li>
+  <li><strong>Vibe:</strong> Young professional, 25-40 age range. Casual upscale. Walkable from Hyde Park</li>
+  <li><strong>Walking distance:</strong> Hyde Park Village (boutique shopping), Bayshore Boulevard</li>
+</ul>
+
+<h3>Downtown / Water Street Tampa</h3>
+<ul>
+  <li><strong>Tampa Riverwalk</strong> — 2.6-mile waterfront walking path. Connects museums, parks, restaurants, and the convention center. Excellent for morning runs and evening strolls</li>
+  <li><strong>Sparkman Wharf</strong> — Waterfront dining and entertainment complex. Container-style restaurants, outdoor seating, bay views</li>
+  <li><strong>Water Street Tampa</strong> — Massive new mixed-use development by Jeff Vinik (Lightning owner). Hotels, restaurants, offices. The Tampa Edition hotel is the flagship</li>
+  <li><strong>Proximity to stadium:</strong> Raymond James Stadium is ~2 miles from downtown. Walkable or short ride on match days</li>
+</ul>
+
+<h3>St. Petersburg</h3>
+<ul>
+  <li><strong>Salvador Dali Museum</strong> — World's largest collection of Dali works outside Spain. Architecturally stunning building. A must-visit even for non-art fans</li>
+  <li><strong>Central Avenue</strong> — Main street of St. Pete. Independent shops, galleries, craft breweries (Green Bench, 3 Daughters, Cycle Brewing). Walking distance from the waterfront</li>
+  <li><strong>First Friday Art Walk</strong> — Monthly event on the first Friday. Galleries open late, live music, street vendors, food trucks. Thousands attend. The best introduction to St. Pete's creative community</li>
+  <li><strong>Beaches:</strong> St. Pete Beach and Treasure Island. Among the best-rated beaches in the US. 20-minute drive from downtown St. Pete</li>
+  <li><strong>Distance:</strong> 30 minutes from Tampa across the Howard Frankland Bridge. Consider it a separate city visit, not a quick side trip</li>
+</ul>
+
+<h3>Bayshore Boulevard & Davis Islands</h3>
+<ul>
+  <li><strong>Bayshore Boulevard</strong> — 4.5 miles of continuous waterfront sidewalk. The world's longest. Stunning bay views, especially at sunrise and sunset. Running, cycling, walking, rollerblading</li>
+  <li><strong>Davis Islands</strong> — Small residential island community just south of downtown. Peter O. Knight Airport (small private airport), Davis Islands Beach, yacht clubs. Old Florida charm</li>
+  <li><strong>Best for:</strong> Morning runners, photographers, anyone who wants to see Tampa's waterfront beauty</li>
+</ul>
+
+<h2>5 Founding Curator Roles</h2>
+<p>Full details including real targets and outreach templates are in the <strong>Tampa Bay Curator Guide</strong> tab. Summary:</p>
+<ul>
+  <li><strong>Food & Restaurant</strong> — Targets: @tampafoodgirl, @thisbabeeats</li>
+  <li><strong>Tech & Startup</strong> — Targets: Embarc Collective, Tampa Bay Wave</li>
+  <li><strong>Arts & Culture (St. Pete)</strong> — Targets: Creative Pinellas, SHINE Mural Fest</li>
+  <li><strong>Latin Heritage & Ybor City</strong> — Targets: Ybor Chamber, Circulo Cubano</li>
+  <li><strong>Outdoors & Waterfront</strong> — Targets: Kayak operators, Meetup groups</li>
+</ul>
+
+<h2>Year-Round Opportunity</h2>
+<p>Tampa's World Cup matches are the launch event, but the year-round opportunity is substantial:</p>
+<ul>
+  <li><strong>New residents:</strong> Tampa adds thousands of transplants monthly — remote workers, military families, retirees, tech workers. All need local orientation</li>
+  <li><strong>Business conferences:</strong> Tampa Convention Center hosts major events year-round. Every attendee is a potential Locavizion user</li>
+  <li><strong>Cruise port:</strong> Port Tampa Bay is a major cruise departure point. Pre/post-cruise city exploration is a natural use case</li>
+  <li><strong>Spring training:</strong> MLB spring training brings 1M+ visitors to the Tampa Bay area every February-March</li>
+  <li><strong>University influx:</strong> USF (50,000+ students) brings new residents every fall semester</li>
+</ul>
+
+<div class="highlight">
+  <div class="highlight-label">Tampa Differentiator</div>
+  <p>Unlike Miami or NYC, Tampa is <strong>not overcrowded with competitors</strong>. There are no well-known "local guide" platforms for Tampa. GetYourGuide has minimal Tampa listings. Airbnb Experiences coverage is thin. <strong>Locavizion can own Tampa Bay's local intelligence market with minimal competition.</strong></p>
+</div>
+
+<div class="footer">Locavizion · Tampa Bay Blueprint · Internal Reference</div>
+</div>
+<script>function toggleCheck(el){el.classList.toggle("done");var b=el.querySelector(".check-box");b.textContent=el.classList.contains("done")?"✓":"";}</script>
+</body>
+</html>

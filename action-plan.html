@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Locavizion — 30-Day Action Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0c0b09;--paper:#faf7f2;--gold:#c49a2a;--gold2:#e8b84b;--sage:#3a6650;--rust:#a83d20;--muted:#7a6e58;--bg:#0e0d0b;--border:rgba(255,255,255,0.08);--miami:#ff6b35;--nyc:#4a90d9}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--paper);padding:0;margin:0}
+.doc{max-width:860px;margin:0 auto;padding:3rem 2.5rem}
+.doc-badge{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--sage);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.4rem}
+.doc-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--sage)}
+h1{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--gold);line-height:1.2;margin-bottom:0.4rem}
+h1 em{color:var(--paper);font-style:italic}
+.subtitle{font-size:0.78rem;color:rgba(255,255,255,0.4);margin-bottom:2.5rem;line-height:1.6}
+h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--gold);margin:2.5rem 0 1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(196,154,42,0.15)}
+h3{font-size:0.9rem;font-weight:600;color:var(--paper);margin:1.5rem 0 0.6rem}
+h4{font-size:0.8rem;font-weight:500;color:var(--gold2);margin:1rem 0 0.4rem}
+p{font-size:0.8rem;color:rgba(255,255,255,0.6);line-height:1.85;margin-bottom:1rem}
+p strong{color:var(--paper);font-weight:500}
+p em{color:var(--gold);font-style:italic}
+ul{list-style:none;margin-bottom:1.5rem}
+ul li{font-size:0.78rem;color:rgba(255,255,255,0.6);line-height:1.85;padding:0.4rem 0 0.4rem 1.2rem;position:relative;border-bottom:1px solid rgba(255,255,255,0.03)}
+ul li::before{content:'→';position:absolute;left:0;color:var(--gold)}
+ul li strong{color:var(--paper);font-weight:500}
+table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:0.75rem}
+th{text-align:left;font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);padding:0.6rem 0.8rem;border-bottom:1px solid rgba(196,154,42,0.2);font-weight:500}
+td{padding:0.6rem 0.8rem;color:rgba(255,255,255,0.6);border-bottom:1px solid var(--border)}
+tr:hover td{background:rgba(255,255,255,0.02)}
+.highlight{background:rgba(196,154,42,0.08);border:1px solid rgba(196,154,42,0.2);padding:1.2rem 1.5rem;margin:1.5rem 0}
+.highlight-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem}
+.card{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem}
+.card-title{font-size:0.85rem;font-weight:600;color:var(--paper);margin-bottom:0.4rem}
+.card-body{font-size:0.72rem;color:rgba(255,255,255,0.55);line-height:1.8}
+.card-body strong{color:var(--paper)}
+.tpl{background:rgba(255,255,255,0.03);border:1px solid var(--border);margin:1rem 0}
+.tpl-head{display:flex;justify-content:space-between;align-items:center;padding:0.7rem 1rem;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.02)}
+.tpl-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold)}
+.tpl-body{padding:1rem;font-size:0.72rem;color:rgba(255,255,255,0.6);line-height:1.9;white-space:pre-line}
+.tpl-body strong{color:var(--paper)}
+.copy-btn{background:rgba(196,154,42,0.15);border:1px solid rgba(196,154,42,0.3);color:var(--gold);font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;padding:0.3rem 0.7rem;cursor:pointer;text-transform:uppercase}
+.copy-btn:hover{background:rgba(196,154,42,0.3)}
+.check{display:flex;align-items:flex-start;gap:0.6rem;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;font-size:0.72rem;color:rgba(255,255,255,0.6)}
+.check:hover{color:var(--paper)}
+.check-box{width:16px;height:16px;border:1px solid rgba(196,154,42,0.4);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:2px;font-size:0.6rem;color:var(--gold)}
+.check.done{color:rgba(255,255,255,0.25);text-decoration:line-through}
+.check.done .check-box{background:rgba(196,154,42,0.2)}
+.curator-card{display:grid;grid-template-columns:55px 1fr;gap:1rem;background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem}
+.curator-avatar{width:45px;height:45px;border-radius:50%;background:rgba(196,154,42,0.15);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.curator-name{font-size:0.85rem;font-weight:500;color:var(--paper)}
+.curator-role{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-top:0.15rem}
+.curator-desc{font-size:0.68rem;color:rgba(255,255,255,0.5);line-height:1.7;margin-top:0.3rem}
+.curator-desc strong{color:var(--paper)}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0 1.5rem}
+.rev-item{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1rem;text-align:center}
+.rev-val{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--gold)}
+.rev-label{font-size:0.6rem;color:rgba(255,255,255,0.4);margin-top:0.3rem;letter-spacing:0.08em;text-transform:uppercase}
+.match-row{display:grid;grid-template-columns:90px 1fr 100px;gap:0.5rem;padding:0.6rem 0;border-bottom:1px solid var(--border);align-items:center;font-size:0.72rem}
+.match-date{font-family:'DM Mono',monospace;color:var(--gold);font-size:0.65rem}
+.match-teams{color:var(--paper)}
+.match-venue{color:rgba(255,255,255,0.35);font-size:0.6rem;text-align:right}
+.tag-row{display:flex;flex-wrap:wrap;gap:0.4rem;margin:0.5rem 0 1rem}
+.tag{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.6rem;border:1px solid rgba(196,154,42,0.3);color:var(--gold)}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin:1rem 0 1.5rem}
+.pc{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;text-align:center}
+.pc.feat{border-color:var(--gold);background:rgba(196,154,42,0.06)}
+.pc-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--paper)}
+.pc-price{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--gold);margin:0.3rem 0}
+.pc-price span{font-size:0.7rem;color:rgba(255,255,255,0.35)}
+.pc-desc{font-size:0.65rem;color:rgba(255,255,255,0.4);line-height:1.6}
+.footer{text-align:center;padding:2rem 0;margin-top:3rem;border-top:1px solid var(--border);font-size:0.6rem;color:rgba(255,255,255,0.2)}
+@media(max-width:600px){.doc{padding:2rem 1.5rem}.rev-grid{grid-template-columns:1fr}.pricing-grid{grid-template-columns:1fr}.match-row{grid-template-columns:70px 1fr 60px}}
+</style>
+</head>
+<body>
+<div class="doc">
+
+<div class="doc-badge">Operations</div>
+<h1>30-Day <em>Action Plan</em></h1>
+<p class="subtitle">Step-by-step founder execution plan with daily tasks, weekly checkpoints, and the deliverables that make Locavizion investor-ready in 30 days.</p>
+
+<h2>Week 1 — Foundation (Days 1-7)</h2>
+
+<div class="check" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Day 1:</strong> Website live, SSL confirmed (check green padlock), test chatbot with 5 different questions, verify Google Form submissions reach your Google Sheet</div></div>
+<div class="check" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Day 2:</strong> Email 10 personal contacts (friends, family, professional contacts) with the locavizion.com link. Ask for honest feedback on: first impression, clarity of the concept, would they sign up, anything confusing</div></div>
+<div class="check" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Day 3:</strong> Send first Curator outreach message. Target: @tampafoodgirl on Instagram. Reference her most recent post specifically. Use Template 1 from the Outreach Playbook</div></div>
+<div class="check" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Day 4:</strong> Set up Instagram @locavizion (business account). Post first piece of content: a carousel titled "5 things nobody tells you about Tampa Bay." Follow 50 relevant local accounts</div></div>
+<div class="check" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Day 5:</strong> Send 3 more Curator outreach messages: @thisbabeeats (food), Embarc Collective email (tech), Creative Pinellas DM (arts). Each one personalised with a specific reference</div></div>
+<div class="check" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Day 6:</strong> Follow up on Day 3 @tampafoodgirl message if no response. Post second Instagram content: a reel titled "Only locals know about this spot in Ybor City"</div></div>
+<div class="check" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Day 7:</strong> Week 1 review (use weekly template from Tracker). Count: waitlist signups, outreach messages sent, responses received. Plan Week 2 priorities. First LinkedIn post about Locavizion</div></div>
+
+<h2>Week 2 — Outreach (Days 8-14)</h2>
+
+<div class="check" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Days 8-9:</strong> Send 5 more Curator outreach messages across Tampa, Miami, and NYC. Target at least one person in each city. Use different templates matched to their personality type</div></div>
+<div class="check" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Day 10:</strong> Complete 3 user interviews. Target: friends or contacts who travel for business or pleasure. Ask: how do they research cities now? What frustrates them? Would they pay for local guidance? Document quotes</div></div>
+<div class="check" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Days 11-12:</strong> First Curator call — use the 5-minute pitch structure from the Sales Guide. Take notes. If they're interested, send the Curator agreement within 24 hours</div></div>
+<div class="check" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Day 13:</strong> Submit first accelerator application. Priority: Techstars (check application deadlines at techstars.com/accelerators). Use the vision doc from the 30-Day Action Guide as the narrative</div></div>
+<div class="check" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Day 14:</strong> Week 2 review. Target by now: 25 waitlist signups, 8+ outreach messages sent, 1+ Curator call completed, 3+ user interviews done. Instagram at 100+ followers</div></div>
+
+<h2>Week 3 — Traction (Days 15-21)</h2>
+
+<div class="check" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Days 15-17:</strong> Sign first 2 Curators. Send agreements, get signatures, create their profiles. Help them design their first experience listing</div></div>
+<div class="check" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Days 18-19:</strong> Complete 7 more user interviews (10 total). Start seeing patterns in responses. Document common quotes, frustrations, and willingness-to-pay data points</div></div>
+<div class="check" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Day 20:</strong> Create investor contact list — 30 names. Include: angel investors in Tampa/Miami, travel/hospitality VCs, accelerator partners, personal network connections who know investors. Identify 5 warm intro paths</div></div>
+<div class="check" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Day 21:</strong> Week 3 review. Target: 40 waitlist signups, 2 Curators signed, 10 user interviews, investor list started. Send first 2 investor briefs via Docsend</div></div>
+
+<h2>Week 4 — Investor Ready (Days 22-30)</h2>
+
+<div class="check" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Days 22-24:</strong> Send pitch deck to 5 warm investor contacts via Docsend. Include a brief email: 3 sentences about what Locavizion is, one stat (World Cup visitors), one proof point (X Curators signed, Y waitlist), and the Docsend link</div></div>
+<div class="check" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Days 25-26:</strong> Complete remaining user interviews (20 total). Compile quotes, stats, and insights into a 1-page user research summary</div></div>
+<div class="check" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Days 27-28:</strong> Submit 3 more accelerator applications (4 total). Prioritise programs with travel, hospitality, or sports tech focus</div></div>
+<div class="check" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Days 29-30:</strong> Final week review. Compile 30-day results into a summary doc. Update pitch deck with real traction numbers. Celebrate what you've built</div></div>
+
+<div class="highlight">
+  <div class="highlight-label">The 30-Day Outcome</div>
+  <p>By Day 30 you should have: a <strong>vision doc</strong>, a <strong>live waitlist with 50+ signups</strong>, <strong>5 curator conversations documented</strong>, <strong>20 user interviews with quotes and data</strong>, <strong>4 accelerator applications submitted</strong>, and a <strong>30-name investor list with 5 warm intro paths identified</strong>. That is a fundable story. That is a founder who moves. <strong>No money spent. No product built. Just evidence that you are the right person to build this.</strong></p>
+</div>
+
+<div class="footer">Locavizion · 30-Day Action Plan · Internal Reference</div>
+</div>
+<script>function toggleCheck(el){el.classList.toggle("done");var b=el.querySelector(".check-box");b.textContent=el.classList.contains("done")?"✓":"";}</script>
+</body>
+</html>

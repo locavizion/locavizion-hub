@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Locavizion — Investor Briefing</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0c0b09;--paper:#faf7f2;--gold:#c49a2a;--gold2:#e8b84b;--sage:#3a6650;--rust:#a83d20;--muted:#7a6e58;--bg:#0e0d0b;--border:rgba(255,255,255,0.08);--miami:#ff6b35;--nyc:#4a90d9}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--paper);padding:0;margin:0}
+.doc{max-width:860px;margin:0 auto;padding:3rem 2.5rem}
+.doc-badge{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.4rem}
+.doc-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold)}
+h1{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--gold);line-height:1.2;margin-bottom:0.4rem}
+h1 em{color:var(--paper);font-style:italic}
+.subtitle{font-size:0.78rem;color:rgba(255,255,255,0.4);margin-bottom:2.5rem;line-height:1.6}
+h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--gold);margin:2.5rem 0 1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(196,154,42,0.15)}
+h3{font-size:0.9rem;font-weight:600;color:var(--paper);margin:1.5rem 0 0.6rem}
+h4{font-size:0.8rem;font-weight:500;color:var(--gold2);margin:1rem 0 0.4rem}
+p{font-size:0.8rem;color:rgba(255,255,255,0.6);line-height:1.85;margin-bottom:1rem}
+p strong{color:var(--paper);font-weight:500}
+p em{color:var(--gold);font-style:italic}
+ul{list-style:none;margin-bottom:1.5rem}
+ul li{font-size:0.78rem;color:rgba(255,255,255,0.6);line-height:1.85;padding:0.4rem 0 0.4rem 1.2rem;position:relative;border-bottom:1px solid rgba(255,255,255,0.03)}
+ul li::before{content:'→';position:absolute;left:0;color:var(--gold)}
+ul li strong{color:var(--paper);font-weight:500}
+table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:0.75rem}
+th{text-align:left;font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);padding:0.6rem 0.8rem;border-bottom:1px solid rgba(196,154,42,0.2);font-weight:500}
+td{padding:0.6rem 0.8rem;color:rgba(255,255,255,0.6);border-bottom:1px solid var(--border)}
+tr:hover td{background:rgba(255,255,255,0.02)}
+.highlight{background:rgba(196,154,42,0.08);border:1px solid rgba(196,154,42,0.2);padding:1.2rem 1.5rem;margin:1.5rem 0}
+.highlight-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem}
+.card{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem}
+.card-title{font-size:0.85rem;font-weight:600;color:var(--paper);margin-bottom:0.4rem}
+.card-body{font-size:0.72rem;color:rgba(255,255,255,0.55);line-height:1.8}
+.card-body strong{color:var(--paper)}
+.tpl{background:rgba(255,255,255,0.03);border:1px solid var(--border);margin:1rem 0}
+.tpl-head{display:flex;justify-content:space-between;align-items:center;padding:0.7rem 1rem;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.02)}
+.tpl-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold)}
+.tpl-body{padding:1rem;font-size:0.72rem;color:rgba(255,255,255,0.6);line-height:1.9;white-space:pre-line}
+.tpl-body strong{color:var(--paper)}
+.copy-btn{background:rgba(196,154,42,0.15);border:1px solid rgba(196,154,42,0.3);color:var(--gold);font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;padding:0.3rem 0.7rem;cursor:pointer;text-transform:uppercase}
+.copy-btn:hover{background:rgba(196,154,42,0.3)}
+.check{display:flex;align-items:flex-start;gap:0.6rem;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;font-size:0.72rem;color:rgba(255,255,255,0.6)}
+.check:hover{color:var(--paper)}
+.check-box{width:16px;height:16px;border:1px solid rgba(196,154,42,0.4);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:2px;font-size:0.6rem;color:var(--gold)}
+.check.done{color:rgba(255,255,255,0.25);text-decoration:line-through}
+.check.done .check-box{background:rgba(196,154,42,0.2)}
+.curator-card{display:grid;grid-template-columns:55px 1fr;gap:1rem;background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem}
+.curator-avatar{width:45px;height:45px;border-radius:50%;background:rgba(196,154,42,0.15);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.curator-name{font-size:0.85rem;font-weight:500;color:var(--paper)}
+.curator-role{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-top:0.15rem}
+.curator-desc{font-size:0.68rem;color:rgba(255,255,255,0.5);line-height:1.7;margin-top:0.3rem}
+.curator-desc strong{color:var(--paper)}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0 1.5rem}
+.rev-item{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1rem;text-align:center}
+.rev-val{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--gold)}
+.rev-label{font-size:0.6rem;color:rgba(255,255,255,0.4);margin-top:0.3rem;letter-spacing:0.08em;text-transform:uppercase}
+.match-row{display:grid;grid-template-columns:90px 1fr 100px;gap:0.5rem;padding:0.6rem 0;border-bottom:1px solid var(--border);align-items:center;font-size:0.72rem}
+.match-date{font-family:'DM Mono',monospace;color:var(--gold);font-size:0.65rem}
+.match-teams{color:var(--paper)}
+.match-venue{color:rgba(255,255,255,0.35);font-size:0.6rem;text-align:right}
+.tag-row{display:flex;flex-wrap:wrap;gap:0.4rem;margin:0.5rem 0 1rem}
+.tag{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.6rem;border:1px solid rgba(196,154,42,0.3);color:var(--gold)}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin:1rem 0 1.5rem}
+.pc{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;text-align:center}
+.pc.feat{border-color:var(--gold);background:rgba(196,154,42,0.06)}
+.pc-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--paper)}
+.pc-price{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--gold);margin:0.3rem 0}
+.pc-price span{font-size:0.7rem;color:rgba(255,255,255,0.35)}
+.pc-desc{font-size:0.65rem;color:rgba(255,255,255,0.4);line-height:1.6}
+.footer{text-align:center;padding:2rem 0;margin-top:3rem;border-top:1px solid var(--border);font-size:0.6rem;color:rgba(255,255,255,0.2)}
+@media(max-width:600px){.doc{padding:2rem 1.5rem}.rev-grid{grid-template-columns:1fr}.pricing-grid{grid-template-columns:1fr}.match-row{grid-template-columns:70px 1fr 60px}}
+</style>
+</head>
+<body>
+<div class="doc">
+
+<div class="doc-badge">Investor</div>
+<h1>Investor <em>Briefing</em></h1>
+<p class="subtitle">The comprehensive written leave-behind for investor meetings. Covers market opportunity, product architecture, revenue model, 3-year financial projections, and the pre-seed ask.</p>
+
+<h2>Executive Summary</h2>
+<p><strong>Locavizion</strong> is a hospitality intelligence platform that connects travelers with verified local Curators for personalised city experiences. Unlike travel review sites that aggregate anonymous opinions, Locavizion matches visitors with domain-specific experts — food, nightlife, business networking, culture, outdoors — who provide AI-enhanced briefings and bookable experiences.</p>
+<p>The platform launches during the <strong>2026 FIFA World Cup</strong>, the largest sporting event in history, which brings an estimated <strong>10 million international visitors</strong> to 11 US host cities over 39 days. This creates a once-in-a-generation customer acquisition window where millions of people actively need exactly what Locavizion provides: local knowledge in an unfamiliar city.</p>
+
+<h2>The Market Opportunity</h2>
+
+<div class="rev-grid">
+  <div class="rev-item"><div class="rev-val">$17.2B</div><div class="rev-label">Projected US GDP Boost</div></div>
+  <div class="rev-item"><div class="rev-val">10M+</div><div class="rev-label">International Visitors</div></div>
+  <div class="rev-item"><div class="rev-val">185K</div><div class="rev-label">Jobs Created</div></div>
+</div>
+
+<p>Beyond the World Cup window, Locavizion targets the <strong>$850+ billion global travel experience market</strong>. The platform transitions from World Cup-specific activation to year-round travel, business conferences, corporate hospitality, and new resident integration across every major US city.</p>
+
+<h3>Why Now</h3>
+<ul>
+  <li><strong>World Cup timing</strong> — June 11, 2026 creates a hard deadline and massive, guaranteed customer wave. No other travel startup has this kind of built-in launch event</li>
+  <li><strong>AI maturity</strong> — Large language models (Claude, GPT-4) are now good enough to provide genuinely useful city intelligence, making the AI+human Curator model possible for the first time</li>
+  <li><strong>Creator economy readiness</strong> — Local experts are already monetising knowledge on Instagram, TikTok, and YouTube. Locavizion gives them a structured, higher-revenue channel</li>
+  <li><strong>Remote work migration</strong> — Tampa, Miami, and Austin have seen massive population growth from remote workers who arrive knowing nobody. Year-round new-resident onboarding is a large, underserved market</li>
+</ul>
+
+<h2>The Product</h2>
+<p>Three integrated layers:</p>
+<ul>
+  <li><strong>Layer 1 — AI City Guide (free)</strong> — Claude-powered chatbot trained on Curator knowledge. Answers questions about neighbourhoods, restaurants, transit, safety, cultural context. Available 24/7, covers all active cities. Serves as the top-of-funnel that drives sign-ups and Curator bookings</li>
+  <li><strong>Layer 2 — Curator Briefings (paid)</strong> — 1:1 video briefings with verified local Curators. 30-60 minutes. Traveler shares their trip details, Curator provides a personalised city plan with specific restaurant reservations to make, neighbourhoods to stay in, events happening during their visit, and people to meet. $50–$150 per session depending on the Curator and city</li>
+  <li><strong>Layer 3 — Bookable Experiences (paid)</strong> — Curators design and host group experiences: food tours, nightlife guides, cultural walks, business networking events, neighbourhood deep-dives. $50–$200 per person. Groups of 4-12. Curators set their own pricing, schedule, and experience design</li>
+</ul>
+
+<h2>Revenue Model — 6 Streams</h2>
+<table>
+  <tr><th>Stream</th><th>Model</th><th>Curator Share</th><th>Platform Share</th></tr>
+  <tr><td>Subscriptions</td><td>Monthly membership</td><td>—</td><td>100%</td></tr>
+  <tr><td>Experience Bookings</td><td>Per-person booking</td><td>70%</td><td>30%</td></tr>
+  <tr><td>Curator Briefings</td><td>Per-session fee</td><td>65%</td><td>35%</td></tr>
+  <tr><td>Enterprise Contracts</td><td>Monthly/annual SaaS</td><td>—</td><td>100%</td></tr>
+  <tr><td>Venue Partnerships</td><td>Featured listing fee</td><td>Referral bonus</td><td>Listing fee</td></tr>
+  <tr><td>Data Licensing</td><td>Custom contracts</td><td>—</td><td>100%</td></tr>
+</table>
+
+<h3>Why 70/30 Curator Split</h3>
+<p>Most tour platforms (GetYourGuide, Viator, Airbnb Experiences) take 20-30% but provide commoditised, undifferentiated listings. Food delivery apps take 30%+. Locavizion's 70/30 split is deliberately generous because:</p>
+<ul>
+  <li><strong>Curator retention is everything</strong> — A great Curator generates repeat bookings and referrals. Losing one costs more than the 10% margin difference</li>
+  <li><strong>Quality attracts quality</strong> — Generous economics attract better Curators, which creates better experiences, which drives more members, which benefits everyone</li>
+  <li><strong>The platform makes money on volume</strong> — 30% of a $120 experience × 50 bookings/month per Curator × 15 Curators = $27,000/month platform revenue from experiences alone</li>
+</ul>
+
+<h2>3-Year Financial Projections</h2>
+<table>
+  <tr><th>Metric</th><th>Year 1 (World Cup)</th><th>Year 2</th><th>Year 3</th></tr>
+  <tr><td>Cities</td><td>3 (Tampa, Miami, NYC)</td><td>11 (all WC host cities)</td><td>25+ global</td></tr>
+  <tr><td>Active Curators</td><td>15 (5/city)</td><td>55 (5/city)</td><td>150+</td></tr>
+  <tr><td>Paying Members</td><td>2,500</td><td>15,000</td><td>75,000</td></tr>
+  <tr><td>Experiences Hosted</td><td>800</td><td>5,000</td><td>25,000</td></tr>
+  <tr><td>Briefings Delivered</td><td>1,200</td><td>8,000</td><td>40,000</td></tr>
+  <tr><td>Gross Revenue</td><td>$180K</td><td>$1.2M</td><td>$5M+</td></tr>
+  <tr><td>Platform Net Revenue</td><td>$85K</td><td>$520K</td><td>$2.2M</td></tr>
+</table>
+
+<h3>Year 1 Revenue Breakdown</h3>
+<ul>
+  <li><strong>Subscriptions:</strong> 2,500 members × avg $12/mo × 6 months active = $180,000 gross</li>
+  <li><strong>Experience bookings:</strong> 800 bookings × $100 avg × 30% platform = $24,000</li>
+  <li><strong>Briefings:</strong> 1,200 sessions × $75 avg × 35% platform = $31,500</li>
+  <li><strong>Enterprise:</strong> 3 contracts × $500/mo × 6 months = $9,000</li>
+  <li><strong>Total Year 1 platform revenue:</strong> ~$244,500 gross inflow, ~$85K net after Curator payouts</li>
+</ul>
+
+<h2>Competitive Landscape</h2>
+<table>
+  <tr><th>Competitor</th><th>What They Do</th><th>What They Miss</th></tr>
+  <tr><td>TripAdvisor / Yelp</td><td>Anonymous crowd-sourced reviews</td><td>No personalisation, no human expert, no cultural context</td></tr>
+  <tr><td>Airbnb Experiences</td><td>Bookable tours by locals</td><td>Commoditised, no AI layer, no briefing option, no domain matching</td></tr>
+  <tr><td>GetYourGuide / Viator</td><td>Mass-market tour bookings</td><td>Tour-operator focused, not individual experts, no AI</td></tr>
+  <tr><td>Google Maps / Guides</td><td>Algorithmic recommendations</td><td>No human curation, no context, optimises for ad revenue not quality</td></tr>
+  <tr><td>Concierge services</td><td>High-end hotel concierges</td><td>$500+/night hotel required, not accessible to most travelers</td></tr>
+</table>
+<p><strong>Locavizion's moat:</strong> The combination of AI + verified human Curators + domain-specific matching + World Cup timing creates a product no single competitor can replicate by June 2026.</p>
+
+<h2>The Team</h2>
+<p>Solo founder currently. Actively recruiting:</p>
+<ul>
+  <li><strong>Technical co-founder</strong> — Mobile app development (React Native), backend architecture, AI integration</li>
+  <li><strong>Head of Curator Operations</strong> — Recruitment, onboarding, quality control, Curator success</li>
+  <li><strong>Advisory board</strong> — Targeting hospitality industry veterans, travel tech founders, Miami/Tampa community leaders</li>
+</ul>
+
+<h2>Use of Funds</h2>
+<div class="rev-grid">
+  <div class="rev-item"><div class="rev-val">40%</div><div class="rev-label">Product & Engineering</div></div>
+  <div class="rev-item"><div class="rev-val">30%</div><div class="rev-label">Curator Recruitment</div></div>
+  <div class="rev-item"><div class="rev-val">30%</div><div class="rev-label">Marketing & Operations</div></div>
+</div>
+<ul>
+  <li><strong>Product ($100K)</strong> — Mobile app MVP (iOS + Android via React Native), booking system, payment integration (Stripe Connect), Curator dashboard</li>
+  <li><strong>Curator recruitment ($75K)</strong> — Signing bonuses for first 15 founding Curators, community events, content creation for Curator onboarding materials</li>
+  <li><strong>Marketing & ops ($75K)</strong> — Digital marketing during World Cup window, guerrilla marketing (QR codes, flyers, fan zone presence), 6 months operating runway</li>
+</ul>
+
+<div class="highlight">
+  <div class="highlight-label">The Ask</div>
+  <p><strong>$250K pre-seed round.</strong> Funds 3-city World Cup launch, 15 founding Curators, mobile app MVP, and captures the once-in-a-generation audience window before June 11, 2026. Terms negotiable — SAFE note preferred.</p>
+</div>
+
+<h2>Traction to Date</h2>
+<ul>
+  <li><strong>locavizion.com</strong> — Live waitlist page with working signup form, active AI chatbot, professional domain and email</li>
+  <li><strong>AI City Guide</strong> — Claude-powered chatbot covering Miami, Tampa Bay, and NYC. Live and serving responses via Cloudflare Worker</li>
+  <li><strong>Curator pipeline</strong> — 5 founding roles defined for Tampa Bay with real targets identified (specific Instagram accounts, community organisations, accelerators)</li>
+  <li><strong>Revenue model validated</strong> — Complete 6-stream payment model designed with exact splits, scenarios modelled for 3 cities</li>
+  <li><strong>Cost structure</strong> — Currently operating at $0/month infrastructure cost (GitHub Pages, Cloudflare free tier, Google Forms)</li>
+</ul>
+
+<div class="highlight">
+  <div class="highlight-label">Contact</div>
+  <p><strong>Email:</strong> hello@locavizion.com<br>
+  <strong>Website:</strong> locavizion.com<br>
+  <strong>Location:</strong> Tampa Bay, Florida</p>
+</div>
+
+<div class="footer">Locavizion · Investor Briefing · Internal Reference</div>
+</div>
+
+<script>
+function copyText(btn,id){
+  var el=document.getElementById(id);if(!el)return;
+  navigator.clipboard.writeText(el.innerText).then(function(){
+    btn.textContent='Copied ✓';setTimeout(function(){btn.textContent='Copy'},2000);
+  }).catch(function(){
+    var ta=document.createElement('textarea');ta.value=el.innerText;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+    btn.textContent='Copied ✓';setTimeout(function(){btn.textContent='Copy'},2000);
+  });
+}
+function toggleCheck(el){el.classList.toggle('done');var b=el.querySelector('.check-box');b.textContent=el.classList.contains('done')?'✓':'';}
+</script>
+
+</body>
+</html>

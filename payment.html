@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Locavizion — Revenue & Payment Breakdown</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0c0b09;--paper:#faf7f2;--gold:#c49a2a;--gold2:#e8b84b;--sage:#3a6650;--rust:#a83d20;--muted:#7a6e58;--bg:#0e0d0b;--border:rgba(255,255,255,0.08);--miami:#ff6b35;--nyc:#4a90d9}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--paper);padding:0;margin:0}
+.doc{max-width:860px;margin:0 auto;padding:3rem 2.5rem}
+.doc-badge{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.4rem}
+.doc-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--muted)}
+h1{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--gold);line-height:1.2;margin-bottom:0.4rem}
+h1 em{color:var(--paper);font-style:italic}
+.subtitle{font-size:0.78rem;color:rgba(255,255,255,0.4);margin-bottom:2.5rem;line-height:1.6}
+h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--gold);margin:2.5rem 0 1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(196,154,42,0.15)}
+h3{font-size:0.9rem;font-weight:600;color:var(--paper);margin:1.5rem 0 0.6rem}
+h4{font-size:0.8rem;font-weight:500;color:var(--gold2);margin:1rem 0 0.4rem}
+p{font-size:0.8rem;color:rgba(255,255,255,0.6);line-height:1.85;margin-bottom:1rem}
+p strong{color:var(--paper);font-weight:500}
+p em{color:var(--gold);font-style:italic}
+ul{list-style:none;margin-bottom:1.5rem}
+ul li{font-size:0.78rem;color:rgba(255,255,255,0.6);line-height:1.85;padding:0.4rem 0 0.4rem 1.2rem;position:relative;border-bottom:1px solid rgba(255,255,255,0.03)}
+ul li::before{content:'→';position:absolute;left:0;color:var(--gold)}
+ul li strong{color:var(--paper);font-weight:500}
+table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:0.75rem}
+th{text-align:left;font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);padding:0.6rem 0.8rem;border-bottom:1px solid rgba(196,154,42,0.2);font-weight:500}
+td{padding:0.6rem 0.8rem;color:rgba(255,255,255,0.6);border-bottom:1px solid var(--border)}
+tr:hover td{background:rgba(255,255,255,0.02)}
+.highlight{background:rgba(196,154,42,0.08);border:1px solid rgba(196,154,42,0.2);padding:1.2rem 1.5rem;margin:1.5rem 0}
+.highlight-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem}
+.card{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem}
+.card-title{font-size:0.85rem;font-weight:600;color:var(--paper);margin-bottom:0.4rem}
+.card-body{font-size:0.72rem;color:rgba(255,255,255,0.55);line-height:1.8}
+.card-body strong{color:var(--paper)}
+.tpl{background:rgba(255,255,255,0.03);border:1px solid var(--border);margin:1rem 0}
+.tpl-head{display:flex;justify-content:space-between;align-items:center;padding:0.7rem 1rem;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.02)}
+.tpl-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold)}
+.tpl-body{padding:1rem;font-size:0.72rem;color:rgba(255,255,255,0.6);line-height:1.9;white-space:pre-line}
+.tpl-body strong{color:var(--paper)}
+.copy-btn{background:rgba(196,154,42,0.15);border:1px solid rgba(196,154,42,0.3);color:var(--gold);font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;padding:0.3rem 0.7rem;cursor:pointer;text-transform:uppercase}
+.copy-btn:hover{background:rgba(196,154,42,0.3)}
+.check{display:flex;align-items:flex-start;gap:0.6rem;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;font-size:0.72rem;color:rgba(255,255,255,0.6)}
+.check:hover{color:var(--paper)}
+.check-box{width:16px;height:16px;border:1px solid rgba(196,154,42,0.4);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:2px;font-size:0.6rem;color:var(--gold)}
+.check.done{color:rgba(255,255,255,0.25);text-decoration:line-through}
+.check.done .check-box{background:rgba(196,154,42,0.2)}
+.curator-card{display:grid;grid-template-columns:55px 1fr;gap:1rem;background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem}
+.curator-avatar{width:45px;height:45px;border-radius:50%;background:rgba(196,154,42,0.15);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.curator-name{font-size:0.85rem;font-weight:500;color:var(--paper)}
+.curator-role{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-top:0.15rem}
+.curator-desc{font-size:0.68rem;color:rgba(255,255,255,0.5);line-height:1.7;margin-top:0.3rem}
+.curator-desc strong{color:var(--paper)}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0 1.5rem}
+.rev-item{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1rem;text-align:center}
+.rev-val{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--gold)}
+.rev-label{font-size:0.6rem;color:rgba(255,255,255,0.4);margin-top:0.3rem;letter-spacing:0.08em;text-transform:uppercase}
+.match-row{display:grid;grid-template-columns:90px 1fr 100px;gap:0.5rem;padding:0.6rem 0;border-bottom:1px solid var(--border);align-items:center;font-size:0.72rem}
+.match-date{font-family:'DM Mono',monospace;color:var(--gold);font-size:0.65rem}
+.match-teams{color:var(--paper)}
+.match-venue{color:rgba(255,255,255,0.35);font-size:0.6rem;text-align:right}
+.tag-row{display:flex;flex-wrap:wrap;gap:0.4rem;margin:0.5rem 0 1rem}
+.tag{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.6rem;border:1px solid rgba(196,154,42,0.3);color:var(--gold)}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin:1rem 0 1.5rem}
+.pc{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;text-align:center}
+.pc.feat{border-color:var(--gold);background:rgba(196,154,42,0.06)}
+.pc-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--paper)}
+.pc-price{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--gold);margin:0.3rem 0}
+.pc-price span{font-size:0.7rem;color:rgba(255,255,255,0.35)}
+.pc-desc{font-size:0.65rem;color:rgba(255,255,255,0.4);line-height:1.6}
+.footer{text-align:center;padding:2rem 0;margin-top:3rem;border-top:1px solid var(--border);font-size:0.6rem;color:rgba(255,255,255,0.2)}
+@media(max-width:600px){.doc{padding:2rem 1.5rem}.rev-grid{grid-template-columns:1fr}.pricing-grid{grid-template-columns:1fr}.match-row{grid-template-columns:70px 1fr 60px}}
+</style>
+</head>
+<body>
+<div class="doc">
+
+<div class="doc-badge">Operations</div>
+<h1>Revenue & <em>Payment Breakdown</em></h1>
+<p class="subtitle">All 6 revenue streams with exact percentage splits, real city scenarios with dollar math, tracking infrastructure, and how to explain the model to every stakeholder.</p>
+
+<h2>Revenue Split Overview</h2>
+<table>
+  <tr><th>Revenue Stream</th><th>Curator Gets</th><th>Platform Gets</th><th>Stripe Fee</th><th>Avg Transaction</th></tr>
+  <tr><td>Experience Booking</td><td>70%</td><td>30%</td><td>2.9% + $0.30</td><td>$75–$200</td></tr>
+  <tr><td>1:1 Curator Briefing</td><td>65%</td><td>35%</td><td>2.9% + $0.30</td><td>$50–$150</td></tr>
+  <tr><td>Subscription Revenue</td><td>—</td><td>100%</td><td>2.9% + $0.30</td><td>$9.99–$24/mo</td></tr>
+  <tr><td>Enterprise Contracts</td><td>—</td><td>100%</td><td>Invoice-based</td><td>$500+/mo</td></tr>
+  <tr><td>Venue Partnerships</td><td>Referral bonus</td><td>Listing fee</td><td>2.9% + $0.30</td><td>$200–$500/mo</td></tr>
+  <tr><td>Data Licensing</td><td>—</td><td>100%</td><td>Invoice-based</td><td>Custom</td></tr>
+</table>
+
+<h2>Stream 1 — Experience Bookings (70/30)</h2>
+<p>The core revenue driver. Curators design and host group experiences — food tours, nightlife guides, cultural walks, business networking events, neighbourhood deep-dives. Travelers book through the platform. Payment is collected upfront by Stripe, held in escrow, and settled to the Curator within 3 business days after the experience is completed.</p>
+<h3>Example Calculation</h3>
+<div class="card"><div class="card-title">Food Tour · 8 guests · $95/person</div><div class="card-body">
+Gross revenue: 8 × $95 = <strong>$760.00</strong><br>
+Stripe fee (2.9% + $0.30): <strong>$22.34</strong><br>
+Net after Stripe: <strong>$737.66</strong><br>
+Curator (70%): <strong>$516.36</strong><br>
+Platform (30%): <strong>$221.30</strong><br><br>
+The Curator walks away with $516 for a 3-hour tour. If they host this twice a week, that's over $4,000/month from a single experience type.
+</div></div>
+
+<h2>Stream 2 — 1:1 Curator Briefings (65/35)</h2>
+<p>Video calls where a Curator creates a personalised city plan for a traveler. The traveler shares their trip details (dates, interests, budget, group size) and the Curator builds a custom itinerary with specific restaurant recommendations, neighbourhood advice, event suggestions, and insider tips. Sessions run 30-60 minutes.</p>
+<h3>Example Calculation</h3>
+<div class="card"><div class="card-title">Briefing Session · $95</div><div class="card-body">
+Gross: <strong>$95.00</strong><br>
+Stripe fee: <strong>$3.06</strong><br>
+Net: <strong>$91.94</strong><br>
+Curator (65%): <strong>$59.76</strong><br>
+Platform (35%): <strong>$32.18</strong><br><br>
+Why 65/35 instead of 70/30: Briefings require the platform to handle scheduling, video infrastructure, matching, and quality follow-up. The extra 5% covers this operational overhead.
+</div></div>
+
+<h2>Stream 3 — Subscriptions (100% Platform)</h2>
+<p>Monthly memberships that unlock platform features beyond the free AI city guide:</p>
+<div class="pricing-grid">
+  <div class="pc"><div class="pc-name">Explorer</div><div class="pc-price">$0</div><div class="pc-desc">AI guide only. Browse experiences. No bookings.</div></div>
+  <div class="pc feat"><div class="pc-name">Member</div><div class="pc-price">$9.99/mo</div><div class="pc-desc">Curator briefings. Priority booking. Fan guides.</div></div>
+  <div class="pc"><div class="pc-name">Insider</div><div class="pc-price">$24/mo</div><div class="pc-desc">Unlimited briefings. VIP access. Concierge.</div></div>
+</div>
+
+<h2>Streams 4-6 — Enterprise, Venues, Data</h2>
+<ul>
+  <li><strong>Enterprise ($500+/mo)</strong> — White-label city intelligence for conferences, corporate retreats, executive hospitality. Custom Curator assignments. Billed monthly or annually by invoice</li>
+  <li><strong>Venue Partnerships ($200-500/mo)</strong> — Restaurants, hotels, and venues pay for featured placement in AI guide responses and Curator recommendations. Curators receive referral bonuses for verified visits</li>
+  <li><strong>Data Licensing (custom)</strong> — Anonymised visitor behaviour data, city intelligence reports, neighbourhood popularity trends. Sold to tourism boards, real estate developers, hospitality groups</li>
+</ul>
+
+<h2>Real Scenario 1 — Tampa Bay, Quiet Month</h2>
+<div class="card"><div class="card-title">2 Curators · 1 Month · No Major Events</div><div class="card-body">
+<strong>Curator A (Food):</strong><br>
+• 4 food tours × 6 guests × $85 = $2,040 gross → Curator: $1,387 / Platform: $593<br>
+• 6 briefings × $75 = $450 gross → Curator: $284 / Platform: $153<br>
+Curator A total: <strong>$1,671</strong><br><br>
+<strong>Curator B (Outdoors):</strong><br>
+• 3 kayak experiences × 4 guests × $65 = $780 gross → Curator: $530 / Platform: $227<br>
+• 2 briefings × $50 = $100 gross → Curator: $63 / Platform: $34<br>
+Curator B total: <strong>$593</strong><br><br>
+<strong>Platform subscriptions:</strong> 45 members × avg $14 = $630<br><br>
+<strong>Month total — Curators: $2,264 · Platform: $1,637</strong>
+</div></div>
+
+<h2>Real Scenario 2 — Miami, World Cup Month</h2>
+<div class="card"><div class="card-title">3 Curators · World Cup Match Week · Brazil vs Scotland</div><div class="card-body">
+<strong>Curator A (Latin Culture):</strong><br>
+• 8 food/culture tours × 10 guests × $120 = $9,600 gross → Curator: $6,528<br>
+• 15 briefings × $95 = $1,425 gross → Curator: $899<br>
+Curator A total: <strong>$7,427</strong><br><br>
+<strong>Curator B (Nightlife):</strong><br>
+• 6 nightlife experiences × 8 guests × $150 = $7,200 gross → Curator: $4,896<br>
+• 10 briefings × $75 = $750 gross → Curator: $473<br>
+Curator B total: <strong>$5,369</strong><br><br>
+<strong>Curator C (Business):</strong><br>
+• 4 networking events × 12 guests × $200 = $9,600 gross → Curator: $6,528<br>
+• 8 briefings × $150 = $1,200 gross → Curator: $756<br>
+Curator C total: <strong>$7,284</strong><br><br>
+<strong>Platform subscriptions:</strong> 400 members × avg $12 = $4,800<br><br>
+<strong>Month total — Curators: $20,080 · Platform: $14,695</strong>
+</div></div>
+
+<h2>Tracking & Payment Infrastructure</h2>
+<table>
+  <tr><th>System</th><th>Purpose</th><th>Cost</th></tr>
+  <tr><td>Stripe Connect</td><td>Split payments, Curator payouts, escrow</td><td>2.9% + $0.30/tx</td></tr>
+  <tr><td>Airtable / Notion</td><td>Booking records, Curator performance, revenue tracking</td><td>Free tier initially</td></tr>
+  <tr><td>Calendly</td><td>Briefing session scheduling and reminders</td><td>Free tier</td></tr>
+  <tr><td>Google Sheets</td><td>Monthly pay statements, reconciliation</td><td>Free</td></tr>
+</table>
+
+<h2>How to Explain the Model</h2>
+
+<h3>To Curators</h3>
+<div class="card"><div class="card-body">"You keep <strong>70% of every experience</strong> you host and <strong>65% of every briefing</strong> you give. We handle payments, marketing, scheduling, customer support, and the platform. You bring your knowledge and your personality. Most food tour companies take 50%+ — we give you the majority because your expertise <em>is</em> the product. There are no upfront costs, no monthly fees, no minimums. You earn when you work."</div></div>
+
+<h3>To Investors</h3>
+<div class="card"><div class="card-body">"We take 30% of experience bookings, 35% of briefings, and 100% of subscriptions. The Curator-generous split is deliberate — it attracts and retains the highest-quality Curators, which creates better experiences, which drives member growth and retention. We make money on volume, not margin compression. At scale, with 50+ Curators across 11 cities, the platform revenue compounds while Curator acquisition costs decrease through word-of-mouth and referrals."</div></div>
+
+<h3>To Travelers</h3>
+<div class="card"><div class="card-body">"You pay for the experience or briefing directly. The price you see is the price you pay. Your Curator receives the majority of that payment because we believe the person sharing their knowledge with you deserves to be compensated well. That's how we attract the best locals in every city."</div></div>
+
+<div class="highlight">
+  <div class="highlight-label">Key Principle</div>
+  <p><strong>Curators are not contractors — they are the product.</strong> Every pricing decision should be made with this in mind. If a pricing choice saves the platform 5% but risks losing a great Curator, it's the wrong choice. Curator retention drives everything else.</p>
+</div>
+
+<div class="footer">Locavizion · Revenue & Payment Breakdown · Internal Reference</div>
+</div>
+
+<script>
+function copyText(btn,id){
+  var el=document.getElementById(id);if(!el)return;
+  navigator.clipboard.writeText(el.innerText).then(function(){
+    btn.textContent='Copied ✓';setTimeout(function(){btn.textContent='Copy'},2000);
+  }).catch(function(){
+    var ta=document.createElement('textarea');ta.value=el.innerText;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+    btn.textContent='Copied ✓';setTimeout(function(){btn.textContent='Copy'},2000);
+  });
+}
+function toggleCheck(el){el.classList.toggle('done');var b=el.querySelector('.check-box');b.textContent=el.classList.contains('done')?'✓':'';}
+</script>
+
+</body>
+</html>

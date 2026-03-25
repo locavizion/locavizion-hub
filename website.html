@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Locavizion — Full Website Mockup</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0c0b09;--paper:#faf7f2;--gold:#c49a2a;--gold2:#e8b84b;--sage:#3a6650;--rust:#a83d20;--muted:#7a6e58;--bg:#0e0d0b;--border:rgba(255,255,255,0.08);--miami:#ff6b35;--nyc:#4a90d9}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--paper);padding:0;margin:0}
+.doc{max-width:860px;margin:0 auto;padding:3rem 2.5rem}
+.doc-badge{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--sage);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.4rem}
+.doc-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--sage)}
+h1{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--gold);line-height:1.2;margin-bottom:0.4rem}
+h1 em{color:var(--paper);font-style:italic}
+.subtitle{font-size:0.78rem;color:rgba(255,255,255,0.4);margin-bottom:2.5rem;line-height:1.6}
+h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--gold);margin:2.5rem 0 1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(196,154,42,0.15)}
+h3{font-size:0.9rem;font-weight:600;color:var(--paper);margin:1.5rem 0 0.6rem}
+h4{font-size:0.8rem;font-weight:500;color:var(--gold2);margin:1rem 0 0.4rem}
+p{font-size:0.8rem;color:rgba(255,255,255,0.6);line-height:1.85;margin-bottom:1rem}
+p strong{color:var(--paper);font-weight:500}
+p em{color:var(--gold);font-style:italic}
+ul{list-style:none;margin-bottom:1.5rem}
+ul li{font-size:0.78rem;color:rgba(255,255,255,0.6);line-height:1.85;padding:0.4rem 0 0.4rem 1.2rem;position:relative;border-bottom:1px solid rgba(255,255,255,0.03)}
+ul li::before{content:'→';position:absolute;left:0;color:var(--gold)}
+ul li strong{color:var(--paper);font-weight:500}
+table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:0.75rem}
+th{text-align:left;font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);padding:0.6rem 0.8rem;border-bottom:1px solid rgba(196,154,42,0.2);font-weight:500}
+td{padding:0.6rem 0.8rem;color:rgba(255,255,255,0.6);border-bottom:1px solid var(--border)}
+tr:hover td{background:rgba(255,255,255,0.02)}
+.highlight{background:rgba(196,154,42,0.08);border:1px solid rgba(196,154,42,0.2);padding:1.2rem 1.5rem;margin:1.5rem 0}
+.highlight-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem}
+.card{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem}
+.card-title{font-size:0.85rem;font-weight:600;color:var(--paper);margin-bottom:0.4rem}
+.card-body{font-size:0.72rem;color:rgba(255,255,255,0.55);line-height:1.8}
+.card-body strong{color:var(--paper)}
+.tpl{background:rgba(255,255,255,0.03);border:1px solid var(--border);margin:1rem 0}
+.tpl-head{display:flex;justify-content:space-between;align-items:center;padding:0.7rem 1rem;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.02)}
+.tpl-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold)}
+.tpl-body{padding:1rem;font-size:0.72rem;color:rgba(255,255,255,0.6);line-height:1.9;white-space:pre-line}
+.tpl-body strong{color:var(--paper)}
+.copy-btn{background:rgba(196,154,42,0.15);border:1px solid rgba(196,154,42,0.3);color:var(--gold);font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;padding:0.3rem 0.7rem;cursor:pointer;text-transform:uppercase}
+.copy-btn:hover{background:rgba(196,154,42,0.3)}
+.check{display:flex;align-items:flex-start;gap:0.6rem;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;font-size:0.72rem;color:rgba(255,255,255,0.6)}
+.check:hover{color:var(--paper)}
+.check-box{width:16px;height:16px;border:1px solid rgba(196,154,42,0.4);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:2px;font-size:0.6rem;color:var(--gold)}
+.check.done{color:rgba(255,255,255,0.25);text-decoration:line-through}
+.check.done .check-box{background:rgba(196,154,42,0.2)}
+.curator-card{display:grid;grid-template-columns:55px 1fr;gap:1rem;background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem}
+.curator-avatar{width:45px;height:45px;border-radius:50%;background:rgba(196,154,42,0.15);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.curator-name{font-size:0.85rem;font-weight:500;color:var(--paper)}
+.curator-role{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-top:0.15rem}
+.curator-desc{font-size:0.68rem;color:rgba(255,255,255,0.5);line-height:1.7;margin-top:0.3rem}
+.curator-desc strong{color:var(--paper)}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0 1.5rem}
+.rev-item{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1rem;text-align:center}
+.rev-val{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--gold)}
+.rev-label{font-size:0.6rem;color:rgba(255,255,255,0.4);margin-top:0.3rem;letter-spacing:0.08em;text-transform:uppercase}
+.match-row{display:grid;grid-template-columns:90px 1fr 100px;gap:0.5rem;padding:0.6rem 0;border-bottom:1px solid var(--border);align-items:center;font-size:0.72rem}
+.match-date{font-family:'DM Mono',monospace;color:var(--gold);font-size:0.65rem}
+.match-teams{color:var(--paper)}
+.match-venue{color:rgba(255,255,255,0.35);font-size:0.6rem;text-align:right}
+.tag-row{display:flex;flex-wrap:wrap;gap:0.4rem;margin:0.5rem 0 1rem}
+.tag{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.6rem;border:1px solid rgba(196,154,42,0.3);color:var(--gold)}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin:1rem 0 1.5rem}
+.pc{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;text-align:center}
+.pc.feat{border-color:var(--gold);background:rgba(196,154,42,0.06)}
+.pc-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--paper)}
+.pc-price{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--gold);margin:0.3rem 0}
+.pc-price span{font-size:0.7rem;color:rgba(255,255,255,0.35)}
+.pc-desc{font-size:0.65rem;color:rgba(255,255,255,0.4);line-height:1.6}
+.footer{text-align:center;padding:2rem 0;margin-top:3rem;border-top:1px solid var(--border);font-size:0.6rem;color:rgba(255,255,255,0.2)}
+@media(max-width:600px){.doc{padding:2rem 1.5rem}.rev-grid{grid-template-columns:1fr}.pricing-grid{grid-template-columns:1fr}.match-row{grid-template-columns:70px 1fr 60px}}
+</style>
+</head>
+<body>
+<div class="doc">
+
+<div class="doc-badge">Platform</div>
+<h1>Full Website <em>Mockup</em></h1>
+<p class="subtitle">Complete 10-section website design — the full product vision for locavizion.com when it transitions from waitlist to full platform.</p>
+
+<h2>Section 1 — Navigation</h2>
+<p>Sticky header that starts transparent over the hero and transitions to a solid dark background with a subtle gold bottom border as the user scrolls past 100px. Contains:</p>
+<ul>
+  <li><strong>Eye+Globe SVG logo</strong> — The Locavizion mark: a compass-like eye icon with a gold iris, surrounded by meridian lines suggesting a globe. 36px square, rendered in SVG for crisp display at any resolution</li>
+  <li><strong>Brand name</strong> — "LOCAVIZION" in Cormorant Garamond, 600 weight, 0.2em letter-spacing, gold (#c49a2a)</li>
+  <li><strong>Nav links</strong> — How It Works, Cities, Curators, Pricing — each scrolls to the corresponding section with smooth scroll behaviour</li>
+  <li><strong>CTA button</strong> — "Join Waitlist" gold button, right-aligned, links to the signup form section</li>
+  <li><strong>Mobile hamburger</strong> — On screens under 768px, nav links collapse into a slide-down mobile menu. CTA stays visible</li>
+</ul>
+
+<h2>Section 2 — Hero</h2>
+<p>Full viewport height (100vh). Dark background (#0c0b09) with a subtle radial gold gradient glow (15% opacity) emanating from the upper right and a sage green glow from the lower left. Film grain overlay at 4% opacity using an inline SVG noise pattern.</p>
+<ul>
+  <li><strong>Headline</strong> — "See The World Like A Local" — Cormorant Garamond, 3.5rem on desktop, 2.2rem on mobile, 300 weight. Line height 1.15. White with the word "Local" in gold italic</li>
+  <li><strong>Subheadline</strong> — "Expert-led experiences and AI-powered intelligence for travelers who want the real version of every city they visit." — Outfit, 1rem, 400 weight, 55% white opacity</li>
+  <li><strong>Two CTAs</strong> — Primary gold filled button "Join the Founding Waitlist →" and secondary outline button "See how it works"</li>
+  <li><strong>Stats row</strong> — Four stats in a horizontal row: "3 Cities Active Now" · "78 Days to World Cup" (live countdown) · "10M+ World Cup Visitors" · "5 Curator Domains per City". Each stat has a large number in Cormorant Garamond gold and a small label in DM Mono uppercase</li>
+  <li><strong>Scroll indicator</strong> — Minimal animated line with "Scroll" text at bottom center, fading in after 2 seconds</li>
+  <li><strong>Entry animation</strong> — Headline fades up from 30px below with 0.8s ease, subheadline follows at 0.3s delay, CTAs at 0.5s, stats at 0.7s. CSS-only using @keyframes and animation-delay</li>
+</ul>
+
+<h2>Section 3 — The Problem</h2>
+<p>Light warm background section (#f0ead8) with dark text. Introduces the three core problems Locavizion solves.</p>
+<ul>
+  <li><strong>Eyebrow</strong> — "THE PROBLEM" in DM Mono, 0.6rem, gold, 0.2em letter-spacing</li>
+  <li><strong>Headline</strong> — "Travelers arrive everywhere. They experience almost nothing." — Cormorant Garamond, 2rem, dark ink, italic emphasis on second line</li>
+  <li><strong>Lead paragraph</strong> — Explains the gap between the city search engines know and the city locals know</li>
+  <li><strong>Three problem cards</strong> in a grid:
+    <br>🗺 <strong>"Generic guides miss everything that matters"</strong> — TripAdvisor, Google, Yelp optimise for volume, not quality. The same 15 tourist restaurants appear in every city. Real local knowledge never surfaces.
+    <br>⏱ <strong>"Business travelers waste their limited time"</strong> — Conference attendees fly in for 72 hours, eat at the hotel, visit one TripAdvisor restaurant, and leave. They want the real city but have no guide and no time to find it.
+    <br>🏘 <strong>"New residents feel like outsiders for years"</strong> — Tampa adds thousands of new residents monthly. Miami and NYC receive constant international arrivals. Without a local network, it takes years to feel like you belong. Community shouldn't require 3 years of residency.</li>
+</ul>
+
+<h2>Section 4 — How It Works</h2>
+<p>Three-step horizontal process with connecting lines between steps:</p>
+<ul>
+  <li><strong>Step 1: Ask the AI</strong> — "Tell our AI city guide where you're going and what you care about. It instantly surfaces neighbourhood intelligence, timing advice, and cultural context that no search engine knows." Icon: chat bubble with sparkle</li>
+  <li><strong>Step 2: Meet Your Curator</strong> — "Get matched with a verified local Curator who specialises in exactly what you need — food, nightlife, business connections, culture, or the outdoors. Book a 1:1 briefing or join a group experience." Icon: person with location pin</li>
+  <li><strong>Step 3: Experience the City</strong> — "Show up knowing what a 10-year local knows. Skip the tourist traps, find the hidden gems, and experience the city the way it's meant to be experienced." Icon: compass rose</li>
+</ul>
+
+<h2>Section 5 — Platform Features</h2>
+<p>Tabbed interface with three tabs, each showing a different product layer with a live mock UI preview:</p>
+
+<h3>Tab 1: AI City Guide</h3>
+<p>Mock chat interface showing a conversation. User asks "Best area to stay in Miami for the World Cup?" and the AI responds with a neighbourhood-by-neighbourhood breakdown — Brickell for business, Wynwood for young fans, Little Havana for Latin American visitors — with price ranges and transit access notes. The mock UI shows the chat bubble styling, typing indicator, and suggested follow-up chips.</p>
+
+<h3>Tab 2: Curator Matching</h3>
+<p>Three Curator profile cards displayed in a grid. Each card shows: a circular avatar, the Curator's name, their domain (e.g. "Food & Restaurants · Tampa Bay"), a rating, number of experiences hosted, a 2-line bio, and domain tags (e.g. "Cuban food" · "Seafood" · "Hidden gems"). Below the cards: a "Find Your Curator" button.</p>
+
+<h3>Tab 3: Bookable Experiences</h3>
+<p>Experience listing cards showing: a placeholder image area, experience title (e.g. "Hidden Wynwood: Art, Food & Culture Walk"), the Curator hosting it, duration (3 hours), group size (max 8), price ($85/person), and a "Book Now" button. Three experiences displayed covering food tours, nightlife, and cultural walks.</p>
+
+<h2>Section 6 — Cities</h2>
+<p>Six city cards in a 3×2 grid showing all launch and expansion cities:</p>
+<ul>
+  <li><strong>Miami</strong> — 7 World Cup matches. Neighbourhoods: Wynwood, Brickell, Little Havana, Coconut Grove, Design District, Miami Beach. Curator domains: Food, Nightlife, Latin Culture, Business, Art. Status: <em>Active — Recruiting Curators</em></li>
+  <li><strong>Tampa Bay</strong> — World Cup host city. Neighbourhoods: Ybor City, SoHo, Downtown, St. Petersburg, Davis Islands. Curator domains: Food, Tech/Startup, Arts (St. Pete), Latin Heritage, Outdoors. Status: <em>Active — Recruiting Curators</em></li>
+  <li><strong>New York</strong> — MetLife Stadium matches. Neighbourhoods: Midtown, LES, Williamsburg, Jackson Heights, Harlem, DUMBO. Curator domains: Manhattan Insider, Brooklyn Culture, Queens Diversity, Business, Nightlife. Status: <em>Active — Recruiting Curators</em></li>
+  <li><strong>Los Angeles</strong> — SoFi Stadium. Status: <em>Coming Soon</em></li>
+  <li><strong>Houston</strong> — NRG Stadium. Status: <em>Coming Soon</em></li>
+  <li><strong>Dallas</strong> — AT&T Stadium. Status: <em>Coming Soon</em></li>
+</ul>
+<p>Each card has the city name in Cormorant Garamond, the match count, a scrollable tag row of neighbourhoods, and a coloured status badge.</p>
+
+<h2>Section 7 — World Cup Schedule</h2>
+<p>Full Miami match schedule displayed as a clean table with alternating row shading:</p>
+
+<table>
+  <tr><th>Date</th><th>Match</th><th>Round</th><th>Venue</th></tr>
+  <tr><td>Jun 12</td><td>Argentina vs TBD</td><td>Group Stage</td><td>Hard Rock Stadium</td></tr>
+  <tr><td>Jun 15</td><td>Brazil vs TBD</td><td>Group Stage</td><td>Hard Rock Stadium</td></tr>
+  <tr><td>Jun 18</td><td>Group Match</td><td>Group Stage</td><td>Hard Rock Stadium</td></tr>
+  <tr><td>Jun 21</td><td>Group Match</td><td>Group Stage</td><td>Hard Rock Stadium</td></tr>
+  <tr><td>Jun 24</td><td>Brazil vs Scotland</td><td>Group Stage</td><td>Hard Rock Stadium</td></tr>
+  <tr><td>Jul 2</td><td>Round of 16</td><td>Knockout</td><td>Hard Rock Stadium</td></tr>
+  <tr><td>Jul 13</td><td>Semi-Final</td><td>Knockout</td><td>Hard Rock Stadium</td></tr>
+</table>
+
+<h2>Section 8 — Curators</h2>
+<p>Three featured Curator profile cards with full bios, followed by a "Become a Curator" recruitment panel:</p>
+
+<div class="curator-card"><div class="curator-avatar">🍽</div><div><div class="curator-name">Sofia Martinez</div><div class="curator-role">Food & Culture · Miami</div><div class="curator-desc">Born in Havana, raised in Hialeah. 15 years in Miami's restaurant industry. Knows every hidden kitchen, every chef's table, every late-night window counter that doesn't have a sign. Specialises in connecting Latin American visitors to Miami's Cuban, Colombian, and Venezuelan food scenes.</div></div></div>
+
+<div class="curator-card"><div class="curator-avatar">💻</div><div><div class="curator-name">James Chen</div><div class="curator-role">Tech & Startup · Tampa Bay</div><div class="curator-desc">Former CTO, now runs innovation programming at a Tampa accelerator. Knows every founder, every co-working space, every investor who actually writes checks in the Tampa Bay ecosystem. Connects visiting founders and VCs to the right people within 48 hours.</div></div></div>
+
+<div class="curator-card"><div class="curator-avatar">🎨</div><div><div class="curator-name">Priya Desai</div><div class="curator-role">Arts & Culture · New York</div><div class="curator-desc">Gallery curator in Chelsea for 8 years, now independent. Knows which openings matter, which underground shows are worth the trip to Bushwick, and which museum exhibitions close next week. Turns a tourist's gallery walk into a real art education.</div></div></div>
+
+<div class="highlight">
+  <div class="highlight-label">Become a Founding Curator</div>
+  <p>5 founding positions per city. You earn <strong>70% of every experience booking</strong> and <strong>65% of every briefing session</strong>. Your knowledge is the product — you deserve the majority of what it earns. Apply at the Curator application form on locavizion.com.</p>
+</div>
+
+<h2>Section 9 — Pricing</h2>
+<div class="pricing-grid">
+  <div class="pc"><div class="pc-name">Explorer</div><div class="pc-price">$0 <span>/ forever</span></div><div class="pc-desc">AI city guide for all 3 cities. Public curator guides. Browse experiences. No card required.</div></div>
+  <div class="pc feat"><div class="pc-name">Member ⚽</div><div class="pc-price">$9.99 <span>/ month</span></div><div class="pc-desc">Full World Cup access. Curator briefings. Priority booking. Fan nation guides. Match-day intelligence.</div></div>
+  <div class="pc"><div class="pc-name">Insider</div><div class="pc-price">$24 <span>/ month</span></div><div class="pc-desc">Unlimited curator sessions. VIP experiences. Concierge service. Priority everything.</div></div>
+  <div class="pc"><div class="pc-name">Enterprise</div><div class="pc-price">$500 <span>/ month</span></div><div class="pc-desc">Corporate hospitality. Group bookings. White-label city intelligence. Custom Curator assignments.</div></div>
+</div>
+
+<h2>Section 10 — Footer</h2>
+<p>Four-column footer on dark background:</p>
+<ul>
+  <li><strong>Column 1 — Brand</strong>: Locavizion logo, tagline "See the world like a local", copyright 2026</li>
+  <li><strong>Column 2 — Platform</strong>: AI City Guide, Find Curators, Book Experiences, Pricing, World Cup Guide</li>
+  <li><strong>Column 3 — Cities</strong>: Miami, Tampa Bay, New York, Los Angeles (coming soon), Houston (coming soon)</li>
+  <li><strong>Column 4 — Company</strong>: About, Careers, Press, Privacy, Terms, Contact</li>
+  <li><strong>Email</strong>: info@locavizion.com — assembled via JS to prevent scraping</li>
+</ul>
+
+<div class="highlight">
+  <div class="highlight-label">Design System</div>
+  <p><strong>Fonts:</strong> Cormorant Garamond (headings, display), Outfit (body, UI), DM Mono (labels, badges, code)<br>
+  <strong>Colors:</strong> Ink #0c0b09, Paper #faf7f2, Gold #c49a2a, Sage #3a6650, Rust #a83d20, Sky #1a4068<br>
+  <strong>Effects:</strong> Film grain overlay, radial gradient glows, scroll-triggered reveal animations, hover transforms on cards</p>
+</div>
+
+<div class="footer">Locavizion · Full Website Mockup · Internal Reference</div>
+</div>
+
+<script>
+function copyText(btn,id){
+  var el=document.getElementById(id);if(!el)return;
+  navigator.clipboard.writeText(el.innerText).then(function(){
+    btn.textContent='Copied ✓';setTimeout(function(){btn.textContent='Copy'},2000);
+  }).catch(function(){
+    var ta=document.createElement('textarea');ta.value=el.innerText;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+    btn.textContent='Copied ✓';setTimeout(function(){btn.textContent='Copy'},2000);
+  });
+}
+function toggleCheck(el){el.classList.toggle('done');var b=el.querySelector('.check-box');b.textContent=el.classList.contains('done')?'✓':'';}
+</script>
+
+</body>
+</html>

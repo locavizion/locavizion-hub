@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Locavizion — Curator Outreach Playbook</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0c0b09;--paper:#faf7f2;--gold:#c49a2a;--gold2:#e8b84b;--sage:#3a6650;--rust:#a83d20;--muted:#7a6e58;--bg:#0e0d0b;--border:rgba(255,255,255,0.08);--miami:#ff6b35;--nyc:#4a90d9}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--paper);padding:0;margin:0}
+.doc{max-width:860px;margin:0 auto;padding:3rem 2.5rem}
+.doc-badge{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--rust);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.4rem}
+.doc-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--rust)}
+h1{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--gold);line-height:1.2;margin-bottom:0.4rem}
+h1 em{color:var(--paper);font-style:italic}
+.subtitle{font-size:0.78rem;color:rgba(255,255,255,0.4);margin-bottom:2.5rem;line-height:1.6}
+h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--gold);margin:2.5rem 0 1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(196,154,42,0.15)}
+h3{font-size:0.9rem;font-weight:600;color:var(--paper);margin:1.5rem 0 0.6rem}
+h4{font-size:0.8rem;font-weight:500;color:var(--gold2);margin:1rem 0 0.4rem}
+p{font-size:0.8rem;color:rgba(255,255,255,0.6);line-height:1.85;margin-bottom:1rem}
+p strong{color:var(--paper);font-weight:500}
+p em{color:var(--gold);font-style:italic}
+ul{list-style:none;margin-bottom:1.5rem}
+ul li{font-size:0.78rem;color:rgba(255,255,255,0.6);line-height:1.85;padding:0.4rem 0 0.4rem 1.2rem;position:relative;border-bottom:1px solid rgba(255,255,255,0.03)}
+ul li::before{content:'→';position:absolute;left:0;color:var(--gold)}
+ul li strong{color:var(--paper);font-weight:500}
+table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:0.75rem}
+th{text-align:left;font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);padding:0.6rem 0.8rem;border-bottom:1px solid rgba(196,154,42,0.2);font-weight:500}
+td{padding:0.6rem 0.8rem;color:rgba(255,255,255,0.6);border-bottom:1px solid var(--border)}
+tr:hover td{background:rgba(255,255,255,0.02)}
+.highlight{background:rgba(196,154,42,0.08);border:1px solid rgba(196,154,42,0.2);padding:1.2rem 1.5rem;margin:1.5rem 0}
+.highlight-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem}
+.card{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem}
+.card-title{font-size:0.85rem;font-weight:600;color:var(--paper);margin-bottom:0.4rem}
+.card-body{font-size:0.72rem;color:rgba(255,255,255,0.55);line-height:1.8}
+.card-body strong{color:var(--paper)}
+.tpl{background:rgba(255,255,255,0.03);border:1px solid var(--border);margin:1rem 0}
+.tpl-head{display:flex;justify-content:space-between;align-items:center;padding:0.7rem 1rem;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.02)}
+.tpl-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold)}
+.tpl-body{padding:1rem;font-size:0.72rem;color:rgba(255,255,255,0.6);line-height:1.9;white-space:pre-line}
+.tpl-body strong{color:var(--paper)}
+.copy-btn{background:rgba(196,154,42,0.15);border:1px solid rgba(196,154,42,0.3);color:var(--gold);font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;padding:0.3rem 0.7rem;cursor:pointer;text-transform:uppercase}
+.copy-btn:hover{background:rgba(196,154,42,0.3)}
+.check{display:flex;align-items:flex-start;gap:0.6rem;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;font-size:0.72rem;color:rgba(255,255,255,0.6)}
+.check:hover{color:var(--paper)}
+.check-box{width:16px;height:16px;border:1px solid rgba(196,154,42,0.4);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:2px;font-size:0.6rem;color:var(--gold)}
+.check.done{color:rgba(255,255,255,0.25);text-decoration:line-through}
+.check.done .check-box{background:rgba(196,154,42,0.2)}
+.curator-card{display:grid;grid-template-columns:55px 1fr;gap:1rem;background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem}
+.curator-avatar{width:45px;height:45px;border-radius:50%;background:rgba(196,154,42,0.15);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.curator-name{font-size:0.85rem;font-weight:500;color:var(--paper)}
+.curator-role{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-top:0.15rem}
+.curator-desc{font-size:0.68rem;color:rgba(255,255,255,0.5);line-height:1.7;margin-top:0.3rem}
+.curator-desc strong{color:var(--paper)}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0 1.5rem}
+.rev-item{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1rem;text-align:center}
+.rev-val{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--gold)}
+.rev-label{font-size:0.6rem;color:rgba(255,255,255,0.4);margin-top:0.3rem;letter-spacing:0.08em;text-transform:uppercase}
+.match-row{display:grid;grid-template-columns:90px 1fr 100px;gap:0.5rem;padding:0.6rem 0;border-bottom:1px solid var(--border);align-items:center;font-size:0.72rem}
+.match-date{font-family:'DM Mono',monospace;color:var(--gold);font-size:0.65rem}
+.match-teams{color:var(--paper)}
+.match-venue{color:rgba(255,255,255,0.35);font-size:0.6rem;text-align:right}
+.tag-row{display:flex;flex-wrap:wrap;gap:0.4rem;margin:0.5rem 0 1rem}
+.tag{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.6rem;border:1px solid rgba(196,154,42,0.3);color:var(--gold)}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin:1rem 0 1.5rem}
+.pc{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;text-align:center}
+.pc.feat{border-color:var(--gold);background:rgba(196,154,42,0.06)}
+.pc-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--paper)}
+.pc-price{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--gold);margin:0.3rem 0}
+.pc-price span{font-size:0.7rem;color:rgba(255,255,255,0.35)}
+.pc-desc{font-size:0.65rem;color:rgba(255,255,255,0.4);line-height:1.6}
+.footer{text-align:center;padding:2rem 0;margin-top:3rem;border-top:1px solid var(--border);font-size:0.6rem;color:rgba(255,255,255,0.2)}
+@media(max-width:600px){.doc{padding:2rem 1.5rem}.rev-grid{grid-template-columns:1fr}.pricing-grid{grid-template-columns:1fr}.match-row{grid-template-columns:70px 1fr 60px}}
+</style>
+</head>
+<body>
+<div class="doc">
+
+<div class="doc-badge">Curator</div>
+<h1>Curator Outreach <em>Playbook</em></h1>
+<p class="subtitle">Complete recruitment playbook — Tampa, Miami, NYC targets with real accounts. 8 copy-ready message templates. Pitch angles by personality type. Follow-up sequences. Full action checklist.</p>
+
+<h2>The Core Pitch — What Curators Get</h2>
+<ul>
+  <li><strong>70% of every experience booking</strong> — Most food tour companies and experience platforms take 50%+. Locavizion gives Curators the majority because their knowledge <em>is</em> the product</li>
+  <li><strong>65% of every briefing session</strong> — 1:1 video calls with travelers, priced at the Curator's own rate ($50–$150/session), on the Curator's own schedule</li>
+  <li><strong>Founding Curator title</strong> — Only 5 per city. Permanent position. First pick of traveler matches. Featured placement in the AI guide. Profile prominence</li>
+  <li><strong>Full platform support</strong> — Locavizion handles payments (Stripe), scheduling (Calendly), marketing (Instagram, SEO, AI guide referrals), and customer support. Curators just show up and share what they know</li>
+  <li><strong>World Cup audience</strong> — 10 million international visitors arriving in June-July 2026 with zero local knowledge, actively looking for guidance. The customer acquisition is built in</li>
+  <li><strong>No upfront costs</strong> — No subscription fee, no monthly minimum, no equipment to buy. You earn when you work</li>
+</ul>
+
+<h2>6 Pitch Angles — By Curator Personality</h2>
+
+<div class="card"><div class="card-title">Angle 1 — The Entrepreneur</div><div class="card-body">For people who already think of their knowledge as a business. Lead with economics: "70% split, you set your rate, you design your experiences, you own your schedule." Emphasise the founding title as equity-like value. These people respond to revenue projections and scale potential.</div></div>
+
+<div class="card"><div class="card-title">Angle 2 — The Passionate Local</div><div class="card-body">For people who genuinely love their city and want to share it. Lead with mission: "You know things about this city that visitors will never find on Google. The World Cup is bringing millions of people who need exactly what you know." These people respond to purpose and impact, not just money.</div></div>
+
+<div class="card"><div class="card-title">Angle 3 — The Content Creator</div><div class="card-body">For Instagram/TikTok food bloggers, travel creators, lifestyle influencers. Lead with audience: "You already create content about this city. Locavizion turns that content into bookable experiences. Your followers become your customers. We handle payment, you handle the magic." These people respond to audience growth and monetisation.</div></div>
+
+<div class="card"><div class="card-title">Angle 4 — The Industry Insider</div><div class="card-body">For restaurant managers, hotel concierges, event planners, bar owners. Lead with access: "You have connections that money can't buy. Your rolodex is the product. Imagine getting paid every time someone asks 'where should I eat?' and you actually have the answer." These people respond to leveraging existing networks.</div></div>
+
+<div class="card"><div class="card-title">Angle 5 — The Community Builder</div><div class="card-body">For accelerator managers, co-working space operators, cultural org leaders. Lead with community: "The World Cup is bringing founders, investors, and business travelers who want to connect. You already know everyone. This is about making sure the right people find each other." These people respond to ecosystem impact.</div></div>
+
+<div class="card"><div class="card-title">Angle 6 — The Cultural Ambassador</div><div class="card-body">For people with deep cultural roots — Latin heritage in Ybor City, African diaspora in Harlem, immigrant community leaders. Lead with representation: "A million fans from your country are coming to this city. Without someone like you, they'll experience the tourist version. You can change that." These people respond to cultural pride and representation.</div></div>
+
+<h2>Template 1 — Food Curator (Any City)</h2>
+<div class="tpl">
+  <div class="tpl-head"><span class="tpl-label">Instagram DM or Email</span><button class="copy-btn" onclick="copyText(this,'tpl1')">Copy</button></div>
+  <div class="tpl-body" id="tpl1">Hey [Name] — I've been following your [city] food content and your recommendations are exactly the kind of local knowledge that visitors to this city can't find on Google.
+
+I'm building Locavizion — a platform that connects World Cup visitors and conference travelers with local Curators who actually know the city. Not a review site. Not an influencer deal. A real knowledge-based role where you earn directly from every experience you host and every briefing you give.
+
+We're opening 5 founding Curator positions in [city]. You'd keep 70% of every booking. The World Cup alone is bringing 10 million international visitors to the US this summer — and they all need someone who knows where to eat.
+
+Interested in a 15-minute call this week?
+
+[Your name]
+locavizion.com</div>
+</div>
+
+<h2>Template 2 — Tech & Startup Curator</h2>
+<div class="tpl">
+  <div class="tpl-head"><span class="tpl-label">Email</span><button class="copy-btn" onclick="copyText(this,'tpl2')">Copy</button></div>
+  <div class="tpl-body" id="tpl2">Hi [Name] —
+
+Quick context: I'm building Locavizion — a hospitality intelligence platform launching across all 11 FIFA World Cup host cities this summer. [City] is one of them.
+
+For the conference attendees, founders, and investors flying in for World Cup matches — I'm looking for one founding Tech and Startup Curator who can brief them on the real [city]: who to meet, where the community actually gathers, what's happening here that hasn't been written about yet.
+
+The World Cup brings a once-in-a-generation audience to this city. I want to make sure the right people find your community when they arrive.
+
+Can we talk for 20 minutes this week?
+
+[Your name]
+locavizion.com</div>
+</div>
+
+<h2>Template 3 — Latin Heritage Curator</h2>
+<div class="tpl">
+  <div class="tpl-head"><span class="tpl-label">WhatsApp or Email</span><button class="copy-btn" onclick="copyText(this,'tpl3')">Copy</button></div>
+  <div class="tpl-body" id="tpl3">Hola [Name] —
+
+The World Cup is bringing millions of Latin American fans to the United States this summer — and many of them will come through [city] not knowing the deep cultural roots here.
+
+[For Tampa: Ybor City, the Circulo Cubano, the cigar legacy, the Columbia Restaurant — this is one of the most significant pieces of Latin heritage in America. Colombian and Brazilian fans walking through Ybor City should understand that. Most of them never will unless someone like you tells them.]
+
+[For Miami: Little Havana, Calle Ocho, the Cuban exile story, the Colombian and Venezuelan communities that built entire neighbourhoods. The fans arriving from South America deserve to know this history. Most never will unless someone like you tells them.]
+
+I'm building Locavizion — a platform that gives World Cup fans a culturally specific guide to each city they're visiting. For [city]'s Latin heritage I'm looking for one Founding Curator who carries that knowledge personally.
+
+This is a paid role. You earn directly from every experience you host and every briefing you give. And you become the person that a million Latin American visitors find when they search for authentic [city].
+
+20 minutes this week?
+
+[Your name]
+locavizion.com</div>
+</div>
+
+<h2>Template 4 — Arts & Culture Curator</h2>
+<div class="tpl">
+  <div class="tpl-head"><span class="tpl-label">Email or DM</span><button class="copy-btn" onclick="copyText(this,'tpl4')">Copy</button></div>
+  <div class="tpl-body" id="tpl4">Hi [Name] —
+
+I'm building Locavizion — a platform that connects World Cup visitors with local cultural guides in every host city. Not generic tour guides. Real cultural experts who can turn a visitor's weekend into something they'll remember for years.
+
+I've seen your work with [specific reference — gallery, event, organisation] and I think you're exactly the kind of person who should be guiding visitors through [city]'s art and culture scene.
+
+We're opening 5 founding Curator positions. You keep 70% of every experience booking and 65% of every briefing session. You design your own experiences, set your own schedule, and price your own knowledge.
+
+The World Cup is bringing an international audience that's hungry for real culture, not tourist traps. Would love to tell you more — 15 minutes this week?
+
+[Your name]
+locavizion.com</div>
+</div>
+
+<h2>Template 5 — Nightlife & Social Curator</h2>
+<div class="tpl">
+  <div class="tpl-head"><span class="tpl-label">Instagram DM</span><button class="copy-btn" onclick="copyText(this,'tpl5')">Copy</button></div>
+  <div class="tpl-body" id="tpl5">Hey [Name] — I need someone who actually knows [city] nightlife, not the tourist-trap version.
+
+Building Locavizion — a platform launching for the World Cup that connects visitors with local guides. I'm looking for one Nightlife & Social Curator for [city]. You'd host group nightlife experiences and do 1:1 briefings for visitors who want to know where to go.
+
+You keep 70% of every booking. You design the experiences. You set the price.
+
+The World Cup is bringing millions of fans who are going to want to go out after every match. Right now they'll end up at whatever bar Google tells them. I'd rather they end up with you.
+
+Quick call this week?
+
+[Your name]
+locavizion.com</div>
+</div>
+
+<h2>Follow-Up Sequence</h2>
+<table>
+  <tr><th>Timing</th><th>Action</th><th>Channel</th><th>Tone</th></tr>
+  <tr><td>Day 1</td><td>Send initial outreach message</td><td>DM or Email</td><td>Warm, specific, personal reference to their work</td></tr>
+  <tr><td>Day 4</td><td>Follow up #1</td><td>Same channel</td><td>"Just circling back — no pressure, genuinely think you'd be great for this"</td></tr>
+  <tr><td>Day 8</td><td>Follow up #2 (final)</td><td>Same channel</td><td>"Last note from me — if the timing isn't right, totally understand. Door's always open"</td></tr>
+  <tr><td>If they respond</td><td>Schedule 15-min call within 48 hours</td><td>Zoom or phone</td><td>Enthusiastic but professional. Send calendar link immediately</td></tr>
+  <tr><td>Call day</td><td>15-min call — use the 5-minute pitch structure from Sales Guide</td><td>Zoom</td><td>Listen more than talk. Ask about their city knowledge</td></tr>
+  <tr><td>Day after call</td><td>Send Curator agreement + onboarding doc</td><td>Email</td><td>"Great talking — here's everything we discussed. Ready when you are"</td></tr>
+  <tr><td>3 days post-call</td><td>If no response, one gentle nudge</td><td>Email</td><td>"Just checking in — any questions about the agreement?"</td></tr>
+</table>
+
+<h2>Tampa Bay — Action Checklist</h2>
+<div class="check" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>1.</strong> Message @tampafoodgirl on Instagram — reference her most recent Tampa restaurant post specifically</div></div>
+<div class="check" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>2.</strong> Message @thisbabeeats on Instagram — same approach, personalised reference</div></div>
+<div class="check" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>3.</strong> Email Embarc Collective community manager — tech/startup Curator pitch</div></div>
+<div class="check" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>4.</strong> Email Tampa Bay Wave — ask for intro to alumni who might be interested</div></div>
+<div class="check" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>5.</strong> Message Creative Pinellas on Instagram — St. Pete arts Curator pitch</div></div>
+<div class="check" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>6.</strong> Email Ybor City Chamber of Commerce — Latin heritage Curator pitch</div></div>
+<div class="check" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>7.</strong> Search Meetup.com for Tampa Bay kayak/outdoor groups — message organisers</div></div>
+<div class="check" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>8.</strong> Follow up on all Day 1 messages (Day 4)</div></div>
+<div class="check" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>9.</strong> Send final follow-up on non-responders (Day 8)</div></div>
+<div class="check" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>10.</strong> Schedule and complete first Curator call</div></div>
+<div class="check" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>11.</strong> Send Curator agreement after successful call</div></div>
+<div class="check" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>12.</strong> First Curator signed and onboarded</div></div>
+
+<div class="highlight">
+  <div class="highlight-label">The Most Important Thing</div>
+  <p>The World Cup does not wait. <strong>June 11 is fixed.</strong> Every day you don't send a message is a day a potential Curator is living their life without knowing Locavizion exists. The templates are done. The plan is done. The only variable left is how fast you move. <strong>Send the first message today — not tomorrow.</strong></p>
+</div>
+
+<div class="footer">Locavizion · Curator Outreach Playbook · Internal Reference</div>
+</div>
+<script>
+function copyText(btn,id){var el=document.getElementById(id);if(!el)return;navigator.clipboard.writeText(el.innerText).then(function(){btn.textContent='Copied ✓';setTimeout(function(){btn.textContent='Copy'},2000);}).catch(function(){var ta=document.createElement('textarea');ta.value=el.innerText;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);btn.textContent='Copied ✓';setTimeout(function(){btn.textContent='Copy'},2000);});}
+function toggleCheck(el){el.classList.toggle('done');var b=el.querySelector('.check-box');b.textContent=el.classList.contains('done')?'✓':'';}
+</script>
+</body>
+</html>

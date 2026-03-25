@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Locavizion — Founder Dashboard & Tracker</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0c0b09;--paper:#faf7f2;--gold:#c49a2a;--gold2:#e8b84b;--sage:#3a6650;--rust:#a83d20;--muted:#7a6e58;--bg:#0e0d0b;--border:rgba(255,255,255,0.08);--miami:#ff6b35;--nyc:#4a90d9}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--paper);padding:0;margin:0}
+.doc{max-width:860px;margin:0 auto;padding:3rem 2.5rem}
+.doc-badge{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--sage);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.4rem}
+.doc-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--sage)}
+h1{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--gold);line-height:1.2;margin-bottom:0.4rem}
+h1 em{color:var(--paper);font-style:italic}
+.subtitle{font-size:0.78rem;color:rgba(255,255,255,0.4);margin-bottom:2.5rem;line-height:1.6}
+h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--gold);margin:2.5rem 0 1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(196,154,42,0.15)}
+h3{font-size:0.9rem;font-weight:600;color:var(--paper);margin:1.5rem 0 0.6rem}
+h4{font-size:0.8rem;font-weight:500;color:var(--gold2);margin:1rem 0 0.4rem}
+p{font-size:0.8rem;color:rgba(255,255,255,0.6);line-height:1.85;margin-bottom:1rem}
+p strong{color:var(--paper);font-weight:500}
+p em{color:var(--gold);font-style:italic}
+ul{list-style:none;margin-bottom:1.5rem}
+ul li{font-size:0.78rem;color:rgba(255,255,255,0.6);line-height:1.85;padding:0.4rem 0 0.4rem 1.2rem;position:relative;border-bottom:1px solid rgba(255,255,255,0.03)}
+ul li::before{content:'→';position:absolute;left:0;color:var(--gold)}
+ul li strong{color:var(--paper);font-weight:500}
+table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:0.75rem}
+th{text-align:left;font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);padding:0.6rem 0.8rem;border-bottom:1px solid rgba(196,154,42,0.2);font-weight:500}
+td{padding:0.6rem 0.8rem;color:rgba(255,255,255,0.6);border-bottom:1px solid var(--border)}
+tr:hover td{background:rgba(255,255,255,0.02)}
+.highlight{background:rgba(196,154,42,0.08);border:1px solid rgba(196,154,42,0.2);padding:1.2rem 1.5rem;margin:1.5rem 0}
+.highlight-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem}
+.card{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem}
+.card-title{font-size:0.85rem;font-weight:600;color:var(--paper);margin-bottom:0.4rem}
+.card-body{font-size:0.72rem;color:rgba(255,255,255,0.55);line-height:1.8}
+.card-body strong{color:var(--paper)}
+.tpl{background:rgba(255,255,255,0.03);border:1px solid var(--border);margin:1rem 0}
+.tpl-head{display:flex;justify-content:space-between;align-items:center;padding:0.7rem 1rem;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.02)}
+.tpl-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold)}
+.tpl-body{padding:1rem;font-size:0.72rem;color:rgba(255,255,255,0.6);line-height:1.9;white-space:pre-line}
+.tpl-body strong{color:var(--paper)}
+.copy-btn{background:rgba(196,154,42,0.15);border:1px solid rgba(196,154,42,0.3);color:var(--gold);font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;padding:0.3rem 0.7rem;cursor:pointer;text-transform:uppercase}
+.copy-btn:hover{background:rgba(196,154,42,0.3)}
+.check{display:flex;align-items:flex-start;gap:0.6rem;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;font-size:0.72rem;color:rgba(255,255,255,0.6)}
+.check:hover{color:var(--paper)}
+.check-box{width:16px;height:16px;border:1px solid rgba(196,154,42,0.4);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:2px;font-size:0.6rem;color:var(--gold)}
+.check.done{color:rgba(255,255,255,0.25);text-decoration:line-through}
+.check.done .check-box{background:rgba(196,154,42,0.2)}
+.curator-card{display:grid;grid-template-columns:55px 1fr;gap:1rem;background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem}
+.curator-avatar{width:45px;height:45px;border-radius:50%;background:rgba(196,154,42,0.15);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.curator-name{font-size:0.85rem;font-weight:500;color:var(--paper)}
+.curator-role{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-top:0.15rem}
+.curator-desc{font-size:0.68rem;color:rgba(255,255,255,0.5);line-height:1.7;margin-top:0.3rem}
+.curator-desc strong{color:var(--paper)}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0 1.5rem}
+.rev-item{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1rem;text-align:center}
+.rev-val{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--gold)}
+.rev-label{font-size:0.6rem;color:rgba(255,255,255,0.4);margin-top:0.3rem;letter-spacing:0.08em;text-transform:uppercase}
+.match-row{display:grid;grid-template-columns:90px 1fr 100px;gap:0.5rem;padding:0.6rem 0;border-bottom:1px solid var(--border);align-items:center;font-size:0.72rem}
+.match-date{font-family:'DM Mono',monospace;color:var(--gold);font-size:0.65rem}
+.match-teams{color:var(--paper)}
+.match-venue{color:rgba(255,255,255,0.35);font-size:0.6rem;text-align:right}
+.tag-row{display:flex;flex-wrap:wrap;gap:0.4rem;margin:0.5rem 0 1rem}
+.tag{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.6rem;border:1px solid rgba(196,154,42,0.3);color:var(--gold)}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin:1rem 0 1.5rem}
+.pc{background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:1.2rem;text-align:center}
+.pc.feat{border-color:var(--gold);background:rgba(196,154,42,0.06)}
+.pc-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--paper)}
+.pc-price{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--gold);margin:0.3rem 0}
+.pc-price span{font-size:0.7rem;color:rgba(255,255,255,0.35)}
+.pc-desc{font-size:0.65rem;color:rgba(255,255,255,0.4);line-height:1.6}
+.footer{text-align:center;padding:2rem 0;margin-top:3rem;border-top:1px solid var(--border);font-size:0.6rem;color:rgba(255,255,255,0.2)}
+@media(max-width:600px){.doc{padding:2rem 1.5rem}.rev-grid{grid-template-columns:1fr}.pricing-grid{grid-template-columns:1fr}.match-row{grid-template-columns:70px 1fr 60px}}
+</style>
+</head>
+<body>
+<div class="doc">
+
+<div class="doc-badge">Operations</div>
+<h1>Founder <em>Dashboard & Tracker</em></h1>
+<p class="subtitle">KPI tracking, milestones, weekly metrics targets, and daily task management system.</p>
+
+<h2>Key Metrics — Track Weekly</h2>
+<table>
+  <tr><th>Metric</th><th>Week 1-2</th><th>Week 3-4</th><th>Week 5-8</th><th>Week 9-12</th><th>Source</th></tr>
+  <tr><td>Waitlist signups</td><td>25</td><td>50</td><td>150</td><td>500</td><td>Google Forms / Sheet</td></tr>
+  <tr><td>Curator conversations</td><td>5</td><td>10</td><td>20</td><td>30</td><td>Manual tracking</td></tr>
+  <tr><td>Curators signed</td><td>0</td><td>2</td><td>5</td><td>10</td><td>Manual tracking</td></tr>
+  <tr><td>Instagram followers</td><td>50</td><td>200</td><td>500</td><td>1,500</td><td>IG Analytics</td></tr>
+  <tr><td>Chatbot conversations</td><td>20</td><td>50</td><td>150</td><td>400</td><td>Anthropic Console</td></tr>
+  <tr><td>Website unique visitors</td><td>100</td><td>300</td><td>800</td><td>2,500</td><td>Cloudflare Analytics</td></tr>
+  <tr><td>User interviews done</td><td>3</td><td>10</td><td>20</td><td>25</td><td>Manual tracking</td></tr>
+  <tr><td>Accelerator apps submitted</td><td>0</td><td>1</td><td>3</td><td>5</td><td>Manual tracking</td></tr>
+  <tr><td>Investor contacts identified</td><td>5</td><td>15</td><td>30</td><td>30</td><td>CRM / Spreadsheet</td></tr>
+</table>
+
+<h2>Milestone Timeline</h2>
+<ul>
+  <li><strong>Week 1 — Launch</strong> — Website live, SSL confirmed, chatbot tested, first 10 waitlist signups, first Curator outreach sent, Instagram account created</li>
+  <li><strong>Week 2 — First Traction</strong> — 25 waitlist signups, first Curator call completed, first LinkedIn post published, 3 user interviews done</li>
+  <li><strong>Week 4 — Proof Points</strong> — 50 waitlist signups, 2 Curators signed, first accelerator application submitted, Instagram at 200 followers, 10 user interviews with quotes documented</li>
+  <li><strong>Week 6 — Growth Mode</strong> — 150 waitlist signups, 4 Curators signed across 2 cities, investor brief sent to 5 warm contacts, 2 accelerator apps submitted</li>
+  <li><strong>Week 8 — Scale Prep</strong> — 250 waitlist signups, 5 Curators signed, investor conversations active, mobile app MVP spec complete</li>
+  <li><strong>Week 10 — Investor Ready</strong> — 400 waitlist signups, 8 Curators across 3 cities, pre-seed conversations active, 4 accelerator apps submitted</li>
+  <li><strong>Week 12 — Pre-Launch</strong> — 500+ waitlist, 10 Curators, mobile app MVP in development, pre-seed term sheet conversations</li>
+  <li><strong>June 11 — World Cup Kickoff</strong> — Platform live. Curators active in 3 cities. Mobile app deployed. Bookings flowing. Game time.</li>
+</ul>
+
+<h2>Where to Track Everything</h2>
+<table>
+  <tr><th>What</th><th>Tool</th><th>Cost</th></tr>
+  <tr><td>Waitlist signups</td><td>Google Sheets (auto from Forms)</td><td>Free</td></tr>
+  <tr><td>Curator pipeline</td><td>Google Sheets or Notion</td><td>Free</td></tr>
+  <tr><td>Website traffic</td><td>Cloudflare Analytics dashboard</td><td>Free (built into Cloudflare)</td></tr>
+  <tr><td>Chatbot usage</td><td>Anthropic Console → Usage tab</td><td>Free to view</td></tr>
+  <tr><td>Instagram metrics</td><td>Instagram Business → Insights</td><td>Free</td></tr>
+  <tr><td>Investor contacts</td><td>Google Sheets CRM</td><td>Free</td></tr>
+  <tr><td>User interview notes</td><td>Google Docs (one doc per interview)</td><td>Free</td></tr>
+  <tr><td>Task management</td><td>Notion or Google Tasks</td><td>Free</td></tr>
+</table>
+
+<h2>Weekly Review Template</h2>
+<p>Every Sunday evening, spend 20 minutes filling in this template:</p>
+<div class="card"><div class="card-body">
+<strong>Week of [date]</strong><br><br>
+<strong>Numbers:</strong><br>
+• Waitlist: [X] total (+[Y] this week)<br>
+• Curators: [X] conversations / [Y] signed<br>
+• Instagram: [X] followers (+[Y])<br>
+• Website: [X] unique visitors<br>
+• Chatbot: [X] conversations<br><br>
+<strong>Wins:</strong><br>
+• [What went well]<br><br>
+<strong>Blockers:</strong><br>
+• [What's stuck]<br><br>
+<strong>Next week priorities (max 3):</strong><br>
+1. [Most important thing]<br>
+2. [Second priority]<br>
+3. [Third priority]
+</div></div>
+
+<div class="highlight">
+  <div class="highlight-label">The Rule</div>
+  <p>If you can't fill in this template in 20 minutes, you're tracking too many things. Simplify. The only metrics that matter right now are: <strong>waitlist signups, Curator conversations, and user interviews.</strong> Everything else is noise until you have product-market fit evidence.</p>
+</div>
+
+<div class="footer">Locavizion · Founder Dashboard & Tracker · Internal Reference</div>
+</div>
+<script>function copyText(btn,id){var el=document.getElementById(id);if(!el)return;navigator.clipboard.writeText(el.innerText).then(function(){btn.textContent="Copied ✓";setTimeout(function(){btn.textContent="Copy"},2000)}).catch(function(){var ta=document.createElement("textarea");ta.value=el.innerText;document.body.appendChild(ta);ta.select();document.execCommand("copy");document.body.removeChild(ta);btn.textContent="Copied ✓";setTimeout(function(){btn.textContent="Copy"},2000)});}function toggleCheck(el){el.classList.toggle("done");var b=el.querySelector(".check-box");b.textContent=el.classList.contains("done")?"✓":"";}</script>
+</body>
+</html>
